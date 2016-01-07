@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Parse;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -8,6 +9,10 @@ public class ScoreText : MonoBehaviour {
 	private float percentScore;
 	public Text textCorrect, textWrong, textPercent;
 
+    void Awake()
+    {
+        ParseObject.RegisterSubclass<Match>();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +22,12 @@ public class ScoreText : MonoBehaviour {
 		textCorrect.text = scoreCorrect.ToString();
 		textWrong.text = scoreWrong.ToString();
 		textPercent.text = (percentScore*100).ToString("n2")+"%";
+
+        //Saving match
+        Match match = new Match();
+        match.CorrectPoints = scoreCorrect;
+        match.WrongPoints = scoreWrong;
+        match.SaveAsync();
 	}
 	
 	// Update is called once per frame
