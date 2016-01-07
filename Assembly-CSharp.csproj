@@ -51,6 +51,8 @@
      <Compile Include="Assets\Scripts\CleanCardInput.cs" />
      <Compile Include="Assets\Scripts\Deck.cs" />
      <Compile Include="Assets\Scripts\DeckDisplayManager.cs" />
+     <Compile Include="Assets\Scripts\DisplayUser.cs" />
+     <Compile Include="Assets\Scripts\Fading.cs" />
      <Compile Include="Assets\Scripts\GameDeckMannager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GlobalVariables.cs" />
