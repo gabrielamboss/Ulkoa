@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
 
-public class GameMannager : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
     public Text cardLabel;
     public Text userInput;
@@ -21,6 +21,8 @@ public class GameMannager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+    	GlobalVariables.correctAnswerAmount = 0;
+    	GlobalVariables.wrongAnswerAmount = 0;
         if (test)
         {
             Debug.Log("Test");
@@ -66,10 +68,12 @@ public class GameMannager : MonoBehaviour {
     {
         if (userInput.Equals(currentCard.BackText))
         {
+        	GlobalVariables.correctAnswerAmount++;
             Debug.Log("Voce acertou");
         }
         else
         {
+        	GlobalVariables.wrongAnswerAmount++;
             Debug.Log("Voce errou");
         }
     }
