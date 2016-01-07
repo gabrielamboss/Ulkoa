@@ -1,0 +1,19 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   Assets/Scripts/DisplayUser.cs
+#	new file:   Assets/Scripts/DisplayUser.cs.meta
+#	new file:   Assets/Scripts/Fading.cs
+#	new file:   Assets/Scripts/Fading.cs.meta
+#	new file:   Library/ShaderCache/1/181d75a3462f1173fc02ad4db885cbbd.bin
+#	new file:   Library/ShaderCache/a/a28575da30eecf6ca8eb9fe993f1b265.bin
+#	new file:   Library/metadata/21/21937279d2bac2f47a06f073f7bdd2ca
+#	new file:   Library/metadata/21/21937279d2bac2f47a06f073f7bdd2ca.info
+#	new file:   Library/metadata/32/322e6e9f540f69c49a683200f675d87f
+#	new file:   Library/metadata/32/322e6e9f540f69c49a683200f675d87f.info
+#
+
