@@ -75,10 +75,13 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GlobalVariables.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\LogAdmin.cs" />
     <Compile Include="Assets\Scripts\Match.cs" />
     <Compile Include="Assets\Scripts\MockDeckFactory.cs" />
     <Compile Include="Assets\Scripts\ParseInitializer.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\RegisterManager.cs" />
+    <Compile Include="Assets\Scripts\SceneBook.cs" />
     <Compile Include="Assets\Scripts\ScoreText.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
   </ItemGroup>
