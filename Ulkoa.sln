@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{35B2553A-6868-4339-52C7-169B2CC47A8C}") = "Ulkoa", "Assembly-CSharp.csproj", "{D4BAC1B2-3933-F3CE-1B89-7B55497F8110}"
 EndProject
+Project("{35B2553A-6868-4339-52C7-169B2CC47A8C}") = "Ulkoa", "Assembly-CSharp-Editor.csproj", "{8B843129-5825-36B1-DD95-2C1D0DEEF85C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{D4BAC1B2-3933-F3CE-1B89-7B55497F8110}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BAC1B2-3933-F3CE-1B89-7B55497F8110}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4BAC1B2-3933-F3CE-1B89-7B55497F8110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B843129-5825-36B1-DD95-2C1D0DEEF85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B843129-5825-36B1-DD95-2C1D0DEEF85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B843129-5825-36B1-DD95-2C1D0DEEF85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B843129-5825-36B1-DD95-2C1D0DEEF85C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
