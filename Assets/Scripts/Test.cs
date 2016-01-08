@@ -8,53 +8,29 @@ public class Test : MonoBehaviour {
     private bool gogo = false;
 
     void Awake()
-    {
-        ParseObject.RegisterSubclass<Match>();
-        ParseObject.RegisterSubclass<Card>();
+    {        
+        ParseObject.RegisterSubclass<Player>();
     }
 
     // Use this for initialization
     void Start () {
 
-        //match.SaveAsync();
-        //ParseObject match = ParseObject.Create("Test");
-        //match["Test C"] = 10;
-        //match["Test W"] = 1;
-        //match.SaveAsync();
-        //Card card = new Card();
-        //string hi = "Hi";
-        //card.FrontText = hi;
-
-        Match match = new Match();
-        match.CorrectPoints = 10;
-        match.WrongPoints = 1;
-        Debug.Log(match.CorrectPoints);
-        Debug.Log(match.WrongPoints);
-        match.SaveAsync().ContinueWith(t=>
+        if (ParseUser.CurrentUser != null)
         {
-            Debug.Log("Save com sucesso");
-        });
-
-        //Card card = MockCard("hi1","hi2");
-
-
-    }
-
-    public void Update()
-    {
-        if (!gogo)
-        {
+            Debug.Log("Estou logado");
+            Player player = ParseUser.CurrentUser as Player;
+            if(player != null)
+            {
+                Debug.Log("Deu certo");
+                Debug.Log(player.TimeSpentInGame);
+            }
+            else
+            {
+                Debug.Log("FAIL");
+            }
             
-        }
-        
-    }
+        }          
 
-    private IEnumerator WaitSubmit()
-    {
-        while (!gogo)
-        {
-            yield return null;
-        }
-    }
+    }        
 
 }
