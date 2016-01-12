@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Fading.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Scene Script\DeckCreator.cs">
     <Files>
-      <File FileName="Assets\Scripts\Fading.cs" Line="26" Column="28" />
+      <File FileName="Assets\Scripts\Scene Script\DeckCreator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game Class\Card.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Fading.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GlobalVariables.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

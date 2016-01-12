@@ -58,7 +58,8 @@ public class DeckCreator : MonoBehaviour {
         else
         {
             Debug.Log("User cant create a card without the english text or the portugese text");
-            //Implement a pop up to inform it
+			popUpContent = "Todos os campos devem estar preenchidos!";
+            popUpIsDisplayed = true;
         }
     }
 
@@ -81,7 +82,8 @@ public class DeckCreator : MonoBehaviour {
         else
         {
             Debug.Log("User cant save a deck without a name");
-            //Implement a pop up to inform it
+			popUpContent = "O deck deve ter um nome!";
+			popUpIsDisplayed = true;
         }
     }
 
@@ -108,5 +110,22 @@ public class DeckCreator : MonoBehaviour {
 
         new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
     }
+
+    void OnGUI(){
+    	Rect window = new Rect ((Screen.width/2)-150,(Screen.height/2)-30,300,20);
+
+    	if(popUpIsDisplayed){
+			GUILayout.Window(0, window, PopUp, popUpContent);
+    	}
+    }
+
+
+    void PopUp(int windowID){
+		if(GUILayout.Button("Fechar"))
+			popUpIsDisplayed = false;
+    }
+
     private bool wait;
+    private bool popUpIsDisplayed = false;
+    private string popUpContent;
 }
