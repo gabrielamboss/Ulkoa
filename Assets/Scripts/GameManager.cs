@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
         if (!deckMannager.IsQueueEmpty())
         {
             currentCard = deckMannager.GetNextCard();
-            cardLabel.text = currentCard.FrontText;
+            cardLabel.text = currentCard.PortugueseText;
             userInput.text = "";
         }
         else
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
 
     private void AdminUserInput(string userInput)
     {
-        if (userInput.Equals(currentCard.BackText))
+        if (userInput.Equals(currentCard.EnglishText))
         {
         	GlobalVariables.correctAnswerAmount++;
             Debug.Log("Voce acertou");

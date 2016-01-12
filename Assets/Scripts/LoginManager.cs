@@ -26,17 +26,31 @@ public class LoginManager : MonoBehaviour{
         GameObject passwordGO = GameObject.FindGameObjectWithTag("UIPassword");
         InputField username = usernameGO.GetComponent<InputField>();
         InputField password = passwordGO.GetComponent<InputField>();
-        
-        bool loginSuccessful = false;
+
+
+        loginSuccessful = false;
         wait = true;
+
         ParseUser.LogInAsync(username.text, password.text).ContinueWith(t=>
-        {
-            wait = false;            
+        {                        
             loginSuccessful = !(t.IsFaulted || t.IsCanceled);
             Debug.Log("Loggin Finish1");
+            wait = false;
         });
-        WaitLogginFinish();
+
+
+        StartCoroutine(WaitLoginFinish());
+        
+    }
+
+    private IEnumerator WaitLoginFinish()
+    {        
+        while (wait)
+        {
+            yield return null;
+        }
         Debug.Log("Loggin Finish2");
+
         if (loginSuccessful)
         {
             new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
@@ -47,13 +61,6 @@ public class LoginManager : MonoBehaviour{
         }
     }
 
-    private IEnumerator WaitLogginFinish()
-    {
-        while (wait)
-        {
-            yield return null;
-        }
-    }
-
+    private bool loginSuccessful;
     private bool wait;
 }

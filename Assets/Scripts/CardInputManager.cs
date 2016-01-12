@@ -77,7 +77,7 @@ public class CardInputManager : MonoBehaviour {
 	}
 
 	IEnumerator WaitForCardMade() {
-		while(currCard.FrontText==null || currCard.BackText==null) {
+		while(currCard.PortugueseText==null || currCard.EnglishText==null) {
 			yield return null;
 		}
 		finishCard.interactable = true;
@@ -104,10 +104,10 @@ public class CardInputManager : MonoBehaviour {
 		Debug.Log("Submitted name was: " + name.Replace("\n", " "));
 
 		if(whereInCard.text == "Front") {
-			currCard.FrontText = inputText.text;
+			currCard.PortugueseText = inputText.text;
 			whereInCard.text = "Back";
 		} else if(whereInCard.text == "Back") {
-			currCard.BackText = inputText.text;
+			currCard.EnglishText = inputText.text;
 			whereInCard.text = "Front";
 		}
 		animator.SetTrigger("Flip");
@@ -132,8 +132,8 @@ public class CardInputManager : MonoBehaviour {
 		quickLoading.gameObject.SetActive(true);
 		Deck newDeck = new Deck();
 		newDeck.DeckName = "Meu pauzinho";
-		newDeck.Description = "Como estão?";
-		newDeck.CardIds = currCardIds;
+		//newDeck.Description = "Como estão?";
+		//newDeck.CardIds = currCardIds;
 		ParseUser currUser = ParseUser.CurrentUser;
 		newDeck.SaveAsync().ContinueWith(t => {
 			IList<string> tempList = currUser.Get<IList<string>>("decksIds") as IList<string>;
@@ -152,10 +152,10 @@ public class CardInputManager : MonoBehaviour {
 	//This method is called from 'Idle' animation
 	public void CleanInput() {
 		inputField.text = "";
-		if(whereInCard.text=="Front" && currCard.FrontText!=null) {
-			inputField.text = currCard.FrontText;
-		} else if(whereInCard.text=="Back" && currCard.BackText!=null) {
-			inputField.text = currCard.BackText;
+		if(whereInCard.text=="Front" && currCard.PortugueseText!=null) {
+			inputField.text = currCard.PortugueseText;
+		} else if(whereInCard.text=="Back" && currCard.EnglishText!=null) {
+			inputField.text = currCard.EnglishText;
 		}
 	}
 

@@ -19,8 +19,8 @@ public class MockDeckFabric : MonoBehaviour {
     {
         Card card = new Card();
 
-        card.FrontText = front;
-        card.BackText = back;
+        card.EnglishText = front;
+        card.PortugueseText = back;
 
         return card;
     }
