@@ -6,7 +6,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     public Text cardLabel;
-    public Text userInput;
+    public InputField userInput;
     public bool test;
     private Card currentCard;
     private GameDeckMannager deckMannager;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
         {
             currentCard = deckMannager.GetNextCard();
             cardLabel.text = currentCard.FrontText;
-            userInput.text = "test";
+            userInput.text = "";
         }
         else
         {

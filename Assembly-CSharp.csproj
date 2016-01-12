@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +138,7 @@
      <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\IFacebookLogger.cs" />
      <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\MiniJson.cs" />
      <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\Utilities.cs" />
+     <Compile Include="Assets\LoutMainMenu.cs" />
      <Compile Include="Assets\Scripts\Card.cs" />
      <Compile Include="Assets\Scripts\CardCollection.cs" />
      <Compile Include="Assets\Scripts\CardInputManager.cs" />
@@ -152,8 +153,10 @@
      <Compile Include="Assets\Scripts\GlobalVariables.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\LogAdmin.cs" />
+     <Compile Include="Assets\Scripts\LoginManager.cs" />
      <Compile Include="Assets\Scripts\Match.cs" />
      <Compile Include="Assets\Scripts\MockDeckFactory.cs" />
+     <Compile Include="Assets\Scripts\ParseInitializeTest.cs" />
      <Compile Include="Assets\Scripts\ParseInitializer.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\RegisterManager.cs" />
@@ -166,13 +169,13 @@
      <None Include="Assets\Parse.Unity\link.xml" />
      <None Include="Assets\FacebookSDK\SDK\Scripts\Canvas\Resources\JSSDKBindings.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Parse.Unity">
- <HintPath>D:/Users/Gabriel/Repo/Ulkoa/Assets/Parse.Unity/Parse.Unity.dll</HintPath>
+ <HintPath>C:/Users/Usuario/Documents/Backpacker/Ulkoa/Assets/Parse.Unity/Parse.Unity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
