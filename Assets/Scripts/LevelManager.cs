@@ -3,18 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Parse;
 
-public class LevelManager : MonoBehaviour {    
-
-	void Start(){
-		StartCoroutine(EndSplash());
-	}
-
-	IEnumerator EndSplash(){
-		if(SceneManager.GetActiveScene() == SceneManager.GetSceneAt(0)){
-			yield return new WaitForSeconds(3.0f);
-			SceneManager.LoadScene(SceneBook.LOADING_SCREEN_NAME);
-		}
-	}
+public class LevelManager : MonoBehaviour {    	
 
 	public void LoadLevel(string name) {
 		Debug.Log("New Level load: " + name);

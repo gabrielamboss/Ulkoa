@@ -2,12 +2,24 @@
 using Parse;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [ParseClassName("Deck")]
 public class Deck : ParseObject {
 
-    private IList<Card> cardList = new List<Card>();	
+    private List<Card> cardList = new List<Card>();	
     
+    public void Init()
+    {
+        ParseObject.RegisterSubclass<Card>();
+        ParseQuery<Card> query = new ParseQuery<Card>().WhereEqualTo("DeckId", this.ObjectId);
+        query.FindAsync().ContinueWith(t =>
+        {            
+            cardList = t.Result.ToList<Card>();
+            Debug.Log("Deckname: " + DeckName + " Total cards: " + cardList.Count());            
+        });
+    }    
+
 	[ParseFieldName("DeckName")]
 	public string DeckName {
 		get { return GetProperty<string>("DeckName"); }

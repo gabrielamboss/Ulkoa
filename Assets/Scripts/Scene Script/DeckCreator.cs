@@ -50,8 +50,7 @@ public class DeckCreator : MonoBehaviour {
             card.PortugueseText = portuguese.text;
             card.EnglishText = english.text;
             cardList.Add(card);
-
-            //For test is better not erase
+            
             //portuguese.text = "";
             //english.text = "";
         }
@@ -102,7 +101,8 @@ public class DeckCreator : MonoBehaviour {
 
         //Save cards
         foreach (Card card in cardList)
-        {            
+        {
+            card.UserId = ParseUser.CurrentUser.ObjectId;
             card.DeckId = deck.ObjectId;
             card.SaveAsync();
             //deck.addCard(card);

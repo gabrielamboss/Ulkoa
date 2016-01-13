@@ -17,6 +17,13 @@ public class Card : ParseObject {
    		set { SetProperty<string>(value, "EnglishText"); }
 	}
 
+    [ParseFieldName("UserId")]
+    public string UserId
+    {
+        get { return GetProperty<string>("UserId"); }
+        set { SetProperty<string>(value, "UserId"); }
+    }
+
     [ParseFieldName("DeckId")]
     public string DeckId
     {

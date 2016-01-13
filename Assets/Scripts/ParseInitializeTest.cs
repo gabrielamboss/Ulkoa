@@ -30,6 +30,14 @@ public class ParseInitializeTest : MonoBehaviour {
         {
             Debug.Log("Voce nao esta logado");
         }
+
+        if (ParseUser.CurrentUser != null)
+        {
+            Debug.Log("Rgistrando Deck, Card e Player");
+            ParseObject.RegisterSubclass<Deck>();
+            ParseObject.RegisterSubclass<Card>();
+            ParseObject.RegisterSubclass<Player>();
+        }
 	}
 		
 }
