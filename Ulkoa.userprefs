@@ -1,7 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Scene Script\DeckCreator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Scene Script\Register.cs">
     <Files>
+      <File FileName="Assets\Scripts\Scene Script\Register.cs" Line="64" Column="73" />
       <File FileName="Assets\Scripts\Scene Script\DeckCreator.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game Class\Card.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Fading.cs" Line="1" Column="1" />

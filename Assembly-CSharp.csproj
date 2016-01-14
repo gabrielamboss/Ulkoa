@@ -138,7 +138,6 @@
      <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\IFacebookLogger.cs" />
      <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\MiniJson.cs" />
      <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\Utilities.cs" />
-     <Compile Include="Assets\LoutMainMenu.cs" />
      <Compile Include="Assets\Scripts\CardInputManager.cs" />
      <Compile Include="Assets\Scripts\CleanCardInput.cs" />
      <Compile Include="Assets\Scripts\DeckDisplayManager.cs" />
@@ -160,9 +159,12 @@
      <Compile Include="Assets\Scripts\MockDeckFactory.cs" />
      <Compile Include="Assets\Scripts\ParseInitializeTest.cs" />
      <Compile Include="Assets\Scripts\ParseInitializer.cs" />
-     <Compile Include="Assets\Scripts\RegisterManager.cs" />
      <Compile Include="Assets\Scripts\Scene Script\CollectionMenu.cs" />
      <Compile Include="Assets\Scripts\Scene Script\DeckCreator.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\Loading.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\Login.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\Register.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\SplashScene.cs" />
      <Compile Include="Assets\Scripts\SceneBook.cs" />
      <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
