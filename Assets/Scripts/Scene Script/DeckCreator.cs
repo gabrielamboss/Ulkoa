@@ -50,7 +50,9 @@ public class DeckCreator : MonoBehaviour {
             card.PortugueseText = portuguese.text;
             card.EnglishText = english.text;
             cardList.Add(card);
-            
+
+            totalCards.text = (++cardsCont).ToString();
+
             //portuguese.text = "";
             //english.text = "";
         }

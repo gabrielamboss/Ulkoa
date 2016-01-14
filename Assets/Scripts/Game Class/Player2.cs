@@ -5,22 +5,24 @@ using Parse;
 using System;
 using System.Linq;
 
-public class Player2 {
+public class Player2{
 
     private static ParseUser user;
     private static List<Deck> deckList = new List<Deck>();
+    private static List<Card> cardList = new List<Card>();
+    private static bool initialized = false;
 
-	public static void Init()
+    public static void Init()
     {
-        ParseObject.RegisterSubclass<Deck>();
+        ParseObject.RegisterSubclass<Deck>();        
         Debug.Log("Initializing player:");
         user = ParseUser.CurrentUser;
         if(user != null)
         {
-            ParseQuery<Deck> query = new ParseQuery<Deck>().WhereEqualTo("UserId",user.ObjectId);            
-            query.FindAsync().ContinueWith(t=>
+            ParseQuery<Deck> queryDeck = new ParseQuery<Deck>().WhereEqualTo("UserId",user.ObjectId);            
+            queryDeck.FindAsync().ContinueWith(t=>
             {                
-                if (t.Exception != null || t.IsCanceled || t.IsCanceled)
+                if (t.Exception != null || t.IsCanceled || t.IsFaulted)
                 {
                     Debug.Log("Deu merda");
                 }
@@ -28,17 +30,60 @@ public class Player2 {
                 {                    
                     deckList = t.Result.ToList<Deck>();
                     Debug.Log("Deck Query has finished, total decks found: " + deckList.Count());
-                    foreach (Deck deck in deckList)
-                    {
-                        deck.Init();
-                    }
+
+                    InitCards();
                 }                                
-            });
+            });     
         }
         else
         {
             Debug.Log("You forgot to connect");
         }
+    }
+
+    private static void InitCards()
+    {
+        ParseObject.RegisterSubclass<Card>();
+        ParseQuery<Card> queryCard = new ParseQuery<Card>().WhereEqualTo("UserId", user.ObjectId);
+        queryCard.FindAsync().ContinueWith(t =>
+        {
+            if (t.IsCanceled || t.IsFaulted)
+            {
+                Debug.Log("Deu merda");
+                Debug.Log(t.Exception);
+                Debug.Log(t.IsCanceled);                
+            }
+            else
+            {
+                cardList = t.Result.ToList<Card>();
+                Debug.Log("Card Query has finished, total cards found: " + cardList.Count());
+                BuildDecks();
+            }
+        });
+    }
+
+    private static void BuildDecks()
+    {        
+        Debug.Log("Start to build decks");
+
+        Dictionary<string, Deck> dec = new Dictionary<string, Deck>();
+        foreach (Deck deck in deckList)
+        {
+            dec[deck.ObjectId] = deck;            
+        }
+
+        foreach (Card card in cardList)
+        {
+            dec[card.DeckId].addCard(card);
+        }
+
+        initialized = true;
+        Debug.Log("Build deck has finish");
+    }
+
+    public static bool IsInitialized()
+    {
+        return initialized;
     }
 
     public static List<Deck> GetDeckList()

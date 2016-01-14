@@ -7,18 +7,7 @@ using System.Linq;
 [ParseClassName("Deck")]
 public class Deck : ParseObject {
 
-    private List<Card> cardList = new List<Card>();	
-    
-    public void Init()
-    {
-        ParseObject.RegisterSubclass<Card>();
-        ParseQuery<Card> query = new ParseQuery<Card>().WhereEqualTo("DeckId", this.ObjectId);
-        query.FindAsync().ContinueWith(t =>
-        {            
-            cardList = t.Result.ToList<Card>();
-            Debug.Log("Deckname: " + DeckName + " Total cards: " + cardList.Count());            
-        });
-    }    
+    private List<Card> cardList = new List<Card>();	          
 
 	[ParseFieldName("DeckName")]
 	public string DeckName {

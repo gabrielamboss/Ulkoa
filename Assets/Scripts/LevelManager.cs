@@ -14,19 +14,5 @@ public class LevelManager : MonoBehaviour {
 		Debug.Log("Quit requested");
 		Application.Quit ();
 	}
-
-    // Load the next level from the Loading Scene
-    public void LoadingSceneLoadNextLevel()
-    {
-        LoginManager logMng = new LoginManager();
-
-        if (logMng.IsPlayerLoggedIn())
-        {
-            LoadLevel(SceneBook.MAIN_MENU_NAME);
-        }
-        else
-        {
-            LoadLevel(SceneBook.LOGIN_NAME);
-        }
-    }
+    
 }
