@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GlobalVariables : MonoBehaviour {
+public abstract class GlobalVariables{
 
+    private static Deck selectedDeck;
 	public static int correctAnswerAmount, wrongAnswerAmount;
 	public static bool facebookLogin = false;
 	public static bool normalLogin = false;
@@ -20,13 +21,14 @@ public class GlobalVariables : MonoBehaviour {
 		ResetWrong();
 	}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public static void SetSelectedDeck(Deck deck)
+    {
+        selectedDeck = deck;
+    }
+
+    public static Deck GetSelectedDeck()
+    {
+        return selectedDeck;
+    }
+    
 }

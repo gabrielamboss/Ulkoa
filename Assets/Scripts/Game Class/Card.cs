@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 [ParseClassName("Card")]
-public class Card : ParseObject {
+public class Card : ParseObject {    
 
 	[ParseFieldName("PortugueseText")]
   	public string PortugueseText{

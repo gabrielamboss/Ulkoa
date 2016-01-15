@@ -34,7 +34,7 @@ public class Deck : ParseObject {
         cardList.Add(card);
     }
 
-    public IList<Card> getCardList()
+    public List<Card> getCardList()
     {
         return cardList;
     }

@@ -37,29 +37,30 @@ public class Player2{
         }
         else
         {
-            Debug.Log("You forgot to connect");
+            Debug.Log("You forget to connect");
         }
     }
 
     private static void InitCards()
     {
         ParseObject.RegisterSubclass<Card>();
-        ParseQuery<Card> queryCard = new ParseQuery<Card>().WhereEqualTo("UserId", user.ObjectId);
+        ParseQuery<Card> queryCard = new ParseQuery<Card>().WhereEqualTo("UserId", user.ObjectId);        
+        
         queryCard.FindAsync().ContinueWith(t =>
         {
             if (t.IsCanceled || t.IsFaulted)
             {
                 Debug.Log("Deu merda");
                 Debug.Log(t.Exception);
-                Debug.Log(t.IsCanceled);                
+                Debug.Log(t.IsCanceled);
             }
             else
             {
                 cardList = t.Result.ToList<Card>();
                 Debug.Log("Card Query has finished, total cards found: " + cardList.Count());
                 BuildDecks();
-            }
-        });
+            }                                
+        });                
     }
 
     private static void BuildDecks()
