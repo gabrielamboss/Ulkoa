@@ -65,9 +65,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CardHolder.cs" />
-    <Compile Include="Assets\CardScrollView.cs" />
-    <Compile Include="Assets\DeckCreatorController.cs" />
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />
@@ -161,9 +158,11 @@
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\IFacebookLogger.cs" />
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\MiniJson.cs" />
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\Utilities.cs" />
+    <Compile Include="Assets\Scripts\CardHolder.cs" />
     <Compile Include="Assets\Scripts\CardInputManager.cs" />
     <Compile Include="Assets\Scripts\CleanCardInput.cs" />
     <Compile Include="Assets\Scripts\DeckDisplayManager.cs" />
+    <Compile Include="Assets\Scripts\DeckHolder.cs" />
     <Compile Include="Assets\Scripts\DisplayUser.cs" />
     <Compile Include="Assets\Scripts\FBLogin.cs" />
     <Compile Include="Assets\Scripts\Fading.cs" />
@@ -184,6 +183,7 @@
     <Compile Include="Assets\Scripts\ParseInitializer.cs" />
     <Compile Include="Assets\Scripts\Scene Script\CollectionMenu.cs" />
     <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreator3.cs" />
+    <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreatorController.cs" />
     <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreatorModel.cs" />
     <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreatorView.cs" />
     <Compile Include="Assets\Scripts\Scene Script\DeckCreator.cs" />

@@ -97,4 +97,9 @@ public class Player2{
         return deckList.Count();
     }
 
+    public static string GetPlayerName()
+    {
+        return user.Username;
+    }
+
 }
