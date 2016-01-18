@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private GameObject cardObject;
     public GameObject correctLeavingCardPrefab;
     public GameObject wrongLeavingCardPrefab;
+    private static String correctAnswer;
+    private bool continueGame = true;
 
     void Awake()
     {
@@ -43,7 +45,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Jogo nao implementado - Apenas para teste");
+            currentDeck = GlobalVariables.GetSelectedDeck();
+            Debug.Log(currentDeck.DeckName);
+            leitnerManager = new LeitnerManager(currentDeck);
         }
 
         setCurrentDeckToView(currentDeck);
@@ -64,7 +68,11 @@ public class GameManager : MonoBehaviour
             if (userInput.text != null)
             {
                 AdminUserInput(userInput.text);
-                UpdateScreen();
+                if (continueGame)
+                {
+                    UpdateScreen();
+                    Debug.Log("Here");
+                }
             }
         }
     }
@@ -87,7 +95,7 @@ public class GameManager : MonoBehaviour
         saveDeck();
         saveCards();
         levelManager = new LevelManager();
-        levelManager.LoadLevel("EndGameScreen");
+        levelManager.LoadLevel(SceneBook.END_GAME_NAME);
     }
 
     private void saveCards()
@@ -110,8 +118,9 @@ public class GameManager : MonoBehaviour
     private void doGameLoop()
     {
         currentCard = leitnerManager.GetNextCard();
+        correctAnswer = currentCard.EnglishText;
         Debug.Log("Instanciando");
-        cardObject = Instantiate(cardPrefab, new Vector3(0, Screen.height/2 + 120, 0), Quaternion.identity) as GameObject;
+        cardObject = Instantiate(cardPrefab, new Vector3(0, Screen.height / 2 + 120, 0), Quaternion.identity) as GameObject;
         cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
         cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
     }
@@ -124,9 +133,7 @@ public class GameManager : MonoBehaviour
             if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
             Debug.Log(cardObject.GetComponentInChildren<Text>().text);
             DestroyImmediate(cardObject);
-            cardObject = Instantiate(correctLeavingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
-            cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
+            exitCorrectCard(cardObject);
             Debug.Log("Voce acertou");
         }
         else
@@ -135,10 +142,70 @@ public class GameManager : MonoBehaviour
             currentCard.LeitnerLevel = 1;
             Debug.Log(cardObject.GetComponentInChildren<Text>().text);
             DestroyImmediate(cardObject);
-            cardObject = Instantiate(wrongLeavingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
-            cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
+            exitWrongCard(cardObject);
             Debug.Log("Voce errou");
         }
+    }
+
+    private void exitWrongCard(GameObject cardObject)
+    {
+        cardObject = Instantiate(wrongLeavingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
+        cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
+        if (leitnerManager.IsCurrentDeckEmpty())
+        {
+            StartCoroutine("WaitToCardGetDownToLeaveWrong");
+        }
+        else
+        {
+            StartCoroutine("WaitToCardGetDown");
+        }
+}
+
+    private void exitCorrectCard(GameObject cardObject)
+    {
+        cardObject = Instantiate(correctLeavingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
+        cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
+        if (leitnerManager.IsCurrentDeckEmpty())
+        {
+            StartCoroutine("WaitToCardGetDownToLeaveCorrect");
+        }
+
+    }
+
+    public static String GetCorrectAnswer()
+    {
+        return correctAnswer;
+    }
+
+    IEnumerator WaitToCardGetDown()
+    {
+        continueGame = false;
+        Debug.Log(continueGame);
+        yield return new WaitForSeconds(3);
+        continueGame = true;
+        Debug.Log(continueGame);
+        UpdateScreen();
+    }
+
+    IEnumerator WaitToCardGetDownToLeaveWrong()
+    {
+        continueGame = false;
+        Debug.Log(continueGame);
+        yield return new WaitForSeconds(4);
+        continueGame = true;
+        Debug.Log(continueGame);
+        UpdateScreen();
+    }
+
+    IEnumerator WaitToCardGetDownToLeaveCorrect()
+    {
+        continueGame = false;
+        Debug.Log(continueGame);
+        yield return new WaitForSeconds(4);
+        continueGame = true;
+        Debug.Log(continueGame);
+        UpdateScreen();
     }
 }
