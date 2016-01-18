@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Parse;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CollectionMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour {
 
     private Text userName;
 
@@ -43,26 +44,51 @@ public class CollectionMenu : MonoBehaviour {
 
     public void Play()
     {
-
+        new LevelManager().LoadLevel(SceneBook.GAME_NAME);
     }
 
     public void EditDeck()
     {
-        new LevelManager().LoadLevel("DeckCreator3");
+        new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
     }
 
     public void NewDeck()
     {
-
+        Deck newDeck = new Deck();
+        newDeck.DeckName = "";
+        GlobalVariables.SetSelectedDeck(newDeck);
+        new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
     }
 
     public void DeleteDeck()
     {
+        Deck selectedDeck = GlobalVariables.GetSelectedDeck();
+        if (selectedDeck != null)
+        {            
+            foreach (Transform deckUI in collectionParent.transform)
+            {                
+                Deck deck = deckUI.GetComponent<DeckHolder>().GetDeck();
 
+                if (deck.Equals(selectedDeck))
+                {
+                    List<Card> cardList = deck.getCardList();
+
+                    deck.DeleteAsync();
+                    foreach (Card card in cardList)
+                    {
+                        card.DeleteAsync();
+                    }
+
+                    Destroy(deckUI.gameObject);
+                }                
+            }
+        }
+        
     }
 
     public void Logout()
     {
-
+        ParseUser.LogOutAsync();
+        new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
     }
 }

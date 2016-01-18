@@ -12,7 +12,7 @@ public class DeckCreatorController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         view = gameObject.GetComponent<DeckCreatorView>();
-        model = gameObject.GetComponent<DeckCreatorModel>();
+        model = gameObject.GetComponent<DeckCreatorModel>();        
 
         GameObject portObj = GameObject.Find("Portuguese Field");
         portugueseText = portObj.GetComponent<InputField>();
@@ -27,27 +27,37 @@ public class DeckCreatorController : MonoBehaviour {
         view.UpdateScreen();
     }
 
-    public void AddOrUpdateCard()
-    {
-        Card selectedCard = model.GetSelectedCard();
-        selectedCard.PortugueseText = portugueseText.text;
-        selectedCard.EnglishText = englishText.text;
-        selectedCard.LeitnerLevel = 1;
-        if (selectedCard.Equals(model.GetNewCard()))
+    public void OnPortugueseTextFieldChange()
+    {        
+        if (model != null)
         {
-            model.CreateNewCard();
-        }
+            GameObject cardUI = model.GetSelectedCard();            
+            cardUI.GetComponentInChildren<Text>().text = model.GetPortugueseText();
+            Card card = cardUI.GetComponent<CardHolder>().GetCard();
+            card.PortugueseText = model.GetPortugueseText();
+        }        
+    }
+
+    public void OnEnglishTextFieldChange()
+    {
+        if (model != null)
+        {
+            GameObject cardUI = model.GetSelectedCard();
+            Card card = cardUI.GetComponent<CardHolder>().GetCard();
+            card.EnglishText = model.GetEnglishText();
+        }        
+    }
+
+    public void AddNewCard()
+    {        
+        model.CreateNewCard();
         view.UpdateScreen();
     }
 
     public void DeleteCard()
     {
-        Card selectedCard = model.GetSelectedCard();
-        if (!selectedCard.Equals(model.GetNewCard()))
-        {
-            model.DeletSelectedCard();
-            view.UpdateScreen();
-        }
+        model.DeleteSelectedCard();
+        view.UpdateScreen();        
     }
 
     public void SaveDeck()
@@ -57,6 +67,6 @@ public class DeckCreatorController : MonoBehaviour {
 
     public void Exit()
     {
-
+        new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
     }
 }

@@ -61,7 +61,7 @@ public class Register : MonoBehaviour {
         }
         if (saveSuccessful)
         {
-            new LevelManager().LoadLevel(SceneBook.LOADING_SCREEN_NAME);
+            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
         {

@@ -10,8 +10,8 @@ public class DeckHolder : MonoBehaviour {
     {
         Button b = gameObject.GetComponent<Button>();
         b.onClick.AddListener(() => {
-            GameObject go = GameObject.Find("CollectionMenu");
-            go.GetComponent<CollectionMenu>().OnDeckClick(myDeck);
+            GameObject go = GameObject.Find("MainMenu");
+            go.GetComponent<MainMenu>().OnDeckClick(myDeck);
         });
     }
 
@@ -20,7 +20,7 @@ public class DeckHolder : MonoBehaviour {
         myDeck = deck;
     }
 
-    public Deck GetCard()
+    public Deck GetDeck()
     {
         return myDeck;
     }

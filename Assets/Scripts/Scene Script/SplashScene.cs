@@ -11,6 +11,6 @@ public class SplashScene : MonoBehaviour {
 	private IEnumerator EndSplashScene()
     {
         yield return new WaitForSeconds(3.0f);
-        new LevelManager().LoadLevel(SceneBook.LOADING_SCREEN_NAME);        
+        new LevelManager().LoadLevel(SceneBook.LOADING_NAME);        
     }
 }

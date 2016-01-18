@@ -10,14 +10,19 @@ public class Test : MonoBehaviour {
     // Use this for initialization
     void Start () {
         InitAndContinueWith(PreMainMenu);        
-    } 
-        
-    private void PreDeckCreator3()
+    }
+
+    public void GoGoGo()
+    {
+        new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
+    }
+
+    private void PreDeckCreator()
     {
         List<Deck> deckList = Player2.GetDeckList();
         foreach (Deck deck in deckList)
         {
-            if (deck.DeckName.Equals("deckCreatorTeste"))
+            if (deck.DeckName.Equals("DeckTeste"))
             {
                 GlobalVariables.SetSelectedDeck(deck);
             }
@@ -31,10 +36,7 @@ public class Test : MonoBehaviour {
         Debug.Log("PreMainMenu has finished");
     }
 
-    public void GoGoGo()
-    {
-        new LevelManager().LoadLevel(SceneBook.COLLECTION_MENU_NAME);
-    }
+    
 
     private void InitAndContinueWith(Action Method)
     {

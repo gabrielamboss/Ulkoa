@@ -102,4 +102,21 @@ public class Player2{
         return user.Username;
     }
 
+    public static void AddDeck(Deck newDeck)
+    {
+        bool find = false;
+        foreach (Deck deck in deckList)
+        {
+            if (deck.Equals(newDeck))
+            {
+                find = true;
+            }
+        }
+
+        if (!find)
+        {
+            deckList.Add(newDeck);
+        }
+    }
+
 }

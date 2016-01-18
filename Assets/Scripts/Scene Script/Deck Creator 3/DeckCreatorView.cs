@@ -6,16 +6,19 @@ using System.Collections.Generic;
 
 public class DeckCreatorView : MonoBehaviour {
 
-    private DeckCreatorModel model = null;    
-    public GameObject cardPrefab;
+    private DeckCreatorModel model = null;      
     private GameObject collectionParent = null;
+    private InputField deckName = null;
     private InputField portugueseText = null;
     private InputField englishText = null;
 
     void Awake()
     {
         GameObject deckCreator = GameObject.Find("Deck Creator");
-        model = deckCreator.GetComponent<DeckCreatorModel>();        
+        model = deckCreator.GetComponent<DeckCreatorModel>();
+
+        GameObject deckNameObj = GameObject.Find("Deck Name");
+        deckName = deckNameObj.GetComponent<InputField>();
 
         GameObject portObj = GameObject.Find("Portuguese Field");
         portugueseText = portObj.GetComponent<InputField>();       
@@ -29,22 +32,25 @@ public class DeckCreatorView : MonoBehaviour {
 	void Start () {       
         
     }
-	
+
+    public void SetDeckNameScreen() {
+        deckName.text = model.GetDeckName();
+    }
+
 	public void UpdateScreen()
     {
-        CleanScreen();
+        CleanScreen();        
 
-        List<Card> cardList = model.GetCardList();
-        foreach (Card card in cardList) {
-            Debug.Log(card.PortugueseText + " " + card.EnglishText);
-            AddCardToScrollField(card);
-        }
+        List<GameObject> cardList = model.GetCardList();
+        foreach (GameObject cardUI in cardList) {
+            //Debug.Log(card.PortugueseText + " " + card.EnglishText);
+            //AddCardToScrollField(card);
+            cardUI.transform.localScale = new Vector3(1,1,1);
+            cardUI.transform.SetParent(collectionParent.transform, false);
+        }        
 
-        Card newCard = model.GetNewCard();
-        Debug.Log(newCard.PortugueseText + " " + newCard.EnglishText);
-        AddCardToScrollField(newCard);
-
-        Card selectedCard = model.GetSelectedCard();
+        GameObject selectedCardUI = model.GetSelectedCard();
+        Card selectedCard = selectedCardUI.GetComponent<CardHolder>().GetCard();
         Debug.Log(selectedCard.PortugueseText + " " + selectedCard.EnglishText);
         portugueseText.text = selectedCard.PortugueseText;
         englishText.text = selectedCard.EnglishText;
@@ -58,11 +64,11 @@ public class DeckCreatorView : MonoBehaviour {
         {
             Debug.Log(collectionParent.transform.childCount);
             Transform child = collectionParent.transform.GetChild(0);
-            child.parent = null;
-            Destroy(child.gameObject);
+            child.parent = null;            
         }                
     }
 
+    /*
     private void AddCardToScrollField(Card card)
     {
         GameObject cardObject = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -71,4 +77,6 @@ public class DeckCreatorView : MonoBehaviour {
         Text text = cardObject.GetComponentInChildren<Text>();
         text.text = card.PortugueseText;
     }
+    */
+
 }

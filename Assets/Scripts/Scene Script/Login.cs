@@ -45,7 +45,7 @@ public class Login : MonoBehaviour {
 
         if (loginSuccessful)
         {
-            new LevelManager().LoadLevel(SceneBook.LOADING_SCREEN_NAME);
+            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
         {

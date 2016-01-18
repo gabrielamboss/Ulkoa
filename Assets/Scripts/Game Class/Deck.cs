@@ -46,4 +46,9 @@ public class Deck : ParseObject {
         return cardList;
     }
 
+    public void CleanCardList()
+    {
+        cardList.Clear();
+    }
+
 }
