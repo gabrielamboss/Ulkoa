@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class GlobalVariables{
 
@@ -8,7 +9,27 @@ public abstract class GlobalVariables{
 	public static bool facebookLogin = false;
 	public static bool normalLogin = false;
 
-	public static void ResetCorrect(){
+    public static readonly List<List<int>> LeitnerRoutine = new List<List<int>>()
+    {
+                new List<int>() { 1 },
+                new List<int>() { 1, 2 },
+                new List<int>() { 1, 3 },
+                new List<int>() { 1, 2 },
+                new List<int>() { 1, 4 },
+                new List<int>() { 1, 2 },
+                new List<int>() { 1, 3 },
+                new List<int>() { 1, 2 },
+                new List<int>() { 1 },
+                new List<int>() { 1, 2 },
+                new List<int>() { 1, 3 },
+                new List<int>() { 1, 2 },
+                new List<int>() { 1, 5 },
+                new List<int>() { 1, 2, 4 },
+                new List<int>() { 1, 3 },
+                new List<int>() { 1, 2 }
+    };
+
+    public static void ResetCorrect(){
 		correctAnswerAmount = 0;
 	}
 

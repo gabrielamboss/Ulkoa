@@ -30,4 +30,11 @@ public class Card : ParseObject {
         get { return GetProperty<string>("DeckId"); }
         set { SetProperty<string>(value, "DeckId"); }
     }
+
+    [ParseFieldName("LeitnerLevel")]
+    public int LeitnerLevel
+    {
+        get { return GetProperty<int>("LeitnerLevel"); }
+        set { SetProperty<int>(value, "LeitnerLevel"); }
+    }
 }

@@ -114,7 +114,8 @@ public class CardInputManager : MonoBehaviour {
 	}
 
 	public void SubmitCard(Card currCard) {
-		finishCard.interactable = false;
+        currCard["LeitnerLevel"] = 0;
+        finishCard.interactable = false;
 		inputText.text = "";
 		currCard.SaveAsync().ContinueWith(t => {
 			currCardIds.Add(currCard.ObjectId);

@@ -32,6 +32,7 @@ public class DeckCreatorController : MonoBehaviour {
         Card selectedCard = model.GetSelectedCard();
         selectedCard.PortugueseText = portugueseText.text;
         selectedCard.EnglishText = englishText.text;
+        selectedCard.LeitnerLevel = 1;
         if (selectedCard.Equals(model.GetNewCard()))
         {
             model.CreateNewCard();

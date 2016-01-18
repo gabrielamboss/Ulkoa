@@ -29,6 +29,13 @@ public class Deck : ParseObject {
         set { SetProperty<bool>(value, "IsDefault"); }
     }
 
+    [ParseFieldName("TimesPlayed")]
+    public int TimesPlayed
+    {
+        get { return GetProperty<int>("TimesPlayed"); }
+        set { SetProperty<int>(value, "TimesPlayed"); }
+    }
+
     public void addCard(Card card)
     {
         cardList.Add(card);

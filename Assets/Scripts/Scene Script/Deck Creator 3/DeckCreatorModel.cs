@@ -61,6 +61,7 @@ public class DeckCreatorModel : MonoBehaviour {
         newCard = new Card();
         newCard.PortugueseText = "Nova Carta";
         newCard.EnglishText = "New Card";
+        newCard.LeitnerLevel = 1;
     }
 
     public void DeletSelectedCard()
