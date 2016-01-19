@@ -59,6 +59,7 @@ public class LeitnerManager : SRSManager{
 
         int currentSize = currentDeck.Count;
         int randomNextCard = new System.Random().Next(0, currentSize);
+        Debug.Log("Random" + randomNextCard);
         Card cardRemoved = currentDeck[randomNextCard];
         currentDeck.Remove(cardRemoved);
         sessionCards.Add(cardRemoved);

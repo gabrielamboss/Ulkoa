@@ -18,5 +18,6 @@ public class FlipCorrectAnswer : MonoBehaviour {
     public void flipCorrectAnswer()
     {
         gameObject.GetComponentInChildren<Text>().text = correctAnswer;
+        GetComponent<AudioSource>().Play();
     }
 }

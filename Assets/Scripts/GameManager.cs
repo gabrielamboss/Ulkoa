@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviour
         cardObject = Instantiate(correctLeavingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
         cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
+        cardObject.GetComponent<AudioPlayer>().playCorrectAudio();
         if (leitnerManager.IsCurrentDeckEmpty())
         {
             StartCoroutine("WaitToCardGetDownToLeaveCorrect");
