@@ -8,6 +8,7 @@ public abstract class GlobalVariables{
 	public static int correctAnswerAmount, wrongAnswerAmount;
 	public static bool facebookLogin = false;
 	public static bool normalLogin = false;
+    public static int minCardsPerPlaySession = 10;
 
     public static readonly List<List<int>> LeitnerRoutine = new List<List<int>>()
     {

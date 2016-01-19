@@ -18,7 +18,6 @@ public class LeitnerManager : SRSManager{
     {
         this.deck = deck;
         cardList = (List<Card>) deck.getCardList();
-        currentTimesPlayed = deck.TimesPlayed;
         Debug.Log("LetnerManager started");
         //foreach (Card card in cardList)
         //   {
@@ -31,7 +30,7 @@ public class LeitnerManager : SRSManager{
 
     private void setUpCurrentDeck()
     {
-
+        currentTimesPlayed = deck.TimesPlayed;
         numberOfCurrentTraining = currentTimesPlayed % GlobalVariables.LeitnerRoutine.Count;
         currentTraining = GlobalVariables.LeitnerRoutine[numberOfCurrentTraining];
 
@@ -39,9 +38,18 @@ public class LeitnerManager : SRSManager{
         {
             if (currentTraining.Contains(card.LeitnerLevel))
             {
-                currentDeck.Add(card);
-                Debug.Log(card.LeitnerLevel);
+                if (!currentDeck.Contains(card))
+                {
+                    currentDeck.Add(card);
+                    Debug.Log(card.LeitnerLevel);
+                }
             }
+        }
+        while (currentDeck.Count < GlobalVariables.minCardsPerPlaySession || currentDeck.Count == deck.getCardList().Count)
+        {
+            deck.TimesPlayed++;
+            setUpCurrentDeck();
+
         }
     }
 
