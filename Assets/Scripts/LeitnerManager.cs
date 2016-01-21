@@ -45,12 +45,7 @@ public class LeitnerManager : SRSManager{
                 }
             }
         }
-        while (currentDeck.Count < GlobalVariables.minCardsPerPlaySession || currentDeck.Count == deck.getCardList().Count)
-        {
-            deck.TimesPlayed++;
-            setUpCurrentDeck();
-
-        }
+        
     }
 
     // Use this for initialization

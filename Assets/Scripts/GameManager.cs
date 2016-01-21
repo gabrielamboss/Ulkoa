@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     private LevelManager levelManager;
     private SRSManager leitnerManager;
     private Deck currentDeck;
-    private GameView gameView;
     public GameObject cardPrefab;
     private GameObject cardObject;
     public GameObject correctLeavingCardPrefab;
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GlobalVariables.correctAnswerAmount = 0;
-        GlobalVariables.wrongAnswerAmount = 0;
+        GlobalVariables.wrongAnswerAmount = 0;  
         if (test)
         {
             Debug.Log("Test");
@@ -49,20 +48,15 @@ public class GameManager : MonoBehaviour
             Debug.Log(currentDeck.DeckName);
             leitnerManager = new LeitnerManager(currentDeck);
         }
-
-        setCurrentDeckToView(currentDeck);
+        
         UpdateScreen();
     }
 
-    private void setCurrentDeckToView(Deck currentDeck)
-    {
-        GameObject gameView = GameObject.Find("GameView");
-
-    }
 
     // Update is called once per frame
     void Update()
     {
+        FocusInput();
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (userInput.text != null)
@@ -82,11 +76,24 @@ public class GameManager : MonoBehaviour
         if (!leitnerManager.IsCurrentDeckEmpty())
         {
             doGameLoop();
+            ClearAndFocusInput();
         }
         else
         {
             saveAndFinalize();
         }
+    }
+
+    private void ClearAndFocusInput()
+    {
+        userInput.text = "";
+        FocusInput();
+    }
+
+    private void FocusInput()
+    {
+        userInput.Select();
+        userInput.ActivateInputField();
     }
 
     private void saveAndFinalize()
