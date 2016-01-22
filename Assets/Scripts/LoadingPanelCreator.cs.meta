@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 33870e4118ef3ca4586dd5cb4f5b53bb
+timeCreated: 1453431998
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - canvasParent: {instanceID: 0}
+  - panelPrefab: {fileID: 153814, guid: d3e403b5848a293438cffb2c7866ddff, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
