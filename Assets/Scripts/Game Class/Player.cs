@@ -4,82 +4,70 @@ using System.Collections;
 using System.Collections.Generic;
 
 [ParseClassName("Player")]
-public class Player : ParseUser {
+public class Player : ParseObject
+{
 
-	//private string username;
-	//private string email;
-	//private string password;
-	//private string id;
-	//private int timeSpentInGame;
-	//private bool isFacebook;
-	//private IList<string> loginDates;
-	//private IList<string> acquisitions;
-	//private IList<string> achievements;
-	//private IList<string> friends;
-	private IDictionary<string, string> specialItems;
-	private IList<Deck> decks;
-	private string[] trainingDevelopment;
+    private static Player instance = null;
 
-    [ParseFieldName("TimeSpentInGame")]
-    public int TimeSpentInGame {
-        get { return GetProperty<int>("TimeSpentInGame"); }
-        set { SetProperty<int>(value, "TimeSpentInGame"); }
+    //Obs.: acho que o construtor nao poder ser private por causa da 
+    //heranca de ParseObject mas ainda nao testei (quase certeza pq ele 
+    //precisa ser construido quando chega do banco de dados)
+
+    private string playerName;
+    private List<Deck> deckList = new List<Deck>();
+
+    public void setName(string name)
+    {
+        playerName = name;
+    }
+    public string getName()
+    {
+        return playerName;
     }
 
-    [ParseFieldName("IsFacebook")]
-    public bool IsFacebook {
-        get { return GetProperty<bool>("IsFacebook"); }
-        set { SetProperty<bool>(value, "IsFacebook"); }
+    [ParseFieldName("UserId")]
+    public string UserId
+    {
+        get { return GetProperty<string>("UserId"); }
+        set { SetProperty<string>(value, "UserId"); }
     }
 
-    [ParseFieldName("LoginDates")]
-    public IList<string> LoginDates {
-        get { return GetProperty<IList<string>>("LoginDates"); }
-        set { SetProperty<IList<string>>(value, "LoginDates"); }
+    [ParseFieldName("Currency")]
+    public int Currency
+    {
+        get { return GetProperty<int>("Currency"); }
+        set { SetProperty<int>(value, "Currency"); }
     }
 
-    [ParseFieldName("Acquisitions")]
-    public IList<string> Acquisitions {
-        get { return GetProperty<IList<string>>("Acquisitions"); }
-        set { SetProperty<IList<string>>(value, "Acquisitions"); }
+    [ParseFieldName("IsPremium")]
+    public bool IsPremium
+    {
+        get { return GetProperty<bool>("IsPremium"); }
+        set { SetProperty<bool>(value, "IsPremium"); }
     }
 
-    [ParseFieldName("Achievements")]
-    public IList<string> Achievements {
-        get { return GetProperty<IList<string>>("Achievements"); }
-        set { SetProperty<IList<string>>(value, "Achievements"); }
+    [ParseFieldName("StoreDeckNameList")]
+    public List<string> StoreDeckNameList
+    {
+        get { return GetProperty<List<string>>("StoreDeckNameList"); }
+        set { SetProperty<List<string>>(value, "StoreDeckNameList"); }
     }
 
-    [ParseFieldName("Friends")]
-    public IList<string> Friends {
-        get { return GetProperty<IList<string>>("Friends"); }
-        set { SetProperty<IList<string>>(value, "Friends"); }
+    public void addDeck(Deck deck)
+    {
+        deckList.Add(deck);
+    }
+    public List<Deck> getDeckList()
+    {
+        return deckList;
     }
 
-	public IDictionary<string, string> SpecialItems {
-		get {
-			return this.specialItems;
-		}
-		set {
-			specialItems = value;
-		}
-	}
-
-	public IList<Deck> Decks {
-		get {
-			return this.decks;
-		}
-		set {
-			decks = value;
-		}
-	}
-
-	public string[] TrainingDevelopment {
-		get {
-			return this.trainingDevelopment;
-		}
-		set {
-			trainingDevelopment = value;
-		}
-	}
+    public static void setInstance(Player player)
+    {
+        instance = player;
+    }
+    public static Player getInstance()
+    {
+        return instance;
+    }
 }

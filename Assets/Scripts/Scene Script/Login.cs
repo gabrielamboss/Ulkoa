@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Parse;
+using System;
 using System.Collections;
 
 public class Login : MonoBehaviour {
 
     private InputField username;
     private InputField password;
-
-    private bool loginSuccessful;
-    private bool wait;
 
     void Start()
     {
@@ -20,28 +18,25 @@ public class Login : MonoBehaviour {
     }
 
     public void MakeLogin()
-    {        
-        loginSuccessful = false;
-        wait = true;
-
-        ParseUser.LogInAsync(username.text, password.text).ContinueWith(t =>
-        {            
-            loginSuccessful = !(t.IsFaulted || t.IsCanceled);
-            Debug.Log("Loggin Finish1");
-            wait = false;
-        });
-
-
-        StartCoroutine(WaitLoginFinish());
+    {
+        StartCoroutine(LoginLogic());
     }
 
-    private IEnumerator WaitLoginFinish()
+    private IEnumerator LoginLogic()
     {
-        while (wait)
+        //Start load pop, blanck page, painel...
+
+        Exception e = null;
+        bool loginSuccessful = false;
+        bool wait = true;
+
+        ParseUser.LogInAsync(username.text, password.text).ContinueWith(t =>
         {
-            yield return null;
-        }
-        Debug.Log("Loggin Finish2");
+            loginSuccessful = !(t.IsFaulted || t.IsCanceled);
+            e = t.Exception;
+            wait = false;
+        });
+        while (wait) { yield return null; }
 
         if (loginSuccessful)
         {
@@ -50,7 +45,11 @@ public class Login : MonoBehaviour {
         else
         {
             Debug.Log("Login fail");
+            Debug.Log(e.ToString());
+            //Avisar ao usuario o problema?
         }
+
+        //Finish load pop, blanck page, painel...
     }
 
     public void NewAcount()
@@ -58,5 +57,6 @@ public class Login : MonoBehaviour {
         new LevelManager().LoadLevel(SceneBook.REGISTER_NAME);
     }
 
-    
+
+
 }

@@ -71,7 +71,7 @@ public class DeckCreator : MonoBehaviour {
             //Save deck            
             deck.DeckName = deckName.text;
             deck.UserId = ParseUser.CurrentUser.ObjectId;
-            deck.IsDefault = false;
+            deck.IsEditable = false;
             wait = true;
             deck.SaveAsync().ContinueWith(t=>
             {

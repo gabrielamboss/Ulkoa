@@ -1,17 +1,16 @@
 ﻿using Parse;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Register : MonoBehaviour {
 
     private InputField username = null;
     private InputField password = null;
     private InputField email = null;
-
-    private bool wait;
-    private bool saveSuccessful;
 
     void Start()
     {
@@ -21,52 +20,59 @@ public class Register : MonoBehaviour {
 
         username = usernameGO.GetComponent<InputField>();
         password = passwordGO.GetComponent<InputField>();
-        email = emailGO.GetComponent<InputField>();        
+        email = emailGO.GetComponent<InputField>();
     }
 
     public void Save()
     {
-        saveSuccessful = false;
-        wait = false;
-
-        Debug.Log("Start save operation");
-        //Save operation
-        ParseUser player = new ParseUser();
-
-        player.Username = username.text;
-        player.Password = password.text;
-        player.Email = email.text;
-
-        wait = true;
-        player.SignUpAsync().ContinueWith(t=>
-        {
-            if (t.IsCanceled || t.IsFaulted)
-            {
-                Debug.Log("Problema pra salvar");                
-            }
-            else
-            {
-                saveSuccessful = true;
-            }
-            wait = false;
-        });
-        StartCoroutine(WaitSave());  
+        StartCoroutine(SaveLogic());
     }
 
-    private IEnumerator WaitSave()
+    private IEnumerator SaveLogic()
     {
-        while (wait)
+        //Start load pop, blanck page, painel...
+
+        bool saveSuccessful = false;
+        bool wait = false;
+        Exception e;
+
+        //Tentar criar novo usuario
+        ParseUser user = new ParseUser();
+
+        user.Username = username.text;
+        user.Password = password.text;
+        user.Email = email.text;
+
+        wait = true;
+        user.SignUpAsync().ContinueWith(t =>
         {
-            yield return null;            
-        }
+            saveSuccessful = !(t.IsCanceled || t.IsFaulted);
+            e = t.Exception;
+            wait = false;
+        });
+        while (wait) { yield return null; }
+
         if (saveSuccessful)
         {
+            //Se conseguimos criar um novo usuario crie para ele um player
+            //com as informacoes necessarias do jogador
+            Player player = new Player();
+            player.UserId = ParseUser.CurrentUser.ObjectId;
+            player.Currency = 0;
+            player.IsPremium = false;
+            player.StoreDeckNameList = new List<string>();
+            wait = true;
+            player.SaveAsync().ContinueWith(t => { wait = false; });
+            while (wait) { yield return null; }
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
         {
-            //Do some thing
+            //Se deu merda pra criar novo usuario avise o 
+            //qual foi o problema
         }
+
+        //Finish load pop, blanck page, painel...
     }
 
     public void GoBack()

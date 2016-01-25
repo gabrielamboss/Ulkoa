@@ -134,6 +134,7 @@
     <Compile Include="Assets\FacebookSDK\SDK\Editor\iOS\PListParser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Activity Indicators\ReadMe_txt.txt" />
     <None Include="Assets\FacebookSDK\SDK\Editor\android\DefaultAndroidManifest.xml" />
     <None Include="Assets\FacebookSDK\SDK\Scripts\Canvas\Resources\JSSDKBindings.txt" />
     <None Include="Assets\Parse.Unity\Parse.Unity.xml" />

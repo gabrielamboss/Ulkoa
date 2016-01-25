@@ -2,7 +2,7 @@
 using System.Collections;
 
 public abstract class SceneBook{
-	
+
     public const string DECK_CREATOR_NAME = "DeckCreator"; //NOT TESTED
     public const string END_GAME_NAME = "EndGame"; //NOT TESTED
     public const string LOADING_NAME = "Loading"; //NOT TESTED
@@ -12,4 +12,5 @@ public abstract class SceneBook{
     public const string REGISTER_NAME = "Register"; //NOT TESTED
     public const string SPLASH_SCENE_NAME = "SplashScene"; //NOT TESTED
     public const string GAME_NAME = "Game"; //NOT TESTED
+    public const string STORE_NAME = "Store"; //NOT TESTED
 }

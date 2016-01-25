@@ -6,8 +6,7 @@ using Parse;
 public class Loading : MonoBehaviour {
 
     private Text load;
-    private bool labelOn;
-    private int count = 0;
+    private bool labelOn;    
 
 	// Use this for initialization
 	void Start () {        
@@ -15,7 +14,7 @@ public class Loading : MonoBehaviour {
         load = aux.GetComponent<Text>();
         
         StartCoroutine(LoadLabel());
-        
+                
         if (ParseUser.CurrentUser != null)
         {            
             StartCoroutine(UserIsLogged());
@@ -30,12 +29,10 @@ public class Loading : MonoBehaviour {
     
 	private IEnumerator UserIsLogged()
     {
-        Player2.Init();
+        yield return UlkoaInitializer.InitializeGame();
 
-        while (!Player2.IsInitialized())
-        {
-            yield return null;
-        }
+        while (!UlkoaInitializer.hasInitialied())
+        { yield return null;}
 
         labelOn = false;
         new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);        
@@ -52,21 +49,24 @@ public class Loading : MonoBehaviour {
     {
         labelOn = true;
         load.text = "";
+                
         while (labelOn)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.3f);            
             UpdateLabel();
         }
     }
 
     private void UpdateLabel()
     {
-        if (count == 12)
+        string text = "Carregando...";
+        int count = load.text.Length;
+        if (count == text.Length)
         {
             count = 0;
             load.text = "";
         }
-        load.text += "Carregando..."[count];
+        load.text += text[count];
         count++;
     }
 }

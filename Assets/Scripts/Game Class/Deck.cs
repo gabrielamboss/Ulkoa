@@ -22,11 +22,11 @@ public class Deck : ParseObject {
         set { SetProperty<string>(value, "UserId"); }
     }
 
-    [ParseFieldName("IsDefault")]
-    public bool IsDefault
+    [ParseFieldName("IsEditable")]
+    public bool IsEditable
     {
-        get { return GetProperty<bool>("IsDefault"); }
-        set { SetProperty<bool>(value, "IsDefault"); }
+        get { return GetProperty<bool>("IsEditable"); }
+        set { SetProperty<bool>(value, "IsEditable"); }
     }
 
     [ParseFieldName("TimesPlayed")]

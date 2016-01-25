@@ -19,7 +19,7 @@ public class ParseInitializeTest : MonoBehaviour {
         
         if (logIn)
         {
-            ParseUser.LogInAsync("teste", "teste");
+            ParseUser.LogInAsync("novouser", "novouser");
         }
 
         if (ParseUser.CurrentUser != null)
@@ -31,7 +31,9 @@ public class ParseInitializeTest : MonoBehaviour {
             Debug.Log("Voce nao esta logado");
         }
 
-        Debug.Log("Rgistrando Deck, Card e Player");
+        Debug.Log("Rgistrando Deck, Card, Player, StoreDeck, StoreCard");
+        ParseObject.RegisterSubclass<StoreCard>();
+        ParseObject.RegisterSubclass<StoreDeck>();
         ParseObject.RegisterSubclass<Deck>();
         ParseObject.RegisterSubclass<Card>();
         ParseObject.RegisterSubclass<Player>();

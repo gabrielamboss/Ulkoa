@@ -21,9 +21,10 @@ public class MainMenu : MonoBehaviour {
 	
 	void Start () {
 
-        userName.text = Player2.GetPlayerName();
-
-        IList<Deck> deckList = Player2.GetDeckList();
+        Player player = Player.getInstance();
+        if (player == null) Debug.Log("Fuck??");
+        userName.text = player.getName();
+        IList<Deck> deckList = player.getDeckList();
 
         foreach (Deck deck in deckList)
         {
@@ -84,6 +85,11 @@ public class MainMenu : MonoBehaviour {
             }
         }
         
+    }
+
+    public void GoToStore()
+    {
+        new LevelManager().LoadLevel(SceneBook.STORE_NAME);
     }
 
     public void Logout()
