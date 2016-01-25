@@ -31,12 +31,15 @@ public class StoreDeckUI : MonoBehaviour {
     {
         Text[] deckTexts = gameObject.GetComponentsInChildren<Text>();
 
-        deckTexts[0].text = myDeck.DeckName;
-        deckTexts[1].text = "$: " + myDeck.Price.ToString();
+        deckTexts[0].text = myDeck.DeckName;        
 
         if (myDeck.IsPremium)
         {
-            //Not implpemented
+            deckTexts[1].text = "Premium";
+        }
+        else
+        {
+            deckTexts[1].text = "$: " + myDeck.Price.ToString();
         }
 
     }    
