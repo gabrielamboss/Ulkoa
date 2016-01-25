@@ -6,6 +6,7 @@ using System.Collections;
 
 public class Login : MonoBehaviour {
 
+    public GameObject painel;
     private InputField username;
     private InputField password;
 
@@ -23,8 +24,8 @@ public class Login : MonoBehaviour {
     }
 
     private IEnumerator LoginLogic()
-    {
-        //Start load pop, blanck page, painel...
+    {        
+        painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
 
         Exception e = null;
         bool loginSuccessful = false;
@@ -48,8 +49,8 @@ public class Login : MonoBehaviour {
             Debug.Log(e.ToString());
             //Avisar ao usuario o problema?
         }
-
-        //Finish load pop, blanck page, painel...
+                
+        painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 
     public void NewAcount()

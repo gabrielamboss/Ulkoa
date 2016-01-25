@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 public class Register : MonoBehaviour {
 
+    public GameObject painel;
     private InputField username = null;
     private InputField password = null;
     private InputField email = null;
@@ -29,8 +30,8 @@ public class Register : MonoBehaviour {
     }
 
     private IEnumerator SaveLogic()
-    {
-        //Start load pop, blanck page, painel...
+    {        
+        painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
 
         bool saveSuccessful = false;
         bool wait = false;
@@ -60,7 +61,7 @@ public class Register : MonoBehaviour {
             player.UserId = ParseUser.CurrentUser.ObjectId;
             player.Currency = 0;
             player.IsPremium = false;
-            player.StoreDeckNameList = new List<string>();
+            player.StoreDeckNameList = new List<string>();            
             wait = true;
             player.SaveAsync().ContinueWith(t => { wait = false; });
             while (wait) { yield return null; }
@@ -71,8 +72,8 @@ public class Register : MonoBehaviour {
             //Se deu merda pra criar novo usuario avise o 
             //qual foi o problema
         }
-
-        //Finish load pop, blanck page, painel...
+        
+        painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 
     public void GoBack()

@@ -21,4 +21,9 @@ public class Store{
         return deckList;
     }
     
+    public static void deletDeck(StoreDeck deck)
+    {
+        deckList.Remove(deck);
+    }
+
 }

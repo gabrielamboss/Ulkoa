@@ -47,10 +47,10 @@ public class Player : ParseObject
     }
 
     [ParseFieldName("StoreDeckNameList")]
-    public List<string> StoreDeckNameList
+    public IList<string> StoreDeckNameList
     {
-        get { return GetProperty<List<string>>("StoreDeckNameList"); }
-        set { SetProperty<List<string>>(value, "StoreDeckNameList"); }
+        get { return GetProperty<IList<string>>("StoreDeckNameList"); }
+        set { SetProperty<IList<string>>(value, "StoreDeckNameList"); }
     }
 
     public void addDeck(Deck deck)

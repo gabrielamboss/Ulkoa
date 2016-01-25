@@ -10,37 +10,45 @@ public class Test : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        InitAndContinueWith(PreStore);
+        //InitAndContinueWith(PreStore);
+        StartCoroutine(aux());
     }
 
     private IEnumerator aux()
     {
-        StoreDeck deck = new StoreDeck();
-        deck.DeckName = "Cartas1";
-        deck.Price = 100;
-        deck.IsPremium = false;
+        StoreDeck deck;
+        StoreCard card;
+        bool wait;
 
-        bool wait = true;
-        deck.SaveAsync().ContinueWith(t =>
+        for (int i = 1; i <= 10; i++)
         {
-            wait = false;
-        });
-        while (wait)
-        {
-            yield return null;
+            deck = new StoreDeck();
+            deck.DeckName = "SD"+i;
+            deck.Price = i;
+            deck.IsPremium = i >= 8;
+
+            wait = true;
+            deck.SaveAsync().ContinueWith(t =>{wait = false;});
+            while (wait)
+            {yield return null;}
+            Debug.Log("Deck SD" + i + " foi salvo");
+
+            for(int j= 1; j <= 5; j++)
+            {
+                card = new StoreCard();
+                card.StoreDeckId = deck.ObjectId;
+                card.PortugueseText = "SD" + i + "P" + j;
+                card.EnglishText = "SD" + i + "E" + j;
+                wait = true;
+                card.SaveAsync().ContinueWith(t => { wait = false; });
+                while (wait)
+                { yield return null; }
+                Debug.Log("Carta " + j + " salva");
+            }
+
+            Debug.Log("Fim da criacao do deck " + i);
         }
-
-        StoreCard card1 = new StoreCard();
-        card1.StoreDeckId = deck.ObjectId;
-        card1.PortugueseText = "Port1";
-        card1.EnglishText = "Engl1";
-        card1.SaveAsync().ContinueWith(t => { Debug.Log("Finish"); });
-
-        StoreCard card2 = new StoreCard();
-        card2.StoreDeckId = deck.ObjectId;
-        card2.PortugueseText = "Port1";
-        card2.EnglishText = "Engl1";
-        card2.SaveAsync().ContinueWith(t => { Debug.Log("Finish"); });
+        
     }
 
     public void GoGoGo()

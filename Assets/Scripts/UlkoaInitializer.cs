@@ -61,13 +61,13 @@ public abstract class UlkoaInitializer {
         storeCardList = result as List<StoreCard>;
 
         //Build store decks
-        Dictionary<string, StoreDeck> dict2 = new Dictionary<string, StoreDeck>();
-        //List<string> playerStoreDecks = player.StoreDeckNameList;
+        Dictionary<string, StoreDeck> dict2 = new Dictionary<string, StoreDeck>();        
+        IList<string> playerStoreDecks = player.StoreDeckNameList;
         foreach (StoreDeck deck in storeDeckList)
         {
-            dict2[deck.ObjectId] = deck;
+            dict2[deck.ObjectId] = deck;           
 
-            //if (!playerStoreDecks.Contains(deck.DeckName))           
+            if (!playerStoreDecks.Contains(deck.DeckName))
                 Store.addDeck(deck);                                        
         }
 

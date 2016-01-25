@@ -74,7 +74,10 @@ public class StoreManager : MonoBehaviour {
             card.SaveAsync();
         }
 
+        Player player = Player.getInstance();
+        player.StoreDeckNameList.Add(deck.DeckName);
         Player.getInstance().addDeck(deck);
+        Store.deletDeck(storeDeck);
     }
 
 }

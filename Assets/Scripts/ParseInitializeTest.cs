@@ -19,7 +19,7 @@ public class ParseInitializeTest : MonoBehaviour {
         
         if (logIn)
         {
-            ParseUser.LogInAsync("novouser", "novouser");
+            ParseUser.LogInAsync("novouser2", "novouser2");
         }
 
         if (ParseUser.CurrentUser != null)
