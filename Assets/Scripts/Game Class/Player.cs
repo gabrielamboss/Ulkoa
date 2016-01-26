@@ -62,6 +62,19 @@ public class Player : ParseObject
         return deckList;
     }
 
+    public bool hasDeck(Deck deck2)
+    {
+        bool answ = false;
+
+        foreach (Deck deck in deckList)
+        {
+            if (deck.Equals(deck2))
+                answ = true;
+        }
+
+        return answ;
+    }
+
     public static void setInstance(Player player)
     {
         instance = player;

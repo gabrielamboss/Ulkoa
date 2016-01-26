@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class MainMenu : MonoBehaviour {
 
     private Text userName;
+    private Text stars;
 
     public GameObject deckPrefab;
     private GameObject collectionParent;
@@ -17,6 +18,9 @@ public class MainMenu : MonoBehaviour {
 
         GameObject userNameGO = GameObject.Find("User Name");
         userName = userNameGO.GetComponent<Text>();
+
+        stars = GameObject.Find("Stars").GetComponent<Text>();
+        stars.text = Player.getInstance().Currency.ToString();
     }
 	
 	void Start () {
@@ -50,6 +54,18 @@ public class MainMenu : MonoBehaviour {
 
     public void EditDeck()
     {
+        Deck deck = GlobalVariables.GetSelectedDeck();
+        if(deck == null)
+        {
+            Debug.Log("Usuario nao selecionou deck");
+            return;
+        }
+
+        if (deck.IsEditable == false)
+        {
+            Debug.Log("Usuario nao editar esse deck");
+            return;
+        }
         new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
     }
 

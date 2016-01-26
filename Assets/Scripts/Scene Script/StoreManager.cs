@@ -8,8 +8,9 @@ public class StoreManager : MonoBehaviour {
     public GameObject deckStorePrefab;
     private GameObject collectionParent;
     private GameObject selectedDeckUI;
-    
-   
+    private Text currency;
+
+
     void Start () {
 
         collectionParent = GameObject.Find("Content");
@@ -23,6 +24,8 @@ public class StoreManager : MonoBehaviour {
             newDeck.GetComponent<StoreDeckUI>().SetStoreDeck(deck);
         }
 
+        currency = GameObject.Find("Currency").GetComponent<Text>();
+        currency.text = Player.getInstance().Currency.ToString();
     }
 
     public void OnDeckClick(GameObject deckUI)
@@ -39,9 +42,21 @@ public class StoreManager : MonoBehaviour {
 
     public void Buy()
     {
-        //Falta a logica de compra !!!!
-        selectedDeckUI.transform.parent = null;
         StoreDeck storeDeck = selectedDeckUI.GetComponent<StoreDeckUI>().getStoreDeck();
+
+        if (storeDeck.IsPremium)
+        {
+            Debug.Log("Usuarios nao premium nao podem ter esse deck");
+            return;
+        }
+
+        if (Player.getInstance().Currency < storeDeck.Price)
+        {
+            Debug.Log("Voce nao tem moedas suficientes");
+            return;
+        }
+
+        selectedDeckUI.transform.parent = null;
         StartCoroutine(saveDeck(storeDeck));
     }
 
@@ -73,7 +88,9 @@ public class StoreManager : MonoBehaviour {
         }
 
         Player player = Player.getInstance();
-        player.AddToList("StoreDeckNameList", deck.DeckName);                
+        player.AddToList("StoreDeckNameList", deck.DeckName);
+        player.Currency -= storeDeck.Price;
+        currency.text = Player.getInstance().Currency.ToString();
         player.addDeck(deck);
         wait = true;
         player.SaveAsync().ContinueWith(t => { wait = false; });

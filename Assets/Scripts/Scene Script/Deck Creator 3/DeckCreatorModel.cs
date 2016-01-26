@@ -127,7 +127,7 @@ public class DeckCreatorModel : MonoBehaviour {
         waitSaveDeck = true;
         deck.DeckName = deckName.text;
         deck.UserId = ParseUser.CurrentUser.ObjectId;
-        deck.IsEditable = false;
+        deck.IsEditable = true;
         deck.TimesPlayed = 0;
         deck.SaveAsync().ContinueWith(t=>
         {
@@ -160,7 +160,10 @@ public class DeckCreatorModel : MonoBehaviour {
             card.DeleteAsync();
         }
 
-        Player2.AddDeck(deck);
+        Player player = Player.getInstance();
+
+        if(!player.hasDeck(deck))
+            player.addDeck(deck);
 
         cardsToDelete.Clear();
     }
