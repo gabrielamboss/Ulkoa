@@ -11,7 +11,7 @@ public class Test : MonoBehaviour {
     void Start()
     {
         //InitAndContinueWith(PreStore);
-        StartCoroutine(aux());
+        StartCoroutine(InitAndContinueWith(PreStore));
     }
 
     private IEnumerator aux()
@@ -58,7 +58,12 @@ public class Test : MonoBehaviour {
 
     private void PreStore()
     {
-        Debug.Log("PreStore has finished");
+        //Player player = Player.getInstance();
+        //StoreDeck deck = new StoreDeck();
+        //deck.DeckName = "galinha";
+        //player.AddToList("StoreDeckNameList", deck.DeckName);
+        //player.SaveAsync().ContinueWith(t=> { Debug.Log("FIMFIMFIM"); });
+        Debug.Log("FIMFIMFIM");
     }
 
     private void PreDeckCreator()
@@ -82,21 +87,12 @@ public class Test : MonoBehaviour {
 
 
 
-    private void InitAndContinueWith(Action Method)
-    {
-        //Player2.Init();
-        Debug.Log("Hisssss");
-        StartCoroutine(UlkoaInitializer.InitializeGame());
-        StartCoroutine(ContinueWith(Method));
-    }
-
-    private IEnumerator ContinueWith(Action Method)
-    {
-        //while (!Player2.IsInitialized())
+    private IEnumerator InitAndContinueWith(Action Method)
+    {        
+        yield return UlkoaInitializer.InitializeGame();
         while (!UlkoaInitializer.hasInitialied())
-        {
-            yield return null;
-        }
+        {yield return null;}
         Method();
     }
+    
 }

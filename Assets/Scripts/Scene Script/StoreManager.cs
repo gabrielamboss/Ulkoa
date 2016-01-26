@@ -42,13 +42,13 @@ public class StoreManager : MonoBehaviour {
         //Falta a logica de compra !!!!
         selectedDeckUI.transform.parent = null;
         StoreDeck storeDeck = selectedDeckUI.GetComponent<StoreDeckUI>().getStoreDeck();
-        StartCoroutine(saveDeck(new Deck(), storeDeck));
+        StartCoroutine(saveDeck(storeDeck));
     }
 
-    private IEnumerator saveDeck(Deck deck, StoreDeck storeDeck)
+    private IEnumerator saveDeck(StoreDeck storeDeck)
     {
         
-        deck = new Deck();
+        Deck deck = new Deck();
         deck.DeckName = storeDeck.DeckName;
         deck.UserId = Player.getInstance().UserId;
         deck.TimesPlayed = 0;
@@ -57,9 +57,7 @@ public class StoreManager : MonoBehaviour {
         bool wait = true;
         deck.SaveAsync().ContinueWith(t=>{ wait = false; });
         while (wait)
-        {
-            yield return null;
-        }
+        {yield return null;}
 
         List<StoreCard> storeCardList = storeDeck.getCards();
         foreach (StoreCard storeCard in storeCardList)
@@ -75,8 +73,12 @@ public class StoreManager : MonoBehaviour {
         }
 
         Player player = Player.getInstance();
-        player.StoreDeckNameList.Add(deck.DeckName);
-        Player.getInstance().addDeck(deck);
+        player.AddToList("StoreDeckNameList", deck.DeckName);                
+        player.addDeck(deck);
+        wait = true;
+        player.SaveAsync().ContinueWith(t => { wait = false; });
+        while (wait)
+        { yield return null; }
         Store.deletDeck(storeDeck);
     }
 
