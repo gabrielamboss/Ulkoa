@@ -17,7 +17,7 @@ public class CurrencyGiver : MonoBehaviour {
 
     private void ShowCurrencyGain()
     {
-        gameObject.transform.position = new Vector3(400, 330, 0);
+        GetComponentInParent<Animation>().Play();
     }
 
     // Update is called once per frame
