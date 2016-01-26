@@ -38,13 +38,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CurrencyGiver.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />
@@ -153,6 +154,8 @@
      <Compile Include="Assets\Scripts\Game Class\Deck.cs" />
      <Compile Include="Assets\Scripts\Game Class\Player.cs" />
      <Compile Include="Assets\Scripts\Game Class\Player2.cs" />
+     <Compile Include="Assets\Scripts\Game Class\StoreCard.cs" />
+     <Compile Include="Assets\Scripts\Game Class\StoreDeck.cs" />
      <Compile Include="Assets\Scripts\GameDeckMannager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GlobalVariables.cs" />
@@ -177,9 +180,13 @@
      <Compile Include="Assets\Scripts\Scene Script\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Scene Script\Register.cs" />
      <Compile Include="Assets\Scripts\Scene Script\SplashScene.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\StoreManager.cs" />
      <Compile Include="Assets\Scripts\SceneBook.cs" />
      <Compile Include="Assets\Scripts\ScoreText.cs" />
+     <Compile Include="Assets\Scripts\Store.cs" />
+     <Compile Include="Assets\Scripts\StoreDeckUI.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
+     <Compile Include="Assets\Scripts\UlkoaInitializer.cs" />
      <None Include="Assets\FacebookSDK\SDK\Editor\android\DefaultAndroidManifest.xml" />
      <None Include="Assets\Parse.Unity\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Parse.Unity\Parse.Unity.xml" />
@@ -187,13 +194,13 @@
      <None Include="Assets\FacebookSDK\SDK\Scripts\Canvas\Resources\JSSDKBindings.txt" />
      <None Include="Assets\Activity Indicators\ReadMe_txt.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Parse.Unity">
- <HintPath>D:/Users/Gabriel/Repo/Ulkoa/Assets/Parse.Unity/Parse.Unity.dll</HintPath>
+ <HintPath>C:/Users/LuizFelipeh/Desktop/BUBS Job/Ulkoa Mais que Final/Ulkoa/Assets/Parse.Unity/Parse.Unity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

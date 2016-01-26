@@ -741,7 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardLabel: {fileID: 0}
   userInput: {fileID: 94655534}
-  test: 1
+  test: 0
   cardPrefab: {fileID: 193568, guid: b5d6f29e143d70d4982d937463c85564, type: 2}
   correctLeavingCardPrefab: {fileID: 161340, guid: 1ac16ce063c62784bb924417c556274f,
     type: 2}
