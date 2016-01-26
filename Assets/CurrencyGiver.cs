@@ -11,6 +11,7 @@ public class CurrencyGiver : MonoBehaviour {
         if (GlobalVariables.wrongAnswerAmount == 0)
         {
             ShowCurrencyGain();
+            
             button.enabled = false;        }
 	
 	}
@@ -23,7 +24,15 @@ public class CurrencyGiver : MonoBehaviour {
     // Update is called once per frame
     public void HidePopUp()
     {
+        GiveCurrency();
         button.enabled = true;
         Destroy(gameObject);
+    }
+
+    private void GiveCurrency()
+    {
+        Player player = Player.getInstance();
+        player.Currency++;
+        player.SaveAsync();
     }
 }

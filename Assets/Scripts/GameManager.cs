@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     private void AdminUserInput(string userInput)
     {
-        if (userInput.Equals(currentCard.EnglishText))
+        if (userInput.ToLower().Equals(currentCard.EnglishText.ToLower()))
         {
             GlobalVariables.correctAnswerAmount++;
             if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
