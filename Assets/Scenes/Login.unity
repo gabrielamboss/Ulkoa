@@ -85,6 +85,79 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &57136310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 57136313}
+  - 222: {fileID: 57136312}
+  - 114: {fileID: 57136311}
+  m_Layer: 5
+  m_Name: Error Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &57136311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57136310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5254902, g: 0.6156863, b: 0.31764707, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 28
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 300
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Erro: Combina\xE7\xE3o de usuario e senha incorreta"
+--- !u!222 &57136312
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57136310}
+--- !u!224 &57136313
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57136310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1258564450}
+  m_RootOrder: 9
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000006198883, y: -28.5}
+  m_SizeDelta: {x: 621.6, y: 33}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &111218683
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +512,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &522451996
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,50 +837,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48723d64e68f84942a00d111e1b253e2, type: 2}
-  m_RootGameObject: {fileID: 753733056}
   m_IsPrefabParent: 0
---- !u!1 &753733056
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 149416, guid: 48723d64e68f84942a00d111e1b253e2, type: 2}
-  m_PrefabInternal: {fileID: 720068164}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 753733058}
-  - 114: {fileID: 753733057}
-  m_Layer: 0
-  m_Name: Fade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &753733057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11482454, guid: 48723d64e68f84942a00d111e1b253e2,
-    type: 2}
-  m_PrefabInternal: {fileID: 720068164}
-  m_GameObject: {fileID: 753733056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 322e6e9f540f69c49a683200f675d87f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeOutTexture: {fileID: 2800000, guid: 037b844d0cf36ef45bf67225b53ab194, type: 3}
-  fadeSpeed: 0.8
---- !u!4 &753733058
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 428866, guid: 48723d64e68f84942a00d111e1b253e2, type: 2}
-  m_PrefabInternal: {fileID: 720068164}
-  m_GameObject: {fileID: 753733056}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!1 &1051925377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,6 +1336,7 @@ RectTransform:
   - {fileID: 636123235}
   - {fileID: 522451997}
   - {fileID: 1766057115}
+  - {fileID: 57136313}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -1498,6 +1529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3fd6dd82470eb74dbc80d2f136c3bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorText: {fileID: 57136310}
   painel: {fileID: 715987167}
 --- !u!4 &1525101644
 Transform:
@@ -1650,7 +1682,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Password
+  m_Text: Senha
 --- !u!222 &1735043313
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1778,61 +1810,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1766057114}
---- !u!1 &1812022289
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 181836, guid: 76a2dd9c04b4f0a4c969d3845b45e77e, type: 2}
-  m_PrefabInternal: {fileID: 1862031031}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1812022293}
-  - 20: {fileID: 1862031032}
-  - 92: {fileID: 1812022292}
-  - 124: {fileID: 1812022291}
-  - 81: {fileID: 1812022290}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &1812022290
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8124888, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1862031031}
-  m_GameObject: {fileID: 1812022289}
-  m_Enabled: 1
---- !u!124 &1812022291
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 12405746, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1862031031}
-  m_GameObject: {fileID: 1812022289}
-  m_Enabled: 1
---- !u!92 &1812022292
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9265998, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1862031031}
-  m_GameObject: {fileID: 1812022289}
-  m_Enabled: 1
---- !u!4 &1812022293
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 494924, guid: 76a2dd9c04b4f0a4c969d3845b45e77e, type: 2}
-  m_PrefabInternal: {fileID: 1862031031}
-  m_GameObject: {fileID: 1812022289}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
 --- !u!1001 &1862031031
 Prefab:
   m_ObjectHideFlags: 0
@@ -1874,43 +1851,12 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76a2dd9c04b4f0a4c969d3845b45e77e, type: 2}
-  m_RootGameObject: {fileID: 1812022289}
   m_IsPrefabParent: 0
---- !u!20 &1862031032
+--- !u!20 &1862031032 stripped
 Camera:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 2083452, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
     type: 2}
   m_PrefabInternal: {fileID: 1862031031}
-  m_GameObject: {fileID: 1812022289}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.004325264, g: 0.014081135, b: 0.029411793, a: 0.019607844}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!1 &2003881899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1977,7 +1923,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: User
+  m_Text: Usuario
 --- !u!222 &2003881902
 CanvasRenderer:
   m_ObjectHideFlags: 0

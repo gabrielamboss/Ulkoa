@@ -26,4 +26,9 @@ public class Store{
         deckList.Remove(deck);
     }
 
+    public static void clean()
+    {
+        deckList = new List<StoreDeck>();
+    }
+
 }

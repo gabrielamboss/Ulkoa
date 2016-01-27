@@ -57,6 +57,11 @@ public class Player : ParseObject
     {
         deckList.Add(deck);
     }
+    public void removeDeck(Deck deck)
+    {
+        deckList.Remove(deck);
+    }
+
     public List<Deck> getDeckList()
     {
         return deckList;

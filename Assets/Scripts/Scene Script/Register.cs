@@ -13,6 +13,10 @@ public class Register : MonoBehaviour {
     private InputField password = null;
     private InputField email = null;
 
+    public Text userError;
+    public Text passwordError;
+    public Text emailError;
+
     void Start()
     {
         GameObject usernameGO = GameObject.Find("Username Field");
@@ -26,7 +30,27 @@ public class Register : MonoBehaviour {
 
     public void Save()
     {
-        StartCoroutine(SaveLogic());
+        bool inputIsCorrect = true;
+        if (username.text.Equals(""))
+        {
+            userError.text = "Campo usuario em branco";
+            inputIsCorrect = false;
+        }
+
+        if (password.text.Equals(""))
+        {
+            passwordError.text = "Campo senha em branco";
+            inputIsCorrect = false;
+        }
+
+        if (email.text.Equals(""))
+        {
+            emailError.text = "Campo email em branco";
+            inputIsCorrect = false;
+        }
+
+        if (inputIsCorrect)
+            StartCoroutine(SaveLogic());
     }
 
     private IEnumerator SaveLogic()
@@ -35,7 +59,7 @@ public class Register : MonoBehaviour {
 
         bool saveSuccessful = false;
         bool wait = false;
-        Exception e;
+        AggregateException erros = null;
 
         //Tentar criar novo usuario
         ParseUser user = new ParseUser();
@@ -48,7 +72,7 @@ public class Register : MonoBehaviour {
         user.SignUpAsync().ContinueWith(t =>
         {
             saveSuccessful = !(t.IsCanceled || t.IsFaulted);
-            e = t.Exception;
+            erros = t.Exception;
             wait = false;
         });
         while (wait) { yield return null; }
@@ -68,9 +92,29 @@ public class Register : MonoBehaviour {
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
-        {
+        {            
             //Se deu merda pra criar novo usuario avise o 
             //qual foi o problema
+            foreach (Exception e in erros.InnerExceptions)
+            {
+                if (e is ParseException)
+                    switch ((e as ParseException).Code)
+                    {                        
+                        case ParseException.ErrorCode.UsernameTaken:
+                            userError.text = "Usuario ja existente";
+                            break;                        
+                        case ParseException.ErrorCode.EmailTaken:
+                            emailError.text = "Email ja existente";
+                            break;                        
+                        case ParseException.ErrorCode.InvalidEmailAddress:
+                            emailError.text = "Endereço de email invalido";
+                            break;
+                        default:
+                            emailError.text = "Ocorreu um erro durante o registro, por favor tente de novo";
+                            break;
+                    }
+                else emailError.text = "Ocorreu um erro durante o registro, por favor tente de novo";
+            }
         }
         
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();

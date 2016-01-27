@@ -6,6 +6,7 @@ using System.Collections;
 
 public class Login : MonoBehaviour {
 
+    public GameObject errorText;
     public GameObject painel;
     private InputField username;
     private InputField password;
@@ -16,6 +17,7 @@ public class Login : MonoBehaviour {
         GameObject passwordGO = GameObject.FindGameObjectWithTag("UIPassword");
         username = usernameGO.GetComponent<InputField>();
         password = passwordGO.GetComponent<InputField>();
+        errorText.SetActive(false);
     }
 
     public void MakeLogin()
@@ -44,10 +46,8 @@ public class Login : MonoBehaviour {
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
-        {
-            Debug.Log("Login fail");
-            Debug.Log(e.ToString());
-            //Avisar ao usuario o problema?
+        {           
+            errorText.SetActive(true);
         }
                 
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();

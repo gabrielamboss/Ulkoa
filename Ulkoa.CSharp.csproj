@@ -180,6 +180,7 @@
     <Compile Include="Assets\Scripts\Game Class\Deck.cs" />
     <Compile Include="Assets\Scripts\Game Class\Player.cs" />
     <Compile Include="Assets\Scripts\Game Class\Player2.cs" />
+    <Compile Include="Assets\Scripts\Game Class\Store.cs" />
     <Compile Include="Assets\Scripts\Game Class\StoreCard.cs" />
     <Compile Include="Assets\Scripts\Game Class\StoreDeck.cs" />
     <Compile Include="Assets\Scripts\GameDeckMannager.cs" />
@@ -209,7 +210,6 @@
     <Compile Include="Assets\Scripts\Scene Script\StoreManager.cs" />
     <Compile Include="Assets\Scripts\SceneBook.cs" />
     <Compile Include="Assets\Scripts\ScoreText.cs" />
-    <Compile Include="Assets\Scripts\Store.cs" />
     <Compile Include="Assets\Scripts\StoreDeckUI.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\UlkoaInitializer.cs" />

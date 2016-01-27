@@ -80,7 +80,7 @@ public class MainMenu : MonoBehaviour {
     public void DeleteDeck()
     {
         Deck selectedDeck = GlobalVariables.GetSelectedDeck();
-        if (selectedDeck != null)
+        if (selectedDeck != null && selectedDeck.IsEditable)
         {            
             foreach (Transform deckUI in collectionParent.transform)
             {                
@@ -97,6 +97,8 @@ public class MainMenu : MonoBehaviour {
                     }
 
                     Destroy(deckUI.gameObject);
+
+                    Player.getInstance().removeDeck(deck);
                 }                
             }
         }
@@ -110,6 +112,8 @@ public class MainMenu : MonoBehaviour {
 
     public void Logout()
     {
+        Player.setInstance(null);
+        Store.clean();
         ParseUser.LogOutAsync();
         new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
     }
