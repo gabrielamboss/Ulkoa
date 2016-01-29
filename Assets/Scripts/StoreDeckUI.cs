@@ -39,7 +39,7 @@ public class StoreDeckUI : MonoBehaviour {
         }
         else
         {
-            deckTexts[1].text = "$: " + myDeck.Price.ToString();
+			deckTexts[1].text = "✭: " + myDeck.Price.ToString();
         }
 
     }    
