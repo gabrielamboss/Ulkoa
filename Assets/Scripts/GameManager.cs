@@ -56,16 +56,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FocusInput();
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (continueGame)
         {
-            if (userInput.text != null)
+            FocusInput();
+            if (Input.GetKeyDown(KeyCode.Return))
             {
-                AdminUserInput(userInput.text);
-                if (continueGame)
+                if (userInput.text != null)
                 {
-                    UpdateScreen();
-                    Debug.Log("Here");
+                    AdminUserInput(userInput.text);
+                    if (continueGame)
+                    {
+                        UpdateScreen();
+                        Debug.Log("Here");
+                    }
                 }
             }
         }
