@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
             FocusInput();
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                if (userInput.text != null)
+                if (userInput.text != null && userInput.text != "")
                 {
                     AdminUserInput(userInput.text);
                     if (continueGame)

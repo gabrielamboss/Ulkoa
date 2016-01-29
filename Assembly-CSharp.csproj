@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CurrencyGiver.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />
@@ -146,12 +145,14 @@
      <Compile Include="Assets\Scripts\CardHolder.cs" />
      <Compile Include="Assets\Scripts\CardInputManager.cs" />
      <Compile Include="Assets\Scripts\CleanCardInput.cs" />
+     <Compile Include="Assets\Scripts\CurrencyGiver.cs" />
      <Compile Include="Assets\Scripts\Dao\DeckDao.cs" />
      <Compile Include="Assets\Scripts\Dao\PlayerDao.cs" />
      <Compile Include="Assets\Scripts\Dao\StoreDeckDao.cs" />
      <Compile Include="Assets\Scripts\DeckBuilder.cs" />
      <Compile Include="Assets\Scripts\DeckDisplayManager.cs" />
      <Compile Include="Assets\Scripts\DeckHolder.cs" />
+     <Compile Include="Assets\Scripts\DeckProgress.cs" />
      <Compile Include="Assets\Scripts\DisplayUser.cs" />
      <Compile Include="Assets\Scripts\FBLogin.cs" />
      <Compile Include="Assets\Scripts\Fading.cs" />

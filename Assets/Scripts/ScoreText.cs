@@ -7,7 +7,7 @@ public class ScoreText : MonoBehaviour {
 
 	public static int scoreCorrect, scoreWrong;
 	private float percentScore;
-	public Text textCorrect, textWrong, textPercent;
+	public Text textCorrect, textWrong;
 
     void Awake()
     {
@@ -21,7 +21,6 @@ public class ScoreText : MonoBehaviour {
 		percentScore = ((float)scoreCorrect/((float)scoreCorrect+(float)scoreWrong));
 		textCorrect.text = scoreCorrect.ToString();
 		textWrong.text = scoreWrong.ToString();
-		textPercent.text = (percentScore*100).ToString("n2")+"%";
 
         //Saving match
         Match match = new Match();
