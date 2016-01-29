@@ -1,56 +1,46 @@
-﻿using UnityEngine;
+﻿using Parse;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using Parse;
 
 public class Loading : MonoBehaviour {
 
-    private Text load;
-    private bool labelOn;    
+    public Text loadLabel;     
 
 	// Use this for initialization
-	void Start () {        
-        GameObject aux = GameObject.Find("Loading Label");
-        load = aux.GetComponent<Text>();
-        
-        StartCoroutine(LoadLabel());
+	void Start () {                        
+        StartCoroutine(LoadingLabel());
                 
-        if (ParseUser.CurrentUser != null)
-        {            
-            StartCoroutine(UserIsLogged());
-        }
-        else
-        {            
-            StartCoroutine(UserIsNotLogged());
-        }
+        if (ParseUser.CurrentUser != null)        
+            StartCoroutine(InitializeGameAndContinueToMainMenu());
         
+        else                    
+            StartCoroutine(WaitAndContinueToLoginScene());
+                
 	}
 	
     
-	private IEnumerator UserIsLogged()
+	private IEnumerator InitializeGameAndContinueToMainMenu()
     {
         yield return UlkoaInitializer.InitializeGame();
 
         while (!UlkoaInitializer.hasInitialied())
         { yield return null;}
-
-        labelOn = false;
+        
         new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);        
     }
 
-    private IEnumerator UserIsNotLogged()
+    private IEnumerator WaitAndContinueToLoginScene()
     {
-        yield return new WaitForSeconds(3.0f);
-        labelOn = false;
+        yield return new WaitForSeconds(3.0f);        
         new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
     }
 
-    private IEnumerator LoadLabel()
+    private IEnumerator LoadingLabel()
     {
-        labelOn = true;
-        load.text = "";
-                
-        while (labelOn)
+
+        loadLabel.text = "";                
+        while (true)
         {
             yield return new WaitForSeconds(0.3f);            
             UpdateLabel();
@@ -60,13 +50,12 @@ public class Loading : MonoBehaviour {
     private void UpdateLabel()
     {
         string text = "Carregando...";
-        int count = load.text.Length;
+        int count = loadLabel.text.Length;
         if (count == text.Length)
         {
             count = 0;
-            load.text = "";
+            loadLabel.text = "";
         }
-        load.text += text[count];
-        count++;
+        loadLabel.text += text[count];        
     }
 }

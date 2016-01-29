@@ -8,7 +8,9 @@ public class StoreManager : MonoBehaviour {
     public GameObject deckStorePrefab;
     private GameObject collectionParent;
     private GameObject selectedDeckUI;
-    private Text currency;
+    public Text currency;
+    public Sprite selectedDeckImage;
+    public Sprite normalDeckImage;
     public GameObject cardContent;
     public GameObject cardTextModel;
     public GameObject painel;
@@ -26,13 +28,21 @@ public class StoreManager : MonoBehaviour {
             newDeck.GetComponent<StoreDeckUI>().SetStoreDeck(deck);
         }
 
-        currency = GameObject.Find("Currency").GetComponent<Text>();
-        currency.text = Player.getInstance().Currency.ToString();
+        if (deckList.Count > 0)
+        {
+            selectedDeckUI = collectionParent.transform.GetChild(0).gameObject;
+            OnDeckClick(collectionParent.transform.GetChild(0).gameObject);
+        }
+            
+              
+        currency.text = Player.getInstance().Currency.ToString();        
     }
 
     public void OnDeckClick(GameObject deckUI)
     {
+        selectedDeckUI.GetComponent<Image>().sprite = normalDeckImage;
         selectedDeckUI = deckUI;
+        selectedDeckUI.GetComponent<Image>().sprite = selectedDeckImage;
 
         StoreDeck deck = deckUI.GetComponent<StoreDeckUI>().getStoreDeck();
         List<StoreCard> storeCardList = deck.getCards();

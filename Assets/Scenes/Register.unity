@@ -186,6 +186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   painel: {fileID: 1455746795}
+  username: {fileID: 1351826874}
+  password: {fileID: 1611427794}
+  email: {fileID: 751286599}
   userError: {fileID: 248349684}
   passwordError: {fileID: 247415010}
   emailError: {fileID: 10715087}

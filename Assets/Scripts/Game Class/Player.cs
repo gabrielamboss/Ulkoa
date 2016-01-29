@@ -84,7 +84,7 @@ public class Player : ParseObject
         return answ;
     }
 
-    public static IEnumerator createNewPlayer(ParseUser user)
+    public static Player createNewPlayer(ParseUser user)
     {
         Player player = new Player();
         player.UserId = user.ObjectId;
@@ -92,10 +92,7 @@ public class Player : ParseObject
         player.IsPremium = false;
         player.StoreDeckNameList = new List<string>();
 
-        PlayerDao playerDao = new PlayerDao();
-        yield return playerDao.savePlayer(player);
-
-        setInstance(player);
+        return player;
     }
 
     public static void setInstance(Player player)

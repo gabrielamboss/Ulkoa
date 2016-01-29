@@ -1,22 +1,17 @@
-﻿using UnityEngine;
+﻿using Parse;
+using UnityEngine;
 using UnityEngine.UI;
-using Parse;
-using System;
 using System.Collections;
 
 public class Login : MonoBehaviour {
 
     public GameObject errorText;
     public GameObject painel;
-    private InputField username;
-    private InputField password;
+    public InputField username;
+    public InputField password;
 
     void Start()
-    {
-        GameObject usernameGO = GameObject.FindGameObjectWithTag("UIUsername");
-        GameObject passwordGO = GameObject.FindGameObjectWithTag("UIPassword");
-        username = usernameGO.GetComponent<InputField>();
-        password = passwordGO.GetComponent<InputField>();
+    {        
         errorText.SetActive(false);
     }
 
@@ -28,27 +23,21 @@ public class Login : MonoBehaviour {
     private IEnumerator LoginLogic()
     {        
         painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
-
-        Exception e = null;
+        
         bool loginSuccessful = false;
         bool wait = true;
 
         ParseUser.LogInAsync(username.text, password.text).ContinueWith(t =>
         {
             loginSuccessful = !(t.IsFaulted || t.IsCanceled);
-            e = t.Exception;
             wait = false;
         });
         while (wait) { yield return null; }
 
-        if (loginSuccessful)
-        {
-            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
-        }
-        else
-        {           
-            errorText.SetActive(true);
-        }
+        if (loginSuccessful)       
+            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);        
+        else        
+            errorText.SetActive(true);        
                 
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }

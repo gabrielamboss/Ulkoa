@@ -19,7 +19,9 @@ public class DeckCreatorModel : MonoBehaviour {
     private GameObject selectedCard = null;
     public Sprite selectedCardImage;
     public Sprite normalCardImage;
-    private bool waitSaveDeck; 
+    private bool waitSaveDeck;
+
+    public GameObject panel;
 
     // Use this for initialization
     void Awake()
@@ -138,6 +140,7 @@ public class DeckCreatorModel : MonoBehaviour {
 
     public void Save()
     {
+        panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
         //Save deck first
         //Its just a test
         waitSaveDeck = true;
@@ -162,19 +165,27 @@ public class DeckCreatorModel : MonoBehaviour {
 
         deck.CleanCardList();
 
+        int count = 0;
         foreach (GameObject cardGO in cardUIList)
         {
             Card card = cardGO.GetComponent<CardHolder>().GetCard();
             card.UserId = ParseUser.CurrentUser.ObjectId;
             card.DeckId = deck.ObjectId;
             deck.addCard(card);
-            card.SaveAsync();
+            card.SaveAsync().ContinueWith(t=> { count++; });
         }
 
+        while(count < cardUIList.Count)
+        {yield return null;}
+
+        count = 0;
         foreach (Card card in cardsToDelete)
         {
-            card.DeleteAsync();
+            card.DeleteAsync().ContinueWith(t => { count++; });
         }
+
+        while (count < cardsToDelete.Count)
+        { yield return null; }
 
         Player player = Player.getInstance();
 
@@ -182,5 +193,7 @@ public class DeckCreatorModel : MonoBehaviour {
             player.addDeck(deck);
 
         cardsToDelete.Clear();
+
+        panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 }

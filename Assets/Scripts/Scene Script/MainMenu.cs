@@ -1,31 +1,21 @@
 ﻿using Parse;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour {
 
-    private Text userName;
-    private Text stars;
+    public Text userName;
+    public Text stars;
 
     public Sprite selectedDeckImage;
     public Sprite normalDeckImage;
+
     public GameObject deckPrefab;
-    private GameObject selectedDeckUI;
-    private GameObject collectionParent;
+    public GameObject deckContainer;
 
-    void Awake()
-    {
-        collectionParent = GameObject.Find("Content");
-
-        GameObject userNameGO = GameObject.Find("User Name");
-        userName = userNameGO.GetComponent<Text>();
-
-        stars = GameObject.Find("Stars").GetComponent<Text>();
-        stars.text = Player.getInstance().Currency.ToString();
-    }
-	
+    private GameObject selectedDeckUI;    
+    	
 	void Start () {
 
         Player player = Player.getInstance();        
@@ -35,14 +25,15 @@ public class MainMenu : MonoBehaviour {
         foreach (Deck deck in deckList)
         {
             GameObject newDeck = Instantiate(deckPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            newDeck.transform.SetParent(collectionParent.transform, false);
+            newDeck.transform.SetParent(deckContainer.transform, false);
             newDeck.GetComponent<DeckHolder>().SetDeck(deck);
             Text text = newDeck.GetComponentInChildren<Text>();
             text.text = deck.DeckName;
         }
 
-        selectedDeckUI = collectionParent.transform.GetChild(0).gameObject;
+        selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;
         selectedDeckUI.GetComponent<Image>().sprite = selectedDeckImage;
+        OnDeckClick(selectedDeckUI);
     }		    
 
     public void OnDeckClick(GameObject deckUI)
@@ -63,12 +54,7 @@ public class MainMenu : MonoBehaviour {
     public void EditDeck()
     {
         Deck deck = GlobalVariables.GetSelectedDeck();
-        if(deck == null)
-        {
-            Debug.Log("Usuario nao selecionou deck");
-            return;
-        }
-
+        
         if (deck.IsEditable == false)
         {
             Debug.Log("Usuario nao editar esse deck");
@@ -90,7 +76,7 @@ public class MainMenu : MonoBehaviour {
         Deck selectedDeck = GlobalVariables.GetSelectedDeck();
         if (selectedDeck != null && selectedDeck.IsEditable)
         {            
-            foreach (Transform deckUI in collectionParent.transform)
+            foreach (Transform deckUI in deckContainer.transform)
             {                
                 Deck deck = deckUI.GetComponent<DeckHolder>().GetDeck();
 

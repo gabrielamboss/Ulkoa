@@ -1,17 +1,16 @@
 ﻿using Parse;
-using UnityEngine.UI;
-using UnityEngine;
 using System;
-using System.Threading.Tasks;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Register : MonoBehaviour {
 
     public GameObject painel;
-    private InputField username = null;
-    private InputField password = null;
-    private InputField email = null;
+
+    public InputField username = null;
+    public InputField password = null;
+    public InputField email = null;
 
     public Text userError;
     public Text passwordError;
@@ -19,13 +18,13 @@ public class Register : MonoBehaviour {
 
     void Start()
     {
-        GameObject usernameGO = GameObject.Find("Username Field");
-        GameObject passwordGO = GameObject.Find("Password Field");
-        GameObject emailGO = GameObject.Find("Email Field");
+        //GameObject usernameGO = GameObject.Find("Username Field");
+        //GameObject passwordGO = GameObject.Find("Password Field");
+        //GameObject emailGO = GameObject.Find("Email Field");
 
-        username = usernameGO.GetComponent<InputField>();
-        password = passwordGO.GetComponent<InputField>();
-        email = emailGO.GetComponent<InputField>();
+        //username = usernameGO.GetComponent<InputField>();
+        //password = passwordGO.GetComponent<InputField>();
+        //email = emailGO.GetComponent<InputField>();
     }
 
     public void Save()
@@ -81,8 +80,16 @@ public class Register : MonoBehaviour {
         {
             //Se conseguimos criar um novo usuario crie para ele um player
             //com as informacoes necessarias do jogador
-            yield return Player.createNewPlayer(ParseUser.CurrentUser);
-            yield return createDefaultDeck();
+            Player player = Player.createNewPlayer(user);
+            PlayerDao playerDao = new PlayerDao();
+            yield return playerDao.savePlayer(player);
+            Player.setInstance(player);
+
+            //Crie tambem um default deck
+            Deck defaultDeck = getDefaultDeck();
+            DeckDao deckDao = new DeckDao();
+            yield return deckDao.saveDeck(defaultDeck);
+
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
@@ -114,7 +121,7 @@ public class Register : MonoBehaviour {
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 
-    private IEnumerator createDefaultDeck()
+    private Deck getDefaultDeck()
     {
 
         DeckBuilder deckBuilder = new DeckBuilder()
@@ -124,9 +131,7 @@ public class Register : MonoBehaviour {
                                 .addCard("DefPor3", "DefEng3")
                                 .addCard("DefPor4", "DefEng4");
 
-        DeckDao deckDao = new DeckDao();
-        yield return deckDao.saveDeck(deckBuilder.getDeck());           
-
+        return deckBuilder.getDeck();          
     }
 
     public void GoBack()
