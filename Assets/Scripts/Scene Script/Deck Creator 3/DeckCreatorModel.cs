@@ -16,7 +16,9 @@ public class DeckCreatorModel : MonoBehaviour {
     //private List<Card> cardList;
     private List<GameObject> cardUIList;
     private List<Card> cardsToDelete;
-    private GameObject selectedCard;
+    private GameObject selectedCard = null;
+    public Sprite selectedCardImage;
+    public Sprite normalCardImage;
     private bool waitSaveDeck; 
 
     // Use this for initialization
@@ -49,8 +51,16 @@ public class DeckCreatorModel : MonoBehaviour {
         if(cardUIList.Count == 0)        
             CreateNewCard();
         
-        selectedCard = cardUIList[0];
-
+        if(cardUIList.Count > 0)
+        {
+            selectedCard = cardUIList[0];
+            selectedCard.GetComponent<Image>().sprite = selectedCardImage;
+        }
+        else
+        {
+            selectedCard = null;
+        }
+                    
         view.SetDeckNameScreen();
         view.UpdateScreen();
 	}
@@ -83,12 +93,17 @@ public class DeckCreatorModel : MonoBehaviour {
 
     public void SetSelectedCard(Card card)
     {
+        if(selectedCard != null)
+        {
+            selectedCard.GetComponent<Image>().sprite = normalCardImage;
+        }
         foreach (GameObject cardUI in cardUIList)
         {
             Card thisCard = cardUI.GetComponent<CardHolder>().GetCard();
             if (thisCard.Equals(card))
             {
                 selectedCard = cardUI;
+                selectedCard.GetComponent<Image>().sprite = selectedCardImage;
             }
         }        
     }
@@ -99,7 +114,8 @@ public class DeckCreatorModel : MonoBehaviour {
         newCard.PortugueseText = "Nova Carta";
         newCard.EnglishText = "New Card";
         newCard.LeitnerLevel = 1;
-        cardUIList.Add(CreateUICard(newCard));                
+        cardUIList.Add(CreateUICard(newCard));
+        SetSelectedCard(newCard);           
     }
 
     public void DeleteSelectedCard()
@@ -110,7 +126,7 @@ public class DeckCreatorModel : MonoBehaviour {
         if (cardUIList.Count == 0)        
             CreateNewCard();
         
-        selectedCard = cardUIList[0];        
+        SetSelectedCard(cardUIList[0].GetComponent<CardHolder>().GetCard());        
     }
 
     private GameObject CreateUICard(Card card) {

@@ -57,12 +57,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -169,6 +163,10 @@
     <Compile Include="Assets\Scripts\CardHolder.cs" />
     <Compile Include="Assets\Scripts\CardInputManager.cs" />
     <Compile Include="Assets\Scripts\CleanCardInput.cs" />
+    <Compile Include="Assets\Scripts\Dao\DeckDao.cs" />
+    <Compile Include="Assets\Scripts\Dao\PlayerDao.cs" />
+    <Compile Include="Assets\Scripts\Dao\StoreDeckDao.cs" />
+    <Compile Include="Assets\Scripts\DeckBuilder.cs" />
     <Compile Include="Assets\Scripts\DeckDisplayManager.cs" />
     <Compile Include="Assets\Scripts\DeckHolder.cs" />
     <Compile Include="Assets\Scripts\DisplayUser.cs" />

@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1307840711}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2093,6 +2093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca0ba1415d859f4689d88b4dc058e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedDeckImage: {fileID: 21300000, guid: 8a37c7eac8245e94ba04ccda40f686bb, type: 3}
+  normalDeckImage: {fileID: 21300000, guid: c831d277007d4b54bb99c0cb7676c738, type: 3}
   deckPrefab: {fileID: 102020, guid: 430b568968ada77478f8a2358d389ab5, type: 2}
 --- !u!4 &1763868519
 Transform:

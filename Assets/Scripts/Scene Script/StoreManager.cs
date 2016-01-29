@@ -9,7 +9,9 @@ public class StoreManager : MonoBehaviour {
     private GameObject collectionParent;
     private GameObject selectedDeckUI;
     private Text currency;
-
+    public GameObject cardContent;
+    public GameObject cardTextModel;
+    public GameObject painel;
 
     void Start () {
 
@@ -31,8 +33,37 @@ public class StoreManager : MonoBehaviour {
     public void OnDeckClick(GameObject deckUI)
     {
         selectedDeckUI = deckUI;
+
         StoreDeck deck = deckUI.GetComponent<StoreDeckUI>().getStoreDeck();
+        List<StoreCard> storeCardList = deck.getCards();
+
+        updateCardScroll(storeCardList);
+
         Debug.Log(deck.DeckName);
+    }
+
+    private void updateCardScroll(List<StoreCard> storeCardList)
+    {
+        //Limpar card scroll;
+        while (cardContent.transform.childCount > 0)
+        {
+            Transform child = cardContent.transform.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
+
+        foreach (StoreCard card in storeCardList)
+        {
+            GameObject newCard = Instantiate(cardTextModel, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            newCard.transform.SetParent(cardContent.transform, false);
+            newCard.GetComponent<Text>().text = card.PortugueseText;
+
+            newCard = Instantiate(cardTextModel, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            newCard.transform.SetParent(cardContent.transform, false);
+            newCard.GetComponent<Text>().text = card.EnglishText;
+
+            newCard.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 	
     public void Exit()
@@ -55,48 +86,33 @@ public class StoreManager : MonoBehaviour {
             Debug.Log("Voce nao tem moedas suficientes");
             return;
         }
-
-        selectedDeckUI.transform.parent = null;
+        
         StartCoroutine(saveDeck(storeDeck));
     }
 
     private IEnumerator saveDeck(StoreDeck storeDeck)
     {
-        
-        Deck deck = new Deck();
-        deck.DeckName = storeDeck.DeckName;
-        deck.UserId = Player.getInstance().UserId;
-        deck.TimesPlayed = 0;
-        deck.IsEditable = false;
+        painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
 
-        bool wait = true;
-        deck.SaveAsync().ContinueWith(t=>{ wait = false; });
-        while (wait)
-        {yield return null;}
+        DeckBuilder deckBuilder = new DeckBuilder(storeDeck);
+        Deck deck = deckBuilder.getDeck();
 
-        List<StoreCard> storeCardList = storeDeck.getCards();
-        foreach (StoreCard storeCard in storeCardList)
-        {
-            Card card = new Card();
-            card.UserId = Player.getInstance().UserId;
-            card.DeckId = deck.ObjectId;
-            card.LeitnerLevel = 1;
-            card.PortugueseText = storeCard.PortugueseText;
-            card.EnglishText = storeCard.EnglishText;
-            deck.addCard(card);
-            card.SaveAsync();
-        }
+        DeckDao deckDao = new DeckDao();
+        yield return deckDao.saveDeck(deck);
 
         Player player = Player.getInstance();
         player.AddToList("StoreDeckNameList", deck.DeckName);
         player.Currency -= storeDeck.Price;
-        currency.text = Player.getInstance().Currency.ToString();
+        currency.text = player.Currency.ToString();
         player.addDeck(deck);
-        wait = true;
-        player.SaveAsync().ContinueWith(t => { wait = false; });
-        while (wait)
-        { yield return null; }
+
+        PlayerDao playerDao = new PlayerDao();
+        yield return playerDao.savePlayer(player);
+
+        selectedDeckUI.transform.parent = null;
         Store.deletDeck(storeDeck);
+
+        painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 
 }

@@ -62,6 +62,10 @@ public class Player : ParseObject
         deckList.Remove(deck);
     }
 
+    public void setDeckList(List<Deck> list)
+    {
+        deckList = list;
+    }
     public List<Deck> getDeckList()
     {
         return deckList;
@@ -78,6 +82,20 @@ public class Player : ParseObject
         }
 
         return answ;
+    }
+
+    public static IEnumerator createNewPlayer(ParseUser user)
+    {
+        Player player = new Player();
+        player.UserId = user.ObjectId;
+        player.Currency = 10;
+        player.IsPremium = false;
+        player.StoreDeckNameList = new List<string>();
+
+        PlayerDao playerDao = new PlayerDao();
+        yield return playerDao.savePlayer(player);
+
+        setInstance(player);
     }
 
     public static void setInstance(Player player)

@@ -9,7 +9,10 @@ public class MainMenu : MonoBehaviour {
     private Text userName;
     private Text stars;
 
+    public Sprite selectedDeckImage;
+    public Sprite normalDeckImage;
     public GameObject deckPrefab;
+    private GameObject selectedDeckUI;
     private GameObject collectionParent;
 
     void Awake()
@@ -25,11 +28,10 @@ public class MainMenu : MonoBehaviour {
 	
 	void Start () {
 
-        Player player = Player.getInstance();
-        if (player == null) Debug.Log("Fuck??");
+        Player player = Player.getInstance();        
         userName.text = player.getName();
-        IList<Deck> deckList = player.getDeckList();
 
+        IList<Deck> deckList = player.getDeckList();
         foreach (Deck deck in deckList)
         {
             GameObject newDeck = Instantiate(deckPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -38,11 +40,17 @@ public class MainMenu : MonoBehaviour {
             Text text = newDeck.GetComponentInChildren<Text>();
             text.text = deck.DeckName;
         }
-        
+
+        selectedDeckUI = collectionParent.transform.GetChild(0).gameObject;
+        selectedDeckUI.GetComponent<Image>().sprite = selectedDeckImage;
     }		    
 
-    public void OnDeckClick(Deck deck)
+    public void OnDeckClick(GameObject deckUI)
     {
+        selectedDeckUI.GetComponent<Image>().sprite = normalDeckImage;
+        deckUI.GetComponent<Image>().sprite = selectedDeckImage;
+        selectedDeckUI = deckUI;
+        Deck deck = deckUI.GetComponent<DeckHolder>().GetDeck();
         Debug.Log(deck.DeckName);
         GlobalVariables.SetSelectedDeck(deck);
     }       

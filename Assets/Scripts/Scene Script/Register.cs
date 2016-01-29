@@ -81,14 +81,8 @@ public class Register : MonoBehaviour {
         {
             //Se conseguimos criar um novo usuario crie para ele um player
             //com as informacoes necessarias do jogador
-            Player player = new Player();
-            player.UserId = ParseUser.CurrentUser.ObjectId;
-            player.Currency = 0;
-            player.IsPremium = false;
-            player.StoreDeckNameList = new List<string>();            
-            wait = true;
-            player.SaveAsync().ContinueWith(t => { wait = false; });
-            while (wait) { yield return null; }
+            yield return Player.createNewPlayer(ParseUser.CurrentUser);
+            yield return createDefaultDeck();
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
         }
         else
@@ -118,6 +112,21 @@ public class Register : MonoBehaviour {
         }
         
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
+    }
+
+    private IEnumerator createDefaultDeck()
+    {
+
+        DeckBuilder deckBuilder = new DeckBuilder()
+                                .setDeckName("Default")
+                                .addCard("DefPor1", "DefEng1")
+                                .addCard("DefPor2", "DefEng2")
+                                .addCard("DefPor3", "DefEng3")
+                                .addCard("DefPor4", "DefEng4");
+
+        DeckDao deckDao = new DeckDao();
+        yield return deckDao.saveDeck(deckBuilder.getDeck());           
+
     }
 
     public void GoBack()

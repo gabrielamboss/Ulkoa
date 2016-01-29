@@ -139,7 +139,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 64952b3be9227b3439d73bdb9bb5ee76, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -286,6 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardUI: {fileID: 185822, guid: 289d9014fa8224b42951471d01e14d29, type: 2}
+  selectedCardImage: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
+  normalCardImage: {fileID: 21300000, guid: 64952b3be9227b3439d73bdb9bb5ee76, type: 3}
 --- !u!4 &134285388
 Transform:
   m_ObjectHideFlags: 0
@@ -581,7 +583,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 64952b3be9227b3439d73bdb9bb5ee76, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2421,7 +2423,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1378068850}
   m_HandleRect: {fileID: 1378068849}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2874,7 +2876,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: -166.25977}
+  m_AnchoredPosition: {x: 15, y: -83.12988}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.97}
 --- !u!114 &2112388550

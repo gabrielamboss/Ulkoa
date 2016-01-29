@@ -11,7 +11,7 @@ public class DeckHolder : MonoBehaviour {
         Button b = gameObject.GetComponent<Button>();
         b.onClick.AddListener(() => {
             GameObject go = GameObject.Find("MainMenu");
-            go.GetComponent<MainMenu>().OnDeckClick(myDeck);
+            go.GetComponent<MainMenu>().OnDeckClick(gameObject);
         });
     }
 
