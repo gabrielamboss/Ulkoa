@@ -378,7 +378,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48723d64e68f84942a00d111e1b253e2, type: 2}
-  m_RootGameObject: {fileID: 1529268003}
   m_IsPrefabParent: 0
 --- !u!1 &1303229725
 GameObject:
@@ -555,11 +554,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: f625885f5f5752d4d8562d3b32570275, type: 3}
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -574,48 +573,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1473213010}
---- !u!1 &1529268003
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 149416, guid: 48723d64e68f84942a00d111e1b253e2, type: 2}
-  m_PrefabInternal: {fileID: 503994144}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1529268005}
-  - 114: {fileID: 1529268004}
-  m_Layer: 0
-  m_Name: Fade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1529268004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11482454, guid: 48723d64e68f84942a00d111e1b253e2,
-    type: 2}
-  m_PrefabInternal: {fileID: 503994144}
-  m_GameObject: {fileID: 1529268003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 322e6e9f540f69c49a683200f675d87f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeOutTexture: {fileID: 2800000, guid: 037b844d0cf36ef45bf67225b53ab194, type: 3}
-  fadeSpeed: 0.8
---- !u!4 &1529268005
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 428866, guid: 48723d64e68f84942a00d111e1b253e2, type: 2}
-  m_PrefabInternal: {fileID: 503994144}
-  m_GameObject: {fileID: 1529268003}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.130629, y: -12.216221, z: 90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
 --- !u!1 &1691266146
 GameObject:
   m_ObjectHideFlags: 0

@@ -266,11 +266,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: f625885f5f5752d4d8562d3b32570275, type: 3}
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -394,11 +394,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: f625885f5f5752d4d8562d3b32570275, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -545,61 +545,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!1 &1529268003
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 181836, guid: 76a2dd9c04b4f0a4c969d3845b45e77e, type: 2}
-  m_PrefabInternal: {fileID: 1928131595}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1529268007}
-  - 20: {fileID: 1928131596}
-  - 92: {fileID: 1529268006}
-  - 124: {fileID: 1529268005}
-  - 81: {fileID: 1529268004}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &1529268004
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8124888, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1928131595}
-  m_GameObject: {fileID: 1529268003}
-  m_Enabled: 1
---- !u!124 &1529268005
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 12405746, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1928131595}
-  m_GameObject: {fileID: 1529268003}
-  m_Enabled: 1
---- !u!92 &1529268006
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9265998, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1928131595}
-  m_GameObject: {fileID: 1529268003}
-  m_Enabled: 1
---- !u!4 &1529268007
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 494924, guid: 76a2dd9c04b4f0a4c969d3845b45e77e, type: 2}
-  m_PrefabInternal: {fileID: 1928131595}
-  m_GameObject: {fileID: 1529268003}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
 --- !u!1 &1638650780
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,40 +647,9 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76a2dd9c04b4f0a4c969d3845b45e77e, type: 2}
-  m_RootGameObject: {fileID: 1529268003}
   m_IsPrefabParent: 0
---- !u!20 &1928131596
+--- !u!20 &1928131596 stripped
 Camera:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 2083452, guid: 76a2dd9c04b4f0a4c969d3845b45e77e,
     type: 2}
   m_PrefabInternal: {fileID: 1928131595}
-  m_GameObject: {fileID: 1529268003}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.004325264, g: 0.014081135, b: 0.029411793, a: 0.019607844}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
