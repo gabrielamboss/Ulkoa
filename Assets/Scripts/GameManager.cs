@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public GameObject wrongLeavingCardPrefab;
     private static String correctAnswer;
     private bool continueGame = true;
+    public GameObject WrongSymbol;
+    public GameObject CorrectSymbol;
+
 
     void Awake()
     {
@@ -137,19 +140,58 @@ public class GameManager : MonoBehaviour
 
     private void AdminUserInput(string userInput)
     {
-        if (userInput.ToLower().Equals(currentCard.EnglishText.ToLower()))
+        int Error = LevenshteinDistance.LevenshteinDistanceFunction(userInput.ToLower(), currentCard.EnglishText.ToLower());
+        var ErrorMeasure = (float)(Error * 100/ currentCard.EnglishText.Length);
+        Debug.Log("ErrorMeasure: " + ErrorMeasure);
+        if (ErrorMeasure == 0)
         {
-            GlobalVariables.correctAnswerAmount++;
-            if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
-            Debug.Log(cardObject.GetComponentInChildren<Text>().text);
-            DestroyImmediate(cardObject);
-            exitCorrectCard(cardObject);
-            Debug.Log("Voce acertou");
+            HandleCorrectInput();
+        }
+        else if (ErrorMeasure > 0 && ErrorMeasure < 20)
+        {
+            HandleAlmostCorrectInput();
         }
         else
         {
+            HandleWrongInput();
+        }
+    }
+
+    private void HandleAlmostCorrectInput()
+    {
+        if (continueGame)
+        {
+            GlobalVariables.wrongAnswerAmount++;
+            if (currentCard.LeitnerLevel > 1) currentCard.LeitnerLevel--;
+            Debug.Log(cardObject.GetComponentInChildren<Text>().text);
+            Debug.Log("Animation" + WrongSymbol.GetComponent<Animation>().Play());
+            WrongSymbol.GetComponent<Animation>().Play();
+            DestroyImmediate(cardObject);
+            exitWrongCard(cardObject);
+            Debug.Log("Voce quase acertou");
+        }
+    }
+
+    private void HandleCorrectInput()
+    {
+        GlobalVariables.correctAnswerAmount++;
+        if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
+        Debug.Log("Animation" + CorrectSymbol.GetComponent<Animation>().Play());
+        CorrectSymbol.GetComponent<Animation>().Play();
+        Debug.Log(cardObject.GetComponentInChildren<Text>().text);
+        DestroyImmediate(cardObject);
+        exitCorrectCard(cardObject);
+        Debug.Log("Voce acertou");
+    }
+
+    public void HandleWrongInput()
+    {
+        if (continueGame)
+        {
             GlobalVariables.wrongAnswerAmount++;
             currentCard.LeitnerLevel = 1;
+            WrongSymbol.GetComponent<Animation>().Play();
+            Debug.Log("Animation" + WrongSymbol.GetComponent<Animation>().Play());
             Debug.Log(cardObject.GetComponentInChildren<Text>().text);
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
