@@ -1,40 +1,65 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DeckCreatorController : MonoBehaviour {
 
     private DeckCreatorView view = null;
     private DeckCreatorModel model = null;
-    private InputField portugueseText = null;
-    private InputField englishText = null;
+    private bool editable;
+
+    public InputField deckName;
+    public InputField portugueseText;
+    public InputField englishText;
+
+    public GameObject panel;
+    public Text errorMsg;
 
     // Use this for initialization
     void Start () {
         view = gameObject.GetComponent<DeckCreatorView>();
-        model = gameObject.GetComponent<DeckCreatorModel>();        
+        model = gameObject.GetComponent<DeckCreatorModel>();
 
-        GameObject portObj = GameObject.Find("Portuguese Field");
-        portugueseText = portObj.GetComponent<InputField>();
+        Deck deck = GlobalVariables.GetSelectedDeck();
+        List<Card> cardList = deck.getCardList();
 
-        GameObject englObj = GameObject.Find("English Field");
-        englishText = englObj.GetComponent<InputField>();
+        if(cardList.Count == 0)
+        {
+            Card newCard = Card.creatNewCard();
+            cardList.Add(newCard);
+        }
+
+        model.init(deck);
+        view.init();
+
+        editable = deck.IsEditable;
+        if (editable)
+        {
+            errorMsg.text = "";
+        }
+        else
+        {
+            deckName.interactable = false;
+            portugueseText.interactable = false;
+            englishText.interactable = false;
+        }
     }		
 
-    public void OnCardClick(Card card)
+    public void OnCardClick(GameObject cardUI)
     {
-        model.SetSelectedCard(card);
-        view.UpdateScreen();
+        model.setSelectedCardUI(cardUI);
+        view.updatePorEnglText();
     }
 
     public void OnPortugueseTextFieldChange()
     {        
         if (model != null)
         {
-            GameObject cardUI = model.GetSelectedCard();            
-            cardUI.GetComponentInChildren<Text>().text = model.GetPortugueseText();
-            Card card = cardUI.GetComponent<CardHolder>().GetCard();
-            card.PortugueseText = model.GetPortugueseText();
+            GameObject cardUI = model.getSelectedCardUI();                        
+            CardHolder ch = cardUI.GetComponent<CardHolder>();
+            ch.setPortugueseText(portugueseText.text);
+            view.updateCardContainer();
         }        
     }
 
@@ -42,27 +67,90 @@ public class DeckCreatorController : MonoBehaviour {
     {
         if (model != null)
         {
-            GameObject cardUI = model.GetSelectedCard();
-            Card card = cardUI.GetComponent<CardHolder>().GetCard();
-            card.EnglishText = model.GetEnglishText();
+            GameObject cardUI = model.getSelectedCardUI();
+            CardHolder ch = cardUI.GetComponent<CardHolder>();
+            ch.setEnglishText(englishText.text);
+            view.updateCardContainer();
         }        
     }
 
     public void AddNewCard()
-    {        
-        model.CreateNewCard();
-        view.UpdateScreen();
+    {
+        if (!editable)
+            return;
+
+        Card newCard = Card.creatNewCard();
+        GameObject cardUI = model.addCard(newCard);
+        model.setSelectedCardUI(cardUI);
+        view.updateCardContainer();
+        view.updatePorEnglText();        
     }
 
     public void DeleteCard()
     {
-        model.DeleteSelectedCard();
-        view.UpdateScreen();        
+        if (!editable)
+            return;
+
+        model.deleteSelectedCard();
+
+        List<GameObject> cardUIList = model.getCardUIList();
+
+        if (cardUIList.Count == 0)
+        {
+            AddNewCard();
+        }
+        else
+        {
+            model.setSelectedCardUI(cardUIList[0]);
+            view.updateCardContainer();
+            view.updatePorEnglText();
+        }        
     }
 
     public void SaveDeck()
     {
-        model.Save();
+        if (!editable)
+            return;
+        
+        StartCoroutine(saveLogic());        
+    }
+
+    private IEnumerator saveLogic()
+    {
+        panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
+
+        List<GameObject> cardUIList = model.getCardUIList();
+        Deck deck = model.getDeck();
+        deck.CleanCardList();
+        foreach (GameObject cardUI in cardUIList)
+        {
+            CardHolder ch = cardUI.GetComponent<CardHolder>();
+            ch.updateCard();
+            deck.addCard(ch.getCard());
+        }
+
+        deck.DeckName = deckName.text;
+
+        DeckDao deckDao = new DeckDao();
+        yield return deckDao.saveDeck(deck);
+
+        List<Card> cardsToDelete = model.getCardsToDelete();
+        int total = cardsToDelete.Count;
+        int count = 0;        
+        foreach (Card card in cardsToDelete)
+        {
+            card.DeleteAsync().ContinueWith(t=>{ count++; });
+        }
+        while(count < total)
+        { yield return null; }
+
+        model.cleanGarbage();
+
+        Player player = Player.getInstance();
+        if (!player.hasDeck(deck))
+            player.addDeck(deck);
+
+        panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 
     public void Exit()

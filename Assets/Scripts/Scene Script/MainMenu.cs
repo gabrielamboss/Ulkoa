@@ -1,18 +1,21 @@
 ﻿using Parse;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour {
 
     public Text userName;
     public Text stars;
+    public Text errorMsg;
 
     public Sprite selectedDeckImage;
     public Sprite normalDeckImage;
 
     public GameObject deckPrefab;
     public GameObject deckContainer;
+    public GameObject panel;    
 
     private GameObject selectedDeckUI;    
     	
@@ -21,7 +24,6 @@ public class MainMenu : MonoBehaviour {
         Player player = Player.getInstance();        
         userName.text = player.getName();
         stars.text = player.Currency.ToString();
-
 
         IList<Deck> deckList = player.getDeckList();
         foreach (Deck deck in deckList)
@@ -54,51 +56,51 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void EditDeck()
-    {
-        Deck deck = GlobalVariables.GetSelectedDeck();
-        
-        if (deck.IsEditable == false)
-        {
-            Debug.Log("Usuario nao editar esse deck");
-            return;
-        }
+    {       
         new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
     }
 
     public void NewDeck()
     {
-        Deck newDeck = new Deck();
-        newDeck.DeckName = "";
-        GlobalVariables.SetSelectedDeck(newDeck);
-        new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
+        if (Player.getInstance().IsPremium)
+        {
+            Deck newDeck = Deck.createNewDeck();
+            GlobalVariables.SetSelectedDeck(newDeck);
+            new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
+        }
+        else
+        {
+            errorMsg.text = "Somente usuarios da conta premium podem criar seus proprios decks";
+        }        
     }
 
     public void DeleteDeck()
     {
         Deck selectedDeck = GlobalVariables.GetSelectedDeck();
-        if (selectedDeck != null && selectedDeck.IsEditable)
-        {            
-            foreach (Transform deckUI in deckContainer.transform)
-            {                
-                Deck deck = deckUI.GetComponent<DeckHolder>().GetDeck();
-
-                if (deck.Equals(selectedDeck))
-                {
-                    List<Card> cardList = deck.getCardList();
-
-                    deck.DeleteAsync();
-                    foreach (Card card in cardList)
-                    {
-                        card.DeleteAsync();
-                    }
-
-                    Destroy(deckUI.gameObject);
-
-                    Player.getInstance().removeDeck(deck);
-                }                
-            }
+        if (selectedDeck.IsEditable)
+        {
+            StartCoroutine(deleteLogic(selectedDeck));
         }
-        
+        else
+        {
+            errorMsg.text = "Voce so pode deletar decks criados com a conta premium";
+        }
+    }
+
+    private IEnumerator deleteLogic(Deck deck)
+    {
+        panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
+
+        Destroy(selectedDeckUI);
+        selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;
+        OnDeckClick(selectedDeckUI);
+
+        Player.getInstance().removeDeck(deck);
+
+        DeckDao deckDao = new DeckDao();
+        yield return deckDao.deleteDeck(deck);
+
+        panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
 
     public void GoToStore()

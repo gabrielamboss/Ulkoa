@@ -196,6 +196,7 @@
     <Compile Include="Assets\Scripts\GlobalVariables.cs" />
     <Compile Include="Assets\Scripts\LeitnerManager.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\LevenshteinDistance.cs" />
     <Compile Include="Assets\Scripts\LoadingPanelCreator.cs" />
     <Compile Include="Assets\Scripts\LogAdmin.cs" />
     <Compile Include="Assets\Scripts\LoginManager.cs" />

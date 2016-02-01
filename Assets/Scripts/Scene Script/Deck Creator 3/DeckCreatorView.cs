@@ -1,82 +1,58 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 public class DeckCreatorView : MonoBehaviour {
 
-    private DeckCreatorModel model = null;      
-    private GameObject collectionParent = null;
-    private InputField deckName = null;
-    private InputField portugueseText = null;
-    private InputField englishText = null;
+    private DeckCreatorModel model;
 
-    void Awake()
+    public GameObject cardContainer;
+
+    public InputField deckName;
+    public InputField portugueseText;
+    public InputField englishText;    
+
+    public void init()
     {
         GameObject deckCreator = GameObject.Find("Deck Creator");
         model = deckCreator.GetComponent<DeckCreatorModel>();
 
-        GameObject deckNameObj = GameObject.Find("Deck Name");
-        deckName = deckNameObj.GetComponent<InputField>();
-
-        GameObject portObj = GameObject.Find("Portuguese Field");
-        portugueseText = portObj.GetComponent<InputField>();       
-
-        GameObject englObj = GameObject.Find("English Field");
-        englishText = englObj.GetComponent<InputField>();
-
-        collectionParent = GameObject.Find("Content");        
-    }
-	
-	void Start () {       
-        
+        deckName.text = model.getDeckName();
+        updateCardContainer();
+        updatePorEnglText();
     }
 
-    public void SetDeckNameScreen() {
-        deckName.text = model.GetDeckName();
-    }
-
-	public void UpdateScreen()
+    public void updateCardContainer()
     {
-        CleanScreen();        
+        while (cardContainer.transform.childCount > 0)
+        {            
+            Transform child = cardContainer.transform.GetChild(0);
+            child.parent = null;
+        }
 
-        List<GameObject> cardList = model.GetCardList();
-        foreach (GameObject cardUI in cardList) {
-            //Debug.Log(card.PortugueseText + " " + card.EnglishText);
-            //AddCardToScrollField(card);
-            cardUI.transform.localScale = new Vector3(1,1,1);
-            cardUI.transform.SetParent(collectionParent.transform, false);
-        }        
+        List<GameObject> cardUIList = model.getCardUIList();
 
-        GameObject selectedCardUI = model.GetSelectedCard();
-        Card selectedCard = selectedCardUI.GetComponent<CardHolder>().GetCard();
-        Debug.Log(selectedCard.PortugueseText + " " + selectedCard.EnglishText);
-        portugueseText.text = selectedCard.PortugueseText;
-        englishText.text = selectedCard.EnglishText;
-
-        
-    }
-
-    private void CleanScreen()
-    {
-        while (collectionParent.transform.childCount > 0)
+        cardUIList.Sort(delegate (GameObject go1, GameObject go2)
         {
-            Debug.Log(collectionParent.transform.childCount);
-            Transform child = collectionParent.transform.GetChild(0);
-            child.parent = null;            
-        }                
+            CardHolder ch1 = go1.GetComponent<CardHolder>();
+            CardHolder ch2 = go2.GetComponent<CardHolder>();
+            return ch1.getPortugueseText().CompareTo(ch2.getPortugueseText());
+        });
+
+        foreach (GameObject cardUI in cardUIList)
+        {            
+            cardUI.transform.localScale = new Vector3(1, 1, 1);
+            cardUI.transform.SetParent(cardContainer.transform, false);
+        }
     }
 
-    /*
-    private void AddCardToScrollField(Card card)
+    public void updatePorEnglText()
     {
-        GameObject cardObject = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        cardObject.transform.SetParent(collectionParent.transform, false);
-        cardObject.GetComponent<CardHolder>().SetCard(card);
-        Text text = cardObject.GetComponentInChildren<Text>();
-        text.text = card.PortugueseText;
-    }
-    */
+        GameObject selectedCardUI = model.getSelectedCardUI();
+        CardHolder ch = selectedCardUI.GetComponent<CardHolder>();
 
+        portugueseText.text = ch.getPortugueseText();
+        englishText.text = ch.getEnglishText();
+    }
+    
 }

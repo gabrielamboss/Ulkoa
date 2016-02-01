@@ -51,4 +51,15 @@ public class Deck : ParseObject {
         cardList.Clear();
     }
 
+    public static Deck createNewDeck()
+    {
+        Deck deck = new Deck();
+
+        deck.DeckName = "";
+        deck.IsEditable = true;
+        deck.TimesPlayed = 0;
+
+        return deck;
+    }
+
 }

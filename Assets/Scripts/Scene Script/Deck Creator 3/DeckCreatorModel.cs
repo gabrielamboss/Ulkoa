@@ -1,199 +1,95 @@
-﻿using Parse;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 public class DeckCreatorModel : MonoBehaviour {
     public GameObject cardUI;
-
-    private DeckCreatorView view;
-    private InputField deckName;
-    private InputField portugueseText;
-    private InputField englishText;
-
+    
     private Deck deck;
-    //private List<Card> cardList;
-    private List<GameObject> cardUIList;
-    private List<Card> cardsToDelete;
-    private GameObject selectedCard = null;
+    
+    private List<GameObject> cardUIList = new List<GameObject>();
+    private List<Card> cardsToDelete = new List<Card>();
+    private GameObject selectedCardUI = null;
+
     public Sprite selectedCardImage;
-    public Sprite normalCardImage;
-    private bool waitSaveDeck;
+    public Sprite normalCardImage;        
 
-    public GameObject panel;
-
-    // Use this for initialization
-    void Awake()
-    {        
-        GameObject deckCreator = GameObject.Find("Deck Creator");
-        view = deckCreator.GetComponent<DeckCreatorView>();
-
-        GameObject deckNameGO = GameObject.Find("Deck Name");
-        deckName = deckNameGO.GetComponent<InputField>();
-
-        GameObject portObj = GameObject.Find("Portuguese Field");
-        portugueseText = portObj.GetComponent<InputField>();
-
-        GameObject englObj = GameObject.Find("English Field");
-        englishText = englObj.GetComponent<InputField>();
-    }
-
-    void Start () {
-
-        deck = GlobalVariables.GetSelectedDeck();
-        cardUIList = new List<GameObject>();
+	public void init(Deck deck)
+    {
+        this.deck = deck;
         List<Card> cardList = deck.getCardList();
         foreach (Card card in cardList)
         {
-            cardUIList.Add(CreateUICard(card));
+            cardUIList.Add(createUICard(card));
         }
-        cardsToDelete = new List<Card>();
+                
+        cardUIList.Sort(delegate (GameObject go1, GameObject go2)
+        {
+            CardHolder ch1 = go1.GetComponent<CardHolder>();
+            CardHolder ch2 = go2.GetComponent<CardHolder>();
+            return ch1.getPortugueseText().CompareTo(ch2.getPortugueseText());
+        });
 
-        if(cardUIList.Count == 0)        
-            CreateNewCard();
-        
-        if(cardUIList.Count > 0)
-        {
-            selectedCard = cardUIList[0];
-            selectedCard.GetComponent<Image>().sprite = selectedCardImage;
-        }
-        else
-        {
-            selectedCard = null;
-        }
-                    
-        view.SetDeckNameScreen();
-        view.UpdateScreen();
-	}
-	
-	
-    public List<GameObject> GetCardList()
+        selectedCardUI = cardUIList[0];
+        setSelectedCardUI(selectedCardUI);
+    }
+
+    public List<GameObject> getCardUIList()
     {
         return cardUIList;
     }
     
-    public string GetDeckName()
+    public string getDeckName()
     {
         return deck.DeckName;
-    }
+    }    
 
-    public string GetPortugueseText()
+    public GameObject getSelectedCardUI()
     {
-        return portugueseText.text;
+        return selectedCardUI;
     }
 
-    public string GetEnglishText()
+    public void setSelectedCardUI(GameObject cardUI)
+    {        
+        selectedCardUI.GetComponent<Image>().sprite = normalCardImage;
+        selectedCardUI = cardUI;
+        selectedCardUI.GetComponent<Image>().sprite = selectedCardImage;        
+    }   
+
+    public GameObject addCard(Card card)
     {
-        return englishText.text;
-    }
+        deck.addCard(card);
+        GameObject cardUI = createUICard(card);
+        cardUIList.Add(cardUI);
+        return cardUI;
+    }   
 
-    public GameObject GetSelectedCard()
+    public void deleteSelectedCard()
     {
-        return selectedCard;
+        cardUIList.Remove(selectedCardUI);        
+        cardsToDelete.Add(selectedCardUI.GetComponent<CardHolder>().getCard());        
+        Destroy(selectedCardUI);
     }
 
-    public void SetSelectedCard(Card card)
-    {
-        if(selectedCard != null)
-        {
-            selectedCard.GetComponent<Image>().sprite = normalCardImage;
-        }
-        foreach (GameObject cardUI in cardUIList)
-        {
-            Card thisCard = cardUI.GetComponent<CardHolder>().GetCard();
-            if (thisCard.Equals(card))
-            {
-                selectedCard = cardUI;
-                selectedCard.GetComponent<Image>().sprite = selectedCardImage;
-            }
-        }        
-    }
-
-    public void CreateNewCard()
-    {
-        Card newCard = new Card();
-        newCard.PortugueseText = "Nova Carta";
-        newCard.EnglishText = "New Card";
-        newCard.LeitnerLevel = 1;
-        cardUIList.Add(CreateUICard(newCard));
-        SetSelectedCard(newCard);           
-    }
-
-    public void DeleteSelectedCard()
-    {
-        cardUIList.Remove(selectedCard);
-        cardsToDelete.Add(selectedCard.GetComponent<CardHolder>().GetCard());
-
-        if (cardUIList.Count == 0)        
-            CreateNewCard();
-        
-        SetSelectedCard(cardUIList[0].GetComponent<CardHolder>().GetCard());        
-    }
-
-    private GameObject CreateUICard(Card card) {
+    private GameObject createUICard(Card card) {
         GameObject cardObject = Instantiate(cardUI, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        cardObject.GetComponent<CardHolder>().SetCard(card);
-        cardObject.GetComponentInChildren<Text>().text = card.PortugueseText;
+        cardObject.GetComponent<CardHolder>().setCard(card);        
         return cardObject;
     }
 
-    public void Save()
+    public Deck getDeck()
     {
-        panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
-        //Save deck first
-        //Its just a test
-        waitSaveDeck = true;
-        deck.DeckName = deckName.text;
-        deck.UserId = ParseUser.CurrentUser.ObjectId;
-        deck.IsEditable = true;
-        deck.TimesPlayed = 0;
-        deck.SaveAsync().ContinueWith(t=>
-        {
-            waitSaveDeck = false;
-        });
-
-        StartCoroutine(SaveAndDeleteCards());        
+        return deck;
     }
 
-    private IEnumerator SaveAndDeleteCards()
+    public List<Card> getCardsToDelete()
     {
-        while (waitSaveDeck)
-        {
-            yield return null;
-        }
+        return cardsToDelete;
+    }
 
-        deck.CleanCardList();
-
-        int count = 0;
-        foreach (GameObject cardGO in cardUIList)
-        {
-            Card card = cardGO.GetComponent<CardHolder>().GetCard();
-            card.UserId = ParseUser.CurrentUser.ObjectId;
-            card.DeckId = deck.ObjectId;
-            deck.addCard(card);
-            card.SaveAsync().ContinueWith(t=> { count++; });
-        }
-
-        while(count < cardUIList.Count)
-        {yield return null;}
-
-        count = 0;
-        foreach (Card card in cardsToDelete)
-        {
-            card.DeleteAsync().ContinueWith(t => { count++; });
-        }
-
-        while (count < cardsToDelete.Count)
-        { yield return null; }
-
-        Player player = Player.getInstance();
-
-        if(!player.hasDeck(deck))
-            player.addDeck(deck);
-
+    public void cleanGarbage()
+    {
         cardsToDelete.Clear();
-
-        panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
+    
 }

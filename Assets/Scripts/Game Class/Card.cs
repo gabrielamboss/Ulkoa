@@ -1,4 +1,5 @@
 ﻿using Parse;
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -36,5 +37,16 @@ public class Card : ParseObject {
     {
         get { return GetProperty<int>("LeitnerLevel"); }
         set { SetProperty<int>(value, "LeitnerLevel"); }
+    }    
+
+    public static Card creatNewCard()
+    {
+        Card card = new Card();
+
+        card.PortugueseText = "NovoPor";
+        card.EnglishText = "NewEngl";
+        card.LeitnerLevel = 1;
+
+        return card;
     }
 }
