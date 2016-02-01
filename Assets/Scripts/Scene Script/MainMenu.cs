@@ -20,6 +20,8 @@ public class MainMenu : MonoBehaviour {
 
         Player player = Player.getInstance();        
         userName.text = player.getName();
+        stars.text = player.Currency.ToString();
+
 
         IList<Deck> deckList = player.getDeckList();
         foreach (Deck deck in deckList)

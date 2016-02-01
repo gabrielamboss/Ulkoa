@@ -52,7 +52,17 @@ public class GameManager : MonoBehaviour
             leitnerManager = new LeitnerManager(currentDeck);
         }
         
+        if(currentDeck.TimesPlayed == 0)
+        {
+            ShowPopUp();
+        }
+
         UpdateScreen();
+    }
+
+    private void ShowPopUp()
+    {
+        Debug.Log("Quase!");
     }
 
 
