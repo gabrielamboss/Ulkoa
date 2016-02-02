@@ -21,6 +21,17 @@ public class StoreManager : MonoBehaviour {
 
         List<StoreDeck> deckList = Store.getDeckList();
 
+        deckList.Sort(delegate(StoreDeck sd1, StoreDeck sd2)
+        {
+            if (!sd1.IsPremium && sd2.IsPremium)
+                return -1;
+
+            if (sd1.IsPremium && !sd2.IsPremium)
+                return 1;
+
+            return sd1.DeckName.CompareTo(sd2.DeckName);
+        });
+        
         foreach (StoreDeck deck in deckList)
         {
             GameObject newDeck = Instantiate(deckStorePrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -61,6 +72,11 @@ public class StoreManager : MonoBehaviour {
             child.SetParent(null);
             Destroy(child.gameObject);
         }
+
+        storeCardList.Sort(delegate (StoreCard sc1, StoreCard sc2)
+        {
+            return sc1.PortugueseText.CompareTo(sc2.PortugueseText);
+        });
 
         foreach (StoreCard card in storeCardList)
         {

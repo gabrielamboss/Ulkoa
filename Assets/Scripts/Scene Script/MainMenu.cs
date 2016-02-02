@@ -25,7 +25,26 @@ public class MainMenu : MonoBehaviour {
         userName.text = player.getName();
         stars.text = player.Currency.ToString();
 
-        IList<Deck> deckList = player.getDeckList();
+        buildDeckContainer();
+    }		    
+
+    private void buildDeckContainer()
+    {        
+        Player player = Player.getInstance();
+
+        //Clean deck container
+        while (deckContainer.transform.childCount > 0)
+        {           
+            Transform child = deckContainer.transform.GetChild(0);
+            child.parent = null;
+        }
+        
+        List<Deck> deckList = player.getDeckList();
+        deckList.Sort(delegate(Deck d1, Deck d2)
+        {
+            return d1.DeckName.CompareTo(d2.DeckName);
+        });
+
         foreach (Deck deck in deckList)
         {
             GameObject newDeck = Instantiate(deckPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -34,11 +53,12 @@ public class MainMenu : MonoBehaviour {
             Text text = newDeck.GetComponentInChildren<Text>();
             text.text = deck.DeckName;
         }
-
+        
         selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;
         selectedDeckUI.GetComponent<Image>().sprite = selectedDeckImage;
         OnDeckClick(selectedDeckUI);
-    }		    
+        
+    }
 
     public void OnDeckClick(GameObject deckUI)
     {
@@ -99,6 +119,47 @@ public class MainMenu : MonoBehaviour {
 
         DeckDao deckDao = new DeckDao();
         yield return deckDao.deleteDeck(deck);
+
+        panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
+    }
+
+    public void BePremium()
+    {
+        Player player = Player.getInstance();
+        if (player.IsPremium)
+        {
+            errorMsg.text = "Avise o usuario que ele ja eh premium";
+            return;
+        }
+
+        StartCoroutine(PremiumLogic());
+    }
+
+    private IEnumerator PremiumLogic()
+    {
+        panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
+
+        Player player = Player.getInstance();
+        DeckBuilder deckBuilder;
+        Deck deck;
+        DeckDao deckDao = new DeckDao();
+        List<StoreDeck> storeDeckList = Store.getDeckList();
+        foreach (StoreDeck storeDeck in storeDeckList)
+        {
+            deckBuilder = new DeckBuilder(storeDeck);
+            deck = deckBuilder.getDeck();
+            yield return deckDao.saveDeck(deck);
+            player.addDeck(deck);
+            player.AddToList("StoreDeckNameList", deck.DeckName);
+        }
+
+        player.IsPremium = true;
+        PlayerDao playerDao = new PlayerDao();
+        yield return playerDao.savePlayer(player);
+
+        Store.clean();
+
+        buildDeckContainer();
 
         panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }

@@ -203,8 +203,10 @@
     <Compile Include="Assets\Scripts\LoutMainMenu.cs" />
     <Compile Include="Assets\Scripts\Match.cs" />
     <Compile Include="Assets\Scripts\MockDeckFactory.cs" />
+    <Compile Include="Assets\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\ParseInitializeTest.cs" />
     <Compile Include="Assets\Scripts\ParseInitializer.cs" />
+    <Compile Include="Assets\Scripts\RedirectToEdit.cs" />
     <Compile Include="Assets\Scripts\RegisterManager.cs" />
     <Compile Include="Assets\Scripts\SRSManager.cs" />
     <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreatorController.cs" />

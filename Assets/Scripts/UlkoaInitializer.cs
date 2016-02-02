@@ -27,16 +27,36 @@ public abstract class UlkoaInitializer {
         player.setName(user.Username);
         player.setDeckList(deckList);
         Player.setInstance(player);
-                
+
+        bool change = false;
+        DeckBuilder deckBuilder;
+        Deck deck;
         IList<string> playerStoreDecks = player.StoreDeckNameList;
-        foreach (StoreDeck deck in storeDeckList)
+        foreach (StoreDeck storeDeck in storeDeckList)
         {           
-            if (!playerStoreDecks.Contains(deck.DeckName))
-            {                
-                Store.addDeck(deck);
+            if (!playerStoreDecks.Contains(storeDeck.DeckName))
+            {
+                if (player.IsPremium)
+                {
+                    deckBuilder = new DeckBuilder(storeDeck);
+                    deck = deckBuilder.getDeck();
+                    yield return deckDao.saveDeck(deck);
+                    player.addDeck(deck);
+                    player.AddToList("StoreDeckNameList", deck.DeckName);
+                    change = true;
+                }
+                else
+                {
+                    Store.addDeck(storeDeck);
+                }                
             }
         }
-        
+
+        if (change)
+        {
+            playerDao.savePlayer(player);
+        }
+
         hasInitialized = true;
     }        
 

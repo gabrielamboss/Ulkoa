@@ -28,7 +28,7 @@ public class Store{
 
     public static void clean()
     {
-        deckList = new List<StoreDeck>();
+        deckList.Clear();
     }
 
 }
