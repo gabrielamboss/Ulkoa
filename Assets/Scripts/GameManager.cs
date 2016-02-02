@@ -169,8 +169,7 @@ public class GameManager : MonoBehaviour
         {
             GlobalVariables.wrongAnswerAmount++;
             if (currentCard.LeitnerLevel > 1) currentCard.LeitnerLevel--;
-            Debug.Log("Animation " + WrongSymbol.GetComponent<Animation>().Play());
-            WrongSymbol.GetComponent<Animation>().Play();
+            WrongSymbol.GetComponent<Animator>().Play("Playing");
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
             Debug.Log("Voce quase acertou");
@@ -181,8 +180,7 @@ public class GameManager : MonoBehaviour
     {
         GlobalVariables.correctAnswerAmount++;
         if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
-        Debug.Log("Animation " + CorrectSymbol.GetComponent<Animation>().Play());
-        CorrectSymbol.GetComponent<Animation>().Play();
+        CorrectSymbol.GetComponent<Animator>().Play("Playing");
         DestroyImmediate(cardObject);
         exitCorrectCard(cardObject);
         Debug.Log("Voce acertou");
@@ -194,8 +192,7 @@ public class GameManager : MonoBehaviour
         {
             GlobalVariables.wrongAnswerAmount++;
             currentCard.LeitnerLevel = 1;
-            WrongSymbol.GetComponent<Animation>().Play();
-            Debug.Log("Animation " + WrongSymbol.GetComponent<Animation>().Play());
+            WrongSymbol.GetComponent<Animator>().Play("Playing");
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
             Debug.Log("Voce errou");

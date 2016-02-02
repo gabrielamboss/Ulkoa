@@ -65,6 +65,7 @@ public class Deck : ParseObject
         Deck deck = new Deck();
 
         deck.DeckName = "";
+        deck.UserId = Player.getInstance().UserId;
         deck.IsEditable = true;
         deck.TimesPlayed = 0;
         deck.IsFirstTime = true;

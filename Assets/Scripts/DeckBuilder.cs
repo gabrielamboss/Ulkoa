@@ -8,16 +8,14 @@ public class DeckBuilder{
 
     public DeckBuilder()
     {
-        deck.UserId = Player.getInstance().UserId;
-        deck.IsEditable = false;
-        deck.TimesPlayed = 0;
+        deck = Deck.createNewDeck();
     }
 
     public DeckBuilder(StoreDeck storeDeck)
     {
         Player player = Player.getInstance();
 
-        deck = new Deck();
+        deck = Deck.createNewDeck();
         deck.DeckName = storeDeck.DeckName;
         deck.UserId = player.UserId;
         deck.TimesPlayed = 0;
