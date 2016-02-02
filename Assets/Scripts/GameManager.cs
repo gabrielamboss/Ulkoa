@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public GameObject correctLeavingCardPrefab;
     public GameObject wrongLeavingCardPrefab;
     private static String correctAnswer;
-    private bool continueGame = true;
     public GameObject WrongSymbol;
     public GameObject CorrectSymbol;
 
@@ -40,7 +39,7 @@ public class GameManager : MonoBehaviour
         GlobalVariables.wrongAnswerAmount = 0;  
         if (test)
         {
-            Debug.Log("Test");
+            Debug.Log("Test mode");
             currentDeck = MockDeckFabric.DefaultDeck();
             leitnerManager = new LeitnerManager(currentDeck);
             deckMannager = new GameDeckMannager(currentDeck);
@@ -48,28 +47,28 @@ public class GameManager : MonoBehaviour
         else
         {
             currentDeck = GlobalVariables.GetSelectedDeck();
-            Debug.Log(currentDeck.DeckName);
+            Debug.Log("Playng Deck: " + currentDeck.DeckName);
             leitnerManager = new LeitnerManager(currentDeck);
         }
         
-        if(currentDeck.TimesPlayed == 0)
+        Debug.Log("Times played: " + currentDeck.TimesPlayed);
+        if (GlobalVariables.continueGame)
         {
-            ShowPopUp();
+            UpdateScreen();
         }
-
-        UpdateScreen();
     }
-
-    private void ShowPopUp()
-    {
-        Debug.Log("Quase!");
-    }
-
 
     // Update is called once per frame
     void Update()
     {
-        if (continueGame)
+        if (GlobalVariables.continueGame)
+        {
+            if (leitnerManager.IsFirst())
+            {
+                UpdateScreen();
+            }
+        }
+        if (GlobalVariables.continueGame)
         {
             FocusInput();
             if (Input.GetKeyDown(KeyCode.Return))
@@ -77,10 +76,9 @@ public class GameManager : MonoBehaviour
                 if (userInput.text != null && userInput.text != "")
                 {
                     AdminUserInput(userInput.text);
-                    if (continueGame)
+                    if (GlobalVariables.continueGame)
                     {
                         UpdateScreen();
-                        Debug.Log("Here");
                     }
                 }
             }
@@ -126,7 +124,7 @@ public class GameManager : MonoBehaviour
         List<Card> sessionCards = leitnerManager.GetSessionCards();
         foreach (Card card in sessionCards)
         {
-            Debug.Log(card.LeitnerLevel);
+            Debug.Log("Letiner level da carta "+ card.EnglishText + ": " + card.LeitnerLevel);
             card.SaveAsync();
         }
     }
@@ -142,7 +140,6 @@ public class GameManager : MonoBehaviour
     {
         currentCard = leitnerManager.GetNextCard();
         correctAnswer = currentCard.EnglishText;
-        Debug.Log("Instanciando");
         cardObject = Instantiate(cardPrefab, new Vector3(0, Screen.height / 2 + 120, 0), Quaternion.identity) as GameObject;
         cardObject.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
         cardObject.GetComponentInChildren<Text>().text = currentCard.PortugueseText;
@@ -169,12 +166,11 @@ public class GameManager : MonoBehaviour
 
     private void HandleAlmostCorrectInput()
     {
-        if (continueGame)
+        if (GlobalVariables.continueGame)
         {
             GlobalVariables.wrongAnswerAmount++;
             if (currentCard.LeitnerLevel > 1) currentCard.LeitnerLevel--;
-            Debug.Log(cardObject.GetComponentInChildren<Text>().text);
-            Debug.Log("Animation" + WrongSymbol.GetComponent<Animation>().Play());
+            Debug.Log("Animation " + WrongSymbol.GetComponent<Animation>().Play());
             WrongSymbol.GetComponent<Animation>().Play();
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
@@ -186,9 +182,8 @@ public class GameManager : MonoBehaviour
     {
         GlobalVariables.correctAnswerAmount++;
         if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
-        Debug.Log("Animation" + CorrectSymbol.GetComponent<Animation>().Play());
+        Debug.Log("Animation " + CorrectSymbol.GetComponent<Animation>().Play());
         CorrectSymbol.GetComponent<Animation>().Play();
-        Debug.Log(cardObject.GetComponentInChildren<Text>().text);
         DestroyImmediate(cardObject);
         exitCorrectCard(cardObject);
         Debug.Log("Voce acertou");
@@ -196,13 +191,12 @@ public class GameManager : MonoBehaviour
 
     public void HandleWrongInput()
     {
-        if (continueGame)
+        if (GlobalVariables.continueGame)
         {
             GlobalVariables.wrongAnswerAmount++;
             currentCard.LeitnerLevel = 1;
             WrongSymbol.GetComponent<Animation>().Play();
-            Debug.Log("Animation" + WrongSymbol.GetComponent<Animation>().Play());
-            Debug.Log(cardObject.GetComponentInChildren<Text>().text);
+            Debug.Log("Animation " + WrongSymbol.GetComponent<Animation>().Play());
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
             Debug.Log("Voce errou");
@@ -244,31 +238,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitToCardGetDown()
     {
-        continueGame = false;
-        Debug.Log(continueGame);
+        GlobalVariables.continueGame = false;
         yield return new WaitForSeconds(3);
-        continueGame = true;
-        Debug.Log(continueGame);
+        GlobalVariables.continueGame = true;
         UpdateScreen();
     }
 
     IEnumerator WaitToCardGetDownToLeaveWrong()
     {
-        continueGame = false;
-        Debug.Log(continueGame);
+        GlobalVariables.continueGame = false;
         yield return new WaitForSeconds(4);
-        continueGame = true;
-        Debug.Log(continueGame);
+        GlobalVariables.continueGame = true;
         UpdateScreen();
     }
 
     IEnumerator WaitToCardGetDownToLeaveCorrect()
     {
-        continueGame = false;
-        Debug.Log(continueGame);
+        GlobalVariables.continueGame = false;
         yield return new WaitForSeconds(4);
-        continueGame = true;
-        Debug.Log(continueGame);
+        GlobalVariables.continueGame = true;
         UpdateScreen();
     }
 }

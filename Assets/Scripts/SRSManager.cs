@@ -5,4 +5,5 @@ public interface SRSManager
     Card GetNextCard();
     bool IsCurrentDeckEmpty();
     List<Card> GetSessionCards();
+    bool IsFirst();
 }

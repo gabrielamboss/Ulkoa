@@ -10,6 +10,7 @@ public class LeitnerManager : SRSManager{
     public int MockTimesPlayed = 10;
     private int currentTimesPlayed;
     private int numberOfCurrentTraining;
+    private int originalSize;
     private List<int> currentTraining;
     private List<Card> sessionCards = new List<Card>();
     
@@ -30,7 +31,8 @@ public class LeitnerManager : SRSManager{
 
     private void setUpCurrentDeck()
     {
-        currentTimesPlayed = deck.TimesPlayed;
+        if(deck.TimesPlayed == 0) currentTimesPlayed = deck.TimesPlayed;
+        else currentTimesPlayed = deck.TimesPlayed - 1;
         numberOfCurrentTraining = currentTimesPlayed % GlobalVariables.LeitnerRoutine.Count;
         currentTraining = GlobalVariables.LeitnerRoutine[numberOfCurrentTraining];
 
@@ -41,10 +43,11 @@ public class LeitnerManager : SRSManager{
                 if (!currentDeck.Contains(card))
                 {
                     currentDeck.Add(card);
-                    Debug.Log(card.LeitnerLevel);
+                    Debug.Log("Carta " + card.EnglishText + " com LeitnerLevel " + card.LeitnerLevel + " adicionada");
                 }
             }
         }
+        originalSize = currentDeck.Count;
         
     }
 
@@ -62,7 +65,6 @@ public class LeitnerManager : SRSManager{
 
         int currentSize = currentDeck.Count;
         int randomNextCard = new System.Random().Next(0, currentSize);
-        Debug.Log("Random" + randomNextCard);
         Card cardRemoved = currentDeck[randomNextCard];
         currentDeck.Remove(cardRemoved);
         sessionCards.Add(cardRemoved);
@@ -83,5 +85,11 @@ public class LeitnerManager : SRSManager{
     public List<Card> GetSessionCards()
     {
         return sessionCards;
+    }
+
+    public bool IsFirst()
+    {
+        if (currentDeck.Count == originalSize) return true;
+        else return false;
     }
 }
