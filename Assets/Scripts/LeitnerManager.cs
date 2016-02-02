@@ -47,6 +47,13 @@ public class LeitnerManager : SRSManager{
                 }
             }
         }
+
+        if(currentDeck.Count <= deck.getCardList().Count / 2)
+        {
+            Debug.Log("Deck atual possui " + currentDeck.Count + " cartas. Adicionando mais cartas");
+            deck.TimesPlayed++;
+            setUpCurrentDeck();
+        }
         originalSize = currentDeck.Count;
         
     }

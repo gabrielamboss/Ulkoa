@@ -23,7 +23,7 @@ public class DeckProgress : MonoBehaviour {
         {
             float cardProgress;
             cardProgress = (card.LeitnerLevel - 1) * maxProgressPerCard / 4;
-            Debug.Log(cardProgress);
+            Debug.Log(card.EnglishText + "ja esta com " + cardProgress + " de progresso. Atual LeitnerLevel: " + card.LeitnerLevel);
             deckProgress += cardProgress;
         }
         return deckProgress;

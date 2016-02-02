@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             UpdateScreen();
         }
     }
-
+    
     // Update is called once per frame
     void Update()
     {
