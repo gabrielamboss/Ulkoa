@@ -172,7 +172,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11193206, guid: 6a929dd9c9a27ea4b965555f1e8f3424, type: 2}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11193206, guid: 6a929dd9c9a27ea4b965555f1e8f3424, type: 2}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 6a929dd9c9a27ea4b965555f1e8f3424, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &94655532
@@ -455,7 +464,7 @@ GameObject:
   - 224: {fileID: 197210309}
   - 222: {fileID: 197210311}
   - 114: {fileID: 197210310}
-  - 111: {fileID: 197210312}
+  - 95: {fileID: 197210312}
   m_Layer: 0
   m_Name: CorrectSymbol
   m_TagString: Untagged
@@ -516,22 +525,23 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 57258515}
   m_GameObject: {fileID: 197210308}
---- !u!111 &197210312
-Animation:
+--- !u!95 &197210312
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11193206, guid: 6a929dd9c9a27ea4b965555f1e8f3424,
-    type: 2}
-  m_PrefabInternal: {fileID: 57258515}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 197210308}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 4ae7894e38710844fa212713bffc05ec, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 4ae7894e38710844fa212713bffc05ec, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 036c442e369ce284189c9a26524919b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &367972677
 Prefab:
   m_ObjectHideFlags: 0
@@ -611,7 +621,20 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11146254, guid: e21059dece7216c4dabc494226bff5c6, type: 2}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11146254, guid: e21059dece7216c4dabc494226bff5c6, type: 2}
+      propertyPath: m_CullingType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11146254, guid: e21059dece7216c4dabc494226bff5c6, type: 2}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: e21059dece7216c4dabc494226bff5c6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &658880021
@@ -1192,7 +1215,7 @@ GameObject:
   - 224: {fileID: 1773079292}
   - 222: {fileID: 1773079295}
   - 114: {fileID: 1773079294}
-  - 111: {fileID: 1773079293}
+  - 95: {fileID: 1773079293}
   m_Layer: 5
   m_Name: WrongSymbol
   m_TagString: Untagged
@@ -1218,22 +1241,23 @@ RectTransform:
   m_AnchoredPosition: {x: -300, y: 15}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &1773079293
-Animation:
+--- !u!95 &1773079293
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11146254, guid: e21059dece7216c4dabc494226bff5c6,
-    type: 2}
-  m_PrefabInternal: {fileID: 367972677}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1773079291}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 72710afe75fb3e44289bed36c7377646, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 72710afe75fb3e44289bed36c7377646, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb2d5a11f6366b449ab838f84de8564d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &1773079294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,7 +1671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardLabel: {fileID: 0}
   userInput: {fileID: 94655534}
-  test: 0
+  test: 1
   cardPrefab: {fileID: 193568, guid: b5d6f29e143d70d4982d937463c85564, type: 2}
   correctLeavingCardPrefab: {fileID: 161340, guid: 1ac16ce063c62784bb924417c556274f,
     type: 2}
