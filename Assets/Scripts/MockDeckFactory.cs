@@ -8,6 +8,7 @@ public class MockDeckFabric : MonoBehaviour
     {
         Deck deck = new Deck();
         deck.TimesPlayed = 0;
+        deck.IsFirstTime = true;
 
         deck.addCard(MockCard("front1", "back1", 1));
         deck.addCard(MockCard("front2", "back2", 1));

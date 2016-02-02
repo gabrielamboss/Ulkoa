@@ -8,12 +8,11 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
 
-    public Text cardLabel;
     public InputField userInput;
     public bool test;
     private Card currentCard;
     private GameDeckMannager deckMannager;
-    private LevelManager levelManager;
+    private LevelManager levelManager = new LevelManager();
     private SRSManager leitnerManager;
     private Deck currentDeck;
     public GameObject cardPrefab;
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GlobalVariables.correctAnswerAmount = 0;
-        GlobalVariables.wrongAnswerAmount = 0;  
+        GlobalVariables.wrongAnswerAmount = 0;
         if (test)
         {
             Debug.Log("Test mode");
@@ -50,14 +49,15 @@ public class GameManager : MonoBehaviour
             Debug.Log("Playng Deck: " + currentDeck.DeckName);
             leitnerManager = new LeitnerManager(currentDeck);
         }
-        
+
         Debug.Log("Times played: " + currentDeck.TimesPlayed);
+        Debug.Log("IsFirtTime: " + currentDeck.IsFirstTime);
         if (GlobalVariables.continueGame)
         {
             UpdateScreen();
         }
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Jogo finalizado, salvando dados e mudando de cena:");
         saveDeck();
         saveCards();
-        levelManager = new LevelManager();
         levelManager.LoadLevel(SceneBook.END_GAME_NAME);
     }
 
@@ -124,7 +123,7 @@ public class GameManager : MonoBehaviour
         List<Card> sessionCards = leitnerManager.GetSessionCards();
         foreach (Card card in sessionCards)
         {
-            Debug.Log("Letiner level da carta "+ card.EnglishText + ": " + card.LeitnerLevel);
+            Debug.Log("Letiner level da carta " + card.EnglishText + ": " + card.LeitnerLevel);
             card.SaveAsync();
         }
     }
@@ -148,7 +147,7 @@ public class GameManager : MonoBehaviour
     private void AdminUserInput(string userInput)
     {
         int Error = LevenshteinDistance.LevenshteinDistanceFunction(userInput.ToLower(), currentCard.EnglishText.ToLower());
-        var ErrorMeasure = (float)(Error * 100/ currentCard.EnglishText.Length);
+        var ErrorMeasure = (float)(Error * 100 / currentCard.EnglishText.Length);
         Debug.Log("ErrorMeasure: " + ErrorMeasure);
         if (ErrorMeasure == 0)
         {
@@ -170,7 +169,8 @@ public class GameManager : MonoBehaviour
         {
             GlobalVariables.wrongAnswerAmount++;
             if (currentCard.LeitnerLevel > 1) currentCard.LeitnerLevel--;
-			WrongSymbol.GetComponent<Animator>().Play("Playing");
+            Debug.Log("Animation " + WrongSymbol.GetComponent<Animation>().Play());
+            WrongSymbol.GetComponent<Animation>().Play();
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
             Debug.Log("Voce quase acertou");
@@ -181,7 +181,8 @@ public class GameManager : MonoBehaviour
     {
         GlobalVariables.correctAnswerAmount++;
         if (currentCard.LeitnerLevel < 5) currentCard.LeitnerLevel++;
-        CorrectSymbol.GetComponent<Animator>().Play("Playing");
+        Debug.Log("Animation " + CorrectSymbol.GetComponent<Animation>().Play());
+        CorrectSymbol.GetComponent<Animation>().Play();
         DestroyImmediate(cardObject);
         exitCorrectCard(cardObject);
         Debug.Log("Voce acertou");
@@ -193,7 +194,8 @@ public class GameManager : MonoBehaviour
         {
             GlobalVariables.wrongAnswerAmount++;
             currentCard.LeitnerLevel = 1;
-            WrongSymbol.GetComponent<Animator>().Play("Playing");
+            WrongSymbol.GetComponent<Animation>().Play();
+            Debug.Log("Animation " + WrongSymbol.GetComponent<Animation>().Play());
             DestroyImmediate(cardObject);
             exitWrongCard(cardObject);
             Debug.Log("Voce errou");
@@ -213,7 +215,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine("WaitToCardGetDown");
         }
-}
+    }
 
     private void exitCorrectCard(GameObject cardObject)
     {
@@ -256,4 +258,10 @@ public class GameManager : MonoBehaviour
         GlobalVariables.continueGame = true;
         UpdateScreen();
     }
+
+    public void BackToMainMenu()
+    {
+        levelManager.LoadLevel(SceneBook.MAIN_MENU_NAME);
+    }
+
 }

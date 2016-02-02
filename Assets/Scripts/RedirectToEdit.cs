@@ -11,7 +11,7 @@ public class RedirectToEdit : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        if (GlobalVariables.GetSelectedDeck().TimesPlayed == 0)
+        if (GlobalVariables.GetSelectedDeck().IsFirstTime)
         {
             ShowPopUp();
 
@@ -34,7 +34,7 @@ public class RedirectToEdit : MonoBehaviour
         GlobalVariables.continueGame = true;
         button.enabled = true;
         field.enabled = true;
-        GlobalVariables.GetSelectedDeck().TimesPlayed++;
+        GlobalVariables.GetSelectedDeck().IsFirstTime = false;
         GlobalVariables.GetSelectedDeck().SaveAsync();
         Redirect();
         Destroy(gameObject);
@@ -52,7 +52,8 @@ public class RedirectToEdit : MonoBehaviour
         GlobalVariables.continueGame = true;
         button.enabled = true;
         field.enabled = true;
-        GlobalVariables.GetSelectedDeck().TimesPlayed++;
+        GlobalVariables.GetSelectedDeck().IsFirstTime = false;
+        GlobalVariables.GetSelectedDeck().SaveAsync();
         Destroy(gameObject);
     }
 }

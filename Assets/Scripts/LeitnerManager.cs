@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class LeitnerManager : SRSManager{
+public class LeitnerManager : SRSManager
+{
     private Deck deck;
     private List<Card> cardList;
     private List<Card> currentDeck = new List<Card>();
@@ -13,12 +14,12 @@ public class LeitnerManager : SRSManager{
     private int originalSize;
     private List<int> currentTraining;
     private List<Card> sessionCards = new List<Card>();
-    
+
 
     public LeitnerManager(Deck deck)
     {
         this.deck = deck;
-        cardList = (List<Card>) deck.getCardList();
+        cardList = (List<Card>)deck.getCardList();
         Debug.Log("LetnerManager started");
         //foreach (Card card in cardList)
         //   {
@@ -26,13 +27,12 @@ public class LeitnerManager : SRSManager{
         //    }
 
         setUpCurrentDeck();
-     
+
     }
 
     private void setUpCurrentDeck()
     {
-        if(deck.TimesPlayed == 0) currentTimesPlayed = deck.TimesPlayed;
-        else currentTimesPlayed = deck.TimesPlayed - 1;
+        currentTimesPlayed = deck.TimesPlayed;
         numberOfCurrentTraining = currentTimesPlayed % GlobalVariables.LeitnerRoutine.Count;
         currentTraining = GlobalVariables.LeitnerRoutine[numberOfCurrentTraining];
 
@@ -48,24 +48,26 @@ public class LeitnerManager : SRSManager{
             }
         }
 
-        if(currentDeck.Count <= deck.getCardList().Count / 2)
+        if (currentDeck.Count <= deck.getCardList().Count / 2)
         {
             Debug.Log("Deck atual possui " + currentDeck.Count + " cartas. Adicionando mais cartas");
             deck.TimesPlayed++;
             setUpCurrentDeck();
         }
         originalSize = currentDeck.Count;
-        
+
     }
 
     // Use this for initialization
-    void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public Card GetNextCard()
     {

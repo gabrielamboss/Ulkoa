@@ -5,15 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 
 [ParseClassName("Deck")]
-public class Deck : ParseObject {
+public class Deck : ParseObject
+{
 
-    private List<Card> cardList = new List<Card>();	          
+    private List<Card> cardList = new List<Card>();
 
-	[ParseFieldName("DeckName")]
-	public string DeckName {
-		get { return GetProperty<string>("DeckName"); }
-   		set { SetProperty<string>(value, "DeckName"); }
-	}
+    [ParseFieldName("DeckName")]
+    public string DeckName
+    {
+        get { return GetProperty<string>("DeckName"); }
+        set { SetProperty<string>(value, "DeckName"); }
+    }
 
     [ParseFieldName("UserId")]
     public string UserId
@@ -34,6 +36,13 @@ public class Deck : ParseObject {
     {
         get { return GetProperty<int>("TimesPlayed"); }
         set { SetProperty<int>(value, "TimesPlayed"); }
+    }
+
+    [ParseFieldName("IsFirstTime")]
+    public bool IsFirstTime
+    {
+        get { return GetProperty<bool>("IsFirstTime"); }
+        set { SetProperty<bool>(value, "IsFirstTime"); }
     }
 
     public void addCard(Card card)
@@ -58,6 +67,7 @@ public class Deck : ParseObject {
         deck.DeckName = "";
         deck.IsEditable = true;
         deck.TimesPlayed = 0;
+        deck.IsFirstTime = true;
 
         return deck;
     }
