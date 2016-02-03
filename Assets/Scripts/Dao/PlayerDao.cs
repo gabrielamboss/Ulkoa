@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using Parse;
+﻿using Parse;
 using System.Collections;
 
 public class PlayerDao {

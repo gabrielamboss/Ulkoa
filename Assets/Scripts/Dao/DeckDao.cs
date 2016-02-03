@@ -71,21 +71,19 @@ public class DeckDao {
 
     public IEnumerator deleteDeck(Deck deck)
     {
-        bool wait = true;
-        deck.DeleteAsync().ContinueWith(t => { wait = false; });
-        while (wait)
-        { yield return null; }
-
         List<Card> cardList = deck.getCardList();
 
         int count = 0;
         foreach (Card card in cardList)
-        {
-            card.UserId = Player.getInstance().UserId;
-            card.DeckId = deck.ObjectId;
+        {            
             card.DeleteAsync().ContinueWith(t => { count++; });
         }
         while (count < cardList.Count)
         { yield return null; }
+
+        bool wait = true;
+        deck.DeleteAsync().ContinueWith(t => { wait = false; });
+        while (wait)
+        { yield return null; }        
     }
 }

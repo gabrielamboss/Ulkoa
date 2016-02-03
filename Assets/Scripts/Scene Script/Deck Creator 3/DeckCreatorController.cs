@@ -112,6 +112,14 @@ public class DeckCreatorController : MonoBehaviour {
         if (!editable)
             return;
         
+        if(deckName.text == "")
+        {
+            errorMsg.text = "Voce precisa definir um nome para o deck";
+            return;
+        }                    
+        else
+            errorMsg.text = "";
+
         StartCoroutine(saveLogic());        
     }
 

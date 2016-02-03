@@ -57,8 +57,7 @@ public class DeckCreatorModel : MonoBehaviour {
     }   
 
     public GameObject addCard(Card card)
-    {
-        deck.addCard(card);
+    {        
         GameObject cardUI = createUICard(card);
         cardUIList.Add(cardUI);
         return cardUI;
