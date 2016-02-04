@@ -8,13 +8,15 @@ public class EvolutionSceneView : MonoBehaviour {
 
     public GameObject cardContainer;
 
-    public InputField deckName;
+
     public InputField portugueseText;
     public InputField englishText;
 
     public Text previousLeitnerLevel;
     public Text actualLeitnerLevel;
-    public Text answer;   
+    public Text deckName;
+    public Text answer;
+    public Text sessionNumber;
 
     public void init()
     {
@@ -22,6 +24,7 @@ public class EvolutionSceneView : MonoBehaviour {
         model = deckCreator.GetComponent<EvolutionSceneModel>();
 
         deckName.text = model.getDeckName();
+        sessionNumber.text = model.getSessionNumber();
         updateCardContainer();
         updatePorEnglText();
     }
@@ -57,8 +60,8 @@ public class EvolutionSceneView : MonoBehaviour {
 
         portugueseText.text = ch.getPortugueseText();
         englishText.text = ch.getEnglishText();
-        actualLeitnerLevel.text = ch.getLeitnerLevel().ToString();
-        previousLeitnerLevel.text = ch.getPreviousLeitnerLevel().ToString();
+        actualLeitnerLevel.text = ch.getLeitnerLevel();
+        previousLeitnerLevel.text = ch.getPreviousLeitnerLevel();
         answer.text = ch.getUserAnswer();
     }
     

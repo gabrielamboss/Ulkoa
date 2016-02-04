@@ -56,18 +56,34 @@ public class CardHolderES : MonoBehaviour {
         myCard.EnglishText = englishText;
     }
 
-    public int getLeitnerLevel()
+    public string getLeitnerLevel()
     {
-        return myCard.LeitnerLevel;
+        return myCard.LeitnerLevel.ToString();
     }
 
-    public int getPreviousLeitnerLevel()
+    public string getPreviousLeitnerLevel()
     {
-        return GlobalVariables.OriginalLevels[myCard.ObjectId];
+        if (GlobalVariables.OriginalLevels.ContainsKey(myCard.ObjectId))
+        {
+            return GlobalVariables.OriginalLevels[myCard.ObjectId].ToString();
+
+        }
+        else
+        {
+            return getLeitnerLevel();
+        }
     }
     
     public string getUserAnswer()
     {
-        return GlobalVariables.UserAnswers[myCard.ObjectId];
+        if (GlobalVariables.UserAnswers.ContainsKey(myCard.ObjectId))
+        {
+            return GlobalVariables.UserAnswers[myCard.ObjectId].ToString();
+
+        }
+        else
+        {
+            return "Esta carta não foi jogada nessa sessão.";
+        }
     }
 }

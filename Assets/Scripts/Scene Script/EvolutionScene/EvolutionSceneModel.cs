@@ -42,6 +42,11 @@ public class EvolutionSceneModel : MonoBehaviour {
     public string getDeckName()
     {
         return deck.DeckName;
+    }
+    
+    public string getSessionNumber()
+    {
+        return deck.TimesPlayed.ToString();
     }    
 
     public GameObject getSelectedCardUI()

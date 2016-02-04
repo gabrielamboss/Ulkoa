@@ -9,12 +9,15 @@ public class EvolutionSceneController : MonoBehaviour {
     private EvolutionSceneModel model = null;
     private bool editable;
 
-    public InputField deckName;
     public InputField portugueseText;
     public InputField englishText;
 
     public GameObject panel;
     public Text errorMsg;
+    public Text deckName;
+    public Text sessionNumber;
+
+    private bool PreviousIsEditable;
 
     // Use this for initialization
     void Start () {
@@ -22,6 +25,8 @@ public class EvolutionSceneController : MonoBehaviour {
         model = gameObject.GetComponent<EvolutionSceneModel>();
 
         Deck deck = GlobalVariables.GetSelectedDeck();
+        PreviousIsEditable = deck.IsEditable;
+        deck.IsEditable = false;
         List<Card> cardList = deck.getCardList();
 
         if(cardList.Count == 0)
@@ -40,7 +45,6 @@ public class EvolutionSceneController : MonoBehaviour {
         }
         else
         {
-            deckName.interactable = false;
             portugueseText.interactable = false;
             englishText.interactable = false;
         }
@@ -163,6 +167,7 @@ public class EvolutionSceneController : MonoBehaviour {
 
     public void Exit()
     {
+        GlobalVariables.GetSelectedDeck().IsEditable = PreviousIsEditable;
         new LevelManager().LoadLevel(SceneBook.END_GAME_NAME);
     }
 }
