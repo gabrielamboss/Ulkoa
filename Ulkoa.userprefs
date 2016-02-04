@@ -1,13 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MatchHistoryInitializer.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="173" Column="57" />
-      <File FileName="Assets\Scripts\MusicPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GlobalVariables.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SceneBook.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Scene Script\SplashScene.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RedirectToEdit.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MatchHistoryInitializer.cs" Line="28" Column="5" />
+      <File FileName="Assets\Scripts\UlkoaInitializer.cs" Line="16" Column="59" />
+      <File FileName="Assets\Scripts\Dao\MatchDao.cs" Line="12" Column="86" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
