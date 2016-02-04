@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
             {
                 if (userInput.text != null && userInput.text != "")
                 {
+                    GlobalVariables.UserAnswers.Add(currentCard.ObjectId, userInput.text);
                     AdminUserInput(userInput.text);
                     if (GlobalVariables.continueGame)
                     {
@@ -153,7 +154,7 @@ public class GameManager : MonoBehaviour
         {
             HandleCorrectInput();
         }
-        else if (ErrorMeasure > 0 && ErrorMeasure < 20)
+        else if (ErrorMeasure > 0 && ErrorMeasure <= 20)
         {
             HandleAlmostCorrectInput();
         }

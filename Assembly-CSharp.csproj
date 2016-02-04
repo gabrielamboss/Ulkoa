@@ -188,6 +188,10 @@
      <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreatorModel.cs" />
      <Compile Include="Assets\Scripts\Scene Script\Deck Creator 3\DeckCreatorView.cs" />
      <Compile Include="Assets\Scripts\Scene Script\DeckCreator.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\EvolutionScene\CardHolderES.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\EvolutionScene\EvolutionSceneController.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\EvolutionScene\EvolutionSceneModel.cs" />
+     <Compile Include="Assets\Scripts\Scene Script\EvolutionScene\EvolutionSceneView.cs" />
      <Compile Include="Assets\Scripts\Scene Script\Loading.cs" />
      <Compile Include="Assets\Scripts\Scene Script\Login.cs" />
      <Compile Include="Assets\Scripts\Scene Script\MainMenu.cs" />

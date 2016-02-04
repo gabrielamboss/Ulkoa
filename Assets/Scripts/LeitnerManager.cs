@@ -21,6 +21,7 @@ public class LeitnerManager : SRSManager
         this.deck = deck;
         cardList = (List<Card>)deck.getCardList();
         GlobalVariables.OriginalLevels = new Dictionary<string, int>();
+        GlobalVariables.UserAnswers = new Dictionary<string, string>();
         Debug.Log("LetnerManager started");
         //foreach (Card card in cardList)
         //   {
