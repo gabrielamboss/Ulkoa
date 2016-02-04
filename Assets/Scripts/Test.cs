@@ -90,7 +90,7 @@ public class Test : MonoBehaviour {
     private IEnumerator InitAndContinueWith(Action Method)
     {        
         yield return UlkoaInitializer.InitializeGame();
-        while (!UlkoaInitializer.hasInitialied())
+        while (!UlkoaInitializer.HasInitialized())
         {yield return null;}
         Method();
     }

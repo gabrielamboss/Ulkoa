@@ -8,12 +8,12 @@ public class DeckDao {
 
     List<Deck> deckList;
 
-    public IEnumerator MakeQuerryGetDeckList(Player player)
+    public IEnumerator MakeQueryGetDeckList(Player player)
     {
-        ParseQuery<Deck> deckQuerry = new ParseQuery<Deck>().WhereEqualTo("UserId", player.UserId);
+        ParseQuery<Deck> deckQuery = new ParseQuery<Deck>().WhereEqualTo("UserId", player.UserId);
 
         bool wait = true;
-        deckQuerry.FindAsync().ContinueWith(t => {
+        deckQuery.FindAsync().ContinueWith(t => {
             deckList = t.Result.ToList<Deck>();
             wait = false;
         });
@@ -22,10 +22,10 @@ public class DeckDao {
 
         List<Card> cardList = null;
 
-        ParseQuery<Card> cardQuerry = new ParseQuery<Card>().WhereEqualTo("UserId", player.UserId);
+        ParseQuery<Card> cardQuery = new ParseQuery<Card>().WhereEqualTo("UserId", player.UserId);
 
         wait = true;
-        cardQuerry.FindAsync().ContinueWith(t => {
+        cardQuery.FindAsync().ContinueWith(t => {
             cardList = t.Result.ToList<Card>();
             wait = false;
         });
@@ -44,7 +44,7 @@ public class DeckDao {
         }
     }
 
-    public List<Deck> getQuerryResultDeckList()
+    public List<Deck> getQueryResultDeckList()
     {
         return deckList;
     }

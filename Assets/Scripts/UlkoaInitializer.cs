@@ -10,18 +10,18 @@ public abstract class UlkoaInitializer {
     {                                        
         ParseUser user = ParseUser.CurrentUser;
         
-        //Making querry
+        //Making query
         PlayerDao playerDao = new PlayerDao();
-        yield return playerDao.MakeQuerryGetPlayer(user);
-        Player player = playerDao.getQuerryResultPlayer();
+        yield return playerDao.MakeQueryGetPlayer(user);
+        Player player = playerDao.getQueryResultPlayer();
         
         DeckDao deckDao = new DeckDao();
-        yield return deckDao.MakeQuerryGetDeckList(player);
-        List<Deck> deckList = deckDao.getQuerryResultDeckList();
+        yield return deckDao.MakeQueryGetDeckList(player);
+        List<Deck> deckList = deckDao.getQueryResultDeckList();
 
         StoreDeckDao storeDeckDao = new StoreDeckDao();
-        yield return storeDeckDao.MakeQuerryGetDeckList();
-        List<StoreDeck> storeDeckList = storeDeckDao.getQuerryResultStoreDeckList();
+        yield return storeDeckDao.MakeQueryGetDeckList();
+        List<StoreDeck> storeDeckList = storeDeckDao.getQueryResultStoreDeckList();
 
         //Injecting dependency
         player.setName(user.Username);
@@ -60,7 +60,7 @@ public abstract class UlkoaInitializer {
         hasInitialized = true;
     }        
 
-    public static bool hasInitialied()
+    public static bool HasInitialized()
     {
         return hasInitialized;
     }

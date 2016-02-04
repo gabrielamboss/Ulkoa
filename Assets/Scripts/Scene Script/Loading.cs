@@ -24,7 +24,7 @@ public class Loading : MonoBehaviour {
     {
         yield return UlkoaInitializer.InitializeGame();
 
-        while (!UlkoaInitializer.hasInitialied())
+        while (!UlkoaInitializer.HasInitialized())
         { yield return null;}
         
         new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);        

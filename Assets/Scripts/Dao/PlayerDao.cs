@@ -5,12 +5,12 @@ public class PlayerDao {
 
     private Player player;
 
-    public IEnumerator MakeQuerryGetPlayer(ParseUser user)
+    public IEnumerator MakeQueryGetPlayer(ParseUser user)
     {
-        ParseQuery<Player> querry = new ParseQuery<Player>().WhereEqualTo("UserId", user.ObjectId);
+        ParseQuery<Player> Query = new ParseQuery<Player>().WhereEqualTo("UserId", user.ObjectId);
 
         bool wait = true;
-        querry.FirstAsync().ContinueWith(t => {
+        Query.FirstAsync().ContinueWith(t => {
             player = t.Result;
             wait = false;
         });
@@ -19,7 +19,7 @@ public class PlayerDao {
 
     }    
 
-    public Player getQuerryResultPlayer()
+    public Player getQueryResultPlayer()
     {
         return player;
     }

@@ -7,9 +7,9 @@ public class MatchDao {
 
     List<Match> matchList;
 
-    public IEnumerator MakeQuerryGetMatchList(Player player)
+    public IEnumerator MakeQueryGetMatchList(Deck deck)
     {
-        ParseQuery<Match> matchQuerry = new ParseQuery<Match>().WhereEqualTo("UserId", player.UserId);
+		ParseQuery<Match> matchQuerry = new ParseQuery<Match>().WhereEqualTo("DeckID", deck.ObjectId);
 
         bool wait = true;
         matchQuerry.FindAsync().ContinueWith(t => {
@@ -21,7 +21,7 @@ public class MatchDao {
                 
     }
 
-    public List<Match> getQuerryResultMatchList()
+    public List<Match> getQueryResultMatchList()
     {
         return matchList;
     }

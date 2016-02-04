@@ -8,12 +8,12 @@ public class StoreDeckDao : MonoBehaviour {
 
     List<StoreDeck> deckList;
 
-    public IEnumerator MakeQuerryGetDeckList()
+    public IEnumerator MakeQueryGetDeckList()
     {
-        ParseQuery<StoreDeck> deckQuerry = new ParseQuery<StoreDeck>();
+        ParseQuery<StoreDeck> deckQuery = new ParseQuery<StoreDeck>();
 
         bool wait = true;
-        deckQuerry.FindAsync().ContinueWith(t => {
+        deckQuery.FindAsync().ContinueWith(t => {
             deckList = t.Result.ToList<StoreDeck>();
             wait = false;
         });
@@ -22,10 +22,10 @@ public class StoreDeckDao : MonoBehaviour {
 
         List<StoreCard> cardList = null;
 
-        ParseQuery<StoreCard> cardQuerry = new ParseQuery<StoreCard>();
+        ParseQuery<StoreCard> cardQuery = new ParseQuery<StoreCard>();
 
         wait = true;
-        cardQuerry.FindAsync().ContinueWith(t => {
+        cardQuery.FindAsync().ContinueWith(t => {
             cardList = t.Result.ToList<StoreCard>();
             wait = false;
         });
@@ -44,7 +44,7 @@ public class StoreDeckDao : MonoBehaviour {
         }
     }
 
-    public List<StoreDeck> getQuerryResultStoreDeckList()
+    public List<StoreDeck> getQueryResultStoreDeckList()
     {
         return deckList;
     }
