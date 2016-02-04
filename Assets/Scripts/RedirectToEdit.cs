@@ -43,6 +43,7 @@ public class RedirectToEdit : MonoBehaviour
 
     private void Redirect()
     {
+        GlobalVariables.GoBackToGame = true;
         LevelManager levelManager = new LevelManager();
         levelManager.LoadLevel(SceneBook.DECK_CREATOR_NAME);
     }

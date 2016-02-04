@@ -8,16 +8,21 @@ public class CurrencyGiver : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        if (GlobalVariables.wrongAnswerAmount == 0)
+        if (GlobalVariables.WasNotDisplayed)
         {
-            ShowCurrencyGain();
-            
-            button.enabled = false;        }
+            if (GlobalVariables.wrongAnswerAmount == 0)
+            {
+                ShowCurrencyGain();
+
+                button.enabled = false;
+            }
+        }
 	
 	}
 
     private void ShowCurrencyGain()
     {
+        GlobalVariables.WasNotDisplayed = false;
         GetComponentInParent<Animation>().Play();
     }
 

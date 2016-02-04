@@ -163,6 +163,14 @@ public class DeckCreatorController : MonoBehaviour {
 
     public void Exit()
     {
-        new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
+        if (GlobalVariables.GoBackToGame)
+        {
+            GlobalVariables.GoBackToGame = false;
+            new LevelManager().LoadLevel(SceneBook.GAME_NAME);
+        }
+        else
+        {
+            new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
+        }
     }
 }

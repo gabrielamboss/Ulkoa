@@ -10,6 +10,8 @@ public abstract class GlobalVariables{
 	public static bool normalLogin = false;
     public static int minCardsPerPlaySession = 10;
     public static bool continueGame = true;
+    public static bool GoBackToGame = false;
+    public static bool WasNotDisplayed = true;
 
 
     public static readonly List<List<int>> LeitnerRoutine = new List<List<int>>()

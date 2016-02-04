@@ -29,11 +29,13 @@ public class GameManager : MonoBehaviour
         ParseObject.RegisterSubclass<Card>();
         ParseObject.RegisterSubclass<Deck>();
         ParseObject.RegisterSubclass<CardCollection>();
+        ParseObject.RegisterSubclass<Match>();
     }
 
     // Use this for initialization
     void Start()
     {
+        GlobalVariables.WasNotDisplayed = true;
         GlobalVariables.correctAnswerAmount = 0;
         GlobalVariables.wrongAnswerAmount = 0;
         if (test)
@@ -116,7 +118,19 @@ public class GameManager : MonoBehaviour
         Debug.Log("Jogo finalizado, salvando dados e mudando de cena:");
         saveDeck();
         saveCards();
+        saveMatch();
         levelManager.LoadLevel(SceneBook.END_GAME_NAME);
+    }
+
+    private void saveMatch()
+    {
+        //Saving match
+        Match match = new Match();
+        match.CorrectPoints = GlobalVariables.correctAnswerAmount;
+        match.WrongPoints = GlobalVariables.wrongAnswerAmount;
+        match.DeckID = GlobalVariables.GetSelectedDeck().ObjectId;
+        match.UserID = Player.getInstance().ObjectId;
+        match.SaveAsync();
     }
 
     private void saveCards()

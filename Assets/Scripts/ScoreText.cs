@@ -21,12 +21,6 @@ public class ScoreText : MonoBehaviour {
 		percentScore = ((float)scoreCorrect/((float)scoreCorrect+(float)scoreWrong));
 		textCorrect.text = scoreCorrect.ToString();
 		textWrong.text = scoreWrong.ToString();
-
-        //Saving match
-        Match match = new Match();
-        match.CorrectPoints = scoreCorrect;
-        match.WrongPoints = scoreWrong;
-        match.SaveAsync();
 	}
 	
 	// Update is called once per frame

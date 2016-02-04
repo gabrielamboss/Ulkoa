@@ -18,6 +18,22 @@ public class Match : ParseObject{
     {
         get { return GetProperty<int>("WrongPoints"); }
         set { SetProperty<int>(value, "WrongPoints"); }
-    }    
+    }
+
+    [ParseFieldName("UserID")]
+    public string UserID
+    {
+        get { return GetProperty<string>("UserID"); }
+        set { SetProperty<string>(value, "UserID"); }
+    }
+
+    [ParseFieldName("DeckID")]
+    public string DeckID
+    {
+        get { return GetProperty<string>("DeckID"); }
+        set { SetProperty<string>(value, "DeckID"); }
+    }
+
+
 
 }
