@@ -258,6 +258,10 @@ public class GameManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        foreach (Card card in leitnerManager.GetSessionCards())
+        {
+            card.LeitnerLevel = GlobalVariables.OriginalLevels[card.ObjectId];
+        }
         levelManager.LoadLevel(SceneBook.MAIN_MENU_NAME);
     }
 

@@ -20,10 +20,11 @@ public class LeitnerManager : SRSManager
     {
         this.deck = deck;
         cardList = (List<Card>)deck.getCardList();
+        GlobalVariables.OriginalLevels = new Dictionary<string, int>();
         Debug.Log("LetnerManager started");
         //foreach (Card card in cardList)
         //   {
-        //        Debug.Log(c   ard.LetnerLevel);
+        //        Debug.Log(card.LetnerLevel);
         //    }
 
         setUpCurrentDeck();
@@ -43,6 +44,8 @@ public class LeitnerManager : SRSManager
                 if (!currentDeck.Contains(card))
                 {
                     currentDeck.Add(card);
+                    GlobalVariables.OriginalLevels.Add(card.ObjectId, card.LeitnerLevel);
+                    Debug.Log("Testando dicionario. Leitner level: " + GlobalVariables.OriginalLevels[card.ObjectId]);
                     Debug.Log("Carta " + card.EnglishText + " com LeitnerLevel " + card.LeitnerLevel + " adicionada");
                 }
             }

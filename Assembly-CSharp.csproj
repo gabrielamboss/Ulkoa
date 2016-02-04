@@ -147,6 +147,7 @@
      <Compile Include="Assets\Scripts\CleanCardInput.cs" />
      <Compile Include="Assets\Scripts\CurrencyGiver.cs" />
      <Compile Include="Assets\Scripts\Dao\DeckDao.cs" />
+     <Compile Include="Assets\Scripts\Dao\MatchDao.cs" />
      <Compile Include="Assets\Scripts\Dao\PlayerDao.cs" />
      <Compile Include="Assets\Scripts\Dao\StoreDeckDao.cs" />
      <Compile Include="Assets\Scripts\DeckBuilder.cs" />

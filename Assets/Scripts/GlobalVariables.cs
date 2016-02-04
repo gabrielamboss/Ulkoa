@@ -31,6 +31,7 @@ public abstract class GlobalVariables{
                 new List<int>() { 1, 3 },
                 new List<int>() { 1, 2 }
     };
+   public static Dictionary<string, int> OriginalLevels;
 
     public static void ResetCorrect(){
 		correctAnswerAmount = 0;

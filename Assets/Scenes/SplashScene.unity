@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11485490, guid: ac23f6049cc77db4c87a5f276c87815c, type: 2}
       propertyPath: logOut
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11485490, guid: ac23f6049cc77db4c87a5f276c87815c, type: 2}
       propertyPath: logIn
