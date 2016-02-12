@@ -1,98 +1,40 @@
-﻿using Parse;
-using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 
-[ParseClassName("Player")]
-public class Player : ParseObject
+[Serializable]
+public class Player
 {
 
-    private static Player instance = null;
+    private static Player instance = null;    
 
-    //Obs.: acho que o construtor nao poder ser private por causa da 
-    //heranca de ParseObject mas ainda nao testei (quase certeza pq ele 
-    //precisa ser construido quando chega do banco de dados)
+    public string Username;    
+    public int Currency;
+    public bool IsPremium;    
+    public StringListWrapper StoreDeckNameList = new StringListWrapper();
+    public DeckListWrapper DeckList = new DeckListWrapper();
 
-    private string playerName;
-    private List<Deck> deckList = new List<Deck>();
-
-    public void setName(string name)
+    public Player()
     {
-        playerName = name;
-    }
-    public string getName()
-    {
-        return playerName;
-    }
-
-    [ParseFieldName("UserId")]
-    public string UserId
-    {
-        get { return GetProperty<string>("UserId"); }
-        set { SetProperty<string>(value, "UserId"); }
-    }
-
-    [ParseFieldName("Currency")]
-    public int Currency
-    {
-        get { return GetProperty<int>("Currency"); }
-        set { SetProperty<int>(value, "Currency"); }
-    }
-
-    [ParseFieldName("IsPremium")]
-    public bool IsPremium
-    {
-        get { return GetProperty<bool>("IsPremium"); }
-        set { SetProperty<bool>(value, "IsPremium"); }
-    }
-
-    [ParseFieldName("StoreDeckNameList")]
-    public IList<string> StoreDeckNameList
-    {
-        get { return GetProperty<IList<string>>("StoreDeckNameList"); }
-        set { SetProperty<IList<string>>(value, "StoreDeckNameList"); }
+        Currency = 10;
+        IsPremium = true;
     }
 
     public void addDeck(Deck deck)
     {
-        deckList.Add(deck);
+        DeckList.Add(deck);
     }
     public void removeDeck(Deck deck)
     {
-        deckList.Remove(deck);
-    }
-
-    public void setDeckList(List<Deck> list)
+        DeckList.Remove(deck);
+    }      
+    public bool hasDeck(Deck deck)
     {
-        deckList = list;
-    }
-    public List<Deck> getDeckList()
+        return DeckList.Contains(deck);        
+    }    
+
+    public void addToStoreDeckNameList(String sdName)
     {
-        return deckList;
-    }
-
-    public bool hasDeck(Deck deck2)
-    {
-        bool answ = false;
-
-        foreach (Deck deck in deckList)
-        {
-            if (deck.Equals(deck2))
-                answ = true;
-        }
-
-        return answ;
-    }
-
-    public static Player createNewPlayer(ParseUser user)
-    {
-        Player player = new Player();
-        player.UserId = user.ObjectId;
-        player.Currency = 10;
-        player.IsPremium = false;
-        player.StoreDeckNameList = new List<string>();
-
-        return player;
+        StoreDeckNameList.Add(sdName);
     }
 
     public static void setInstance(Player player)
@@ -102,5 +44,10 @@ public class Player : ParseObject
     public static Player getInstance()
     {
         return instance;
+    }
+    public static void save()
+    {
+        PlayerDao playerDao = new PlayerDao();
+        playerDao.savePlayer(getInstance());
     }
 }

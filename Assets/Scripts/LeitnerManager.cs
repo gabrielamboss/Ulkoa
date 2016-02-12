@@ -19,7 +19,7 @@ public class LeitnerManager : SRSManager
     public LeitnerManager(Deck deck)
     {
         this.deck = deck;
-        cardList = (List<Card>)deck.getCardList();
+        cardList = (List<Card>)deck.cardList;
         GlobalVariables.OriginalLevels = new Dictionary<string, int>();
         GlobalVariables.UserAnswers = new Dictionary<string, string>();
         Debug.Log("LetnerManager started");
@@ -45,14 +45,15 @@ public class LeitnerManager : SRSManager
                 if (!currentDeck.Contains(card))
                 {
                     currentDeck.Add(card);
-                    GlobalVariables.OriginalLevels.Add(card.ObjectId, card.LeitnerLevel);
-                    Debug.Log("Testando dicionario. Leitner level: " + GlobalVariables.OriginalLevels[card.ObjectId]);
-                    Debug.Log("Carta " + card.EnglishText + " com LeitnerLevel " + card.LeitnerLevel + " adicionada");
+                    //Vamo ter que mudar isso
+                    //GlobalVariables.OriginalLevels.Add(card.ObjectId, card.LeitnerLevel);
+                    //Debug.Log("Testando dicionario. Leitner level: " + GlobalVariables.OriginalLevels[card.ObjectId]);
+                    //Debug.Log("Carta " + card.EnglishText + " com LeitnerLevel " + card.LeitnerLevel + " adicionada");
                 }
             }
         }
 
-        if (currentDeck.Count <= deck.getCardList().Count / 2)
+        if (currentDeck.Count <= deck.cardList.Count / 2)
         {
             Debug.Log("Deck atual possui " + currentDeck.Count + " cartas. Adicionando mais cartas");
             deck.TimesPlayed++;

@@ -15,7 +15,7 @@ public class DeckProgress : MonoBehaviour {
     private float DetermineCurrentDeckProgress()
     {
         Deck currentDeck = GlobalVariables.GetSelectedDeck();
-        List<Card> currentCards = currentDeck.getCardList();
+        List<Card> currentCards = currentDeck.cardList;
         int cardQuantity = currentCards.Count;
         float maxProgressPerCard = 100 / cardQuantity;
         float deckProgress = 0;

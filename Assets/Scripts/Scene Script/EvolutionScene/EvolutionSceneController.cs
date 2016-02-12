@@ -27,7 +27,7 @@ public class EvolutionSceneController : MonoBehaviour {
         Deck deck = GlobalVariables.GetSelectedDeck();
         PreviousIsEditable = deck.IsEditable;
         deck.IsEditable = false;
-        List<Card> cardList = deck.getCardList();
+        List<Card> cardList = deck.cardList;
 
         if(cardList.Count == 0)
         {
@@ -144,14 +144,14 @@ public class EvolutionSceneController : MonoBehaviour {
         deck.DeckName = deckName.text;
 
         DeckDao deckDao = new DeckDao();
-        yield return deckDao.saveDeck(deck);
+        //yield return deckDao.saveDeck(deck);
 
         List<Card> cardsToDelete = model.getCardsToDelete();
         int total = cardsToDelete.Count;
         int count = 0;        
         foreach (Card card in cardsToDelete)
         {
-            card.DeleteAsync().ContinueWith(t=>{ count++; });
+            //card.DeleteAsync().ContinueWith(t=>{ count++; });
         }
         while(count < total)
         { yield return null; }

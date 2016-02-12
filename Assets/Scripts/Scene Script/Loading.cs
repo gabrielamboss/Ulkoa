@@ -1,5 +1,4 @@
-﻿using Parse;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -10,14 +9,15 @@ public class Loading : MonoBehaviour {
 	// Use this for initialization
 	void Start () {                        
         StartCoroutine(LoadingLabel());
-                
+        StartCoroutine(InitializeGameAndContinueToMainMenu());
+        /*        
         if (ParseUser.CurrentUser != null)        
             StartCoroutine(InitializeGameAndContinueToMainMenu());
         
         else                    
             StartCoroutine(WaitAndContinueToLoginScene());
-                
-	}
+        */
+    }
 	
     
 	private IEnumerator InitializeGameAndContinueToMainMenu()

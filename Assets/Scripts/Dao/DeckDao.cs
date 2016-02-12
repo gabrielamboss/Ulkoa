@@ -4,10 +4,12 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+//Provavelmente vou deletar essa classe
 public class DeckDao {
 
-    List<Deck> deckList;
+    List<Deck> deckList = new List<Deck>();
 
+    /*
     public IEnumerator MakeQueryGetDeckList(Player player)
     {
         ParseQuery<Deck> deckQuery = new ParseQuery<Deck>().WhereEqualTo("UserId", player.UserId);
@@ -22,13 +24,15 @@ public class DeckDao {
 
         List<Card> cardList = null;
 
-        ParseQuery<Card> cardQuery = new ParseQuery<Card>().WhereEqualTo("UserId", player.UserId);
+        //ParseQuery<Card> cardQuery = new ParseQuery<Card>().WhereEqualTo("UserId", player.UserId);
 
         wait = true;
+        /*
         cardQuery.FindAsync().ContinueWith(t => {
             cardList = t.Result.ToList<Card>();
             wait = false;
         });
+        
         while (wait)
         { yield return null; }
 
@@ -63,7 +67,7 @@ public class DeckDao {
         {
             card.UserId = Player.getInstance().UserId;
             card.DeckId = deck.ObjectId;
-            card.SaveAsync().ContinueWith(t => { count++; });
+            //card.SaveAsync().ContinueWith(t => { count++; });
         }
         while (count < cardList.Count)
         { yield return null; }
@@ -76,7 +80,7 @@ public class DeckDao {
         int count = 0;
         foreach (Card card in cardList)
         {            
-            card.DeleteAsync().ContinueWith(t => { count++; });
+            //card.DeleteAsync().ContinueWith(t => { count++; });
         }
         while (count < cardList.Count)
         { yield return null; }
@@ -86,4 +90,5 @@ public class DeckDao {
         while (wait)
         { yield return null; }        
     }
+    */
 }

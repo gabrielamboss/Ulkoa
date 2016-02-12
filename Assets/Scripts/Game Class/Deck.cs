@@ -1,76 +1,39 @@
-﻿using UnityEngine;
-using Parse;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
-[ParseClassName("Deck")]
-public class Deck : ParseObject
-{
+[Serializable]
+public class Deck
+{   
 
-    private List<Card> cardList = new List<Card>();
+    public string DeckName;
+    public int TimesPlayed;
+    public bool IsEditable;    
+    public bool IsFirstTime;
 
-    [ParseFieldName("DeckName")]
-    public string DeckName
+    public List<Card> cardList = new List<Card>();
+
+    public Deck()
     {
-        get { return GetProperty<string>("DeckName"); }
-        set { SetProperty<string>(value, "DeckName"); }
+        DeckName = "";
+        IsEditable = true;
+        TimesPlayed = 0;
+        IsFirstTime = true;
     }
 
-    [ParseFieldName("UserId")]
-    public string UserId
+    public string ObjectId
     {
-        get { return GetProperty<string>("UserId"); }
-        set { SetProperty<string>(value, "UserId"); }
-    }
-
-    [ParseFieldName("IsEditable")]
-    public bool IsEditable
-    {
-        get { return GetProperty<bool>("IsEditable"); }
-        set { SetProperty<bool>(value, "IsEditable"); }
-    }
-
-    [ParseFieldName("TimesPlayed")]
-    public int TimesPlayed
-    {
-        get { return GetProperty<int>("TimesPlayed"); }
-        set { SetProperty<int>(value, "TimesPlayed"); }
-    }
-
-    [ParseFieldName("IsFirstTime")]
-    public bool IsFirstTime
-    {
-        get { return GetProperty<bool>("IsFirstTime"); }
-        set { SetProperty<bool>(value, "IsFirstTime"); }
+        get { return JsonUtility.ToJson(this); }
     }
 
     public void addCard(Card card)
     {
         cardList.Add(card);
-    }
-
-    public List<Card> getCardList()
-    {
-        return cardList;
-    }
+    }    
 
     public void CleanCardList()
     {
         cardList.Clear();
-    }
-
-    public static Deck createNewDeck()
-    {
-        Deck deck = new Deck();
-
-        deck.DeckName = "";
-        deck.UserId = Player.getInstance().UserId;
-        deck.IsEditable = true;
-        deck.TimesPlayed = 0;
-        deck.IsFirstTime = true;
-
-        return deck;
-    }
+    }    
 
 }

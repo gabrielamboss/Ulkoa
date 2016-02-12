@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class GameDeckMannager {// : MonoBehaviour {
+public class GameDeckMannager {
 
     private Deck deck;
     private Queue<Card> cardQueue;
@@ -11,7 +9,11 @@ public class GameDeckMannager {// : MonoBehaviour {
     {
         this.deck = deck;
 
-        cardQueue = new Queue<Card>(deck.getCardList());
+        cardQueue = new Queue<Card>();
+        foreach(Card card in deck.cardList)
+        {
+            cardQueue.Enqueue(card);
+        }
     }
 
     public Card GetNextCard()

@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
 
         Player player = Player.getInstance();        
-        userName.text = player.getName();
+        userName.text = player.Username;
         stars.text = player.Currency.ToString();
 
         buildDeckContainer();
@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour {
             child.parent = null;
         }
         
-        List<Deck> deckList = player.getDeckList();
+        List<Deck> deckList = player.DeckList.getList();
         deckList.Sort(delegate(Deck d1, Deck d2)
         {
             return d1.DeckName.CompareTo(d2.DeckName);
@@ -84,7 +84,7 @@ public class MainMenu : MonoBehaviour {
     {
         if (Player.getInstance().IsPremium)
         {
-            Deck newDeck = Deck.createNewDeck();
+            Deck newDeck = new Deck();
             GlobalVariables.SetSelectedDeck(newDeck);
             new LevelManager().LoadLevel(SceneBook.DECK_CREATOR_NAME);
         }
@@ -115,10 +115,11 @@ public class MainMenu : MonoBehaviour {
         selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;
         OnDeckClick(selectedDeckUI);
 
-        Player.getInstance().removeDeck(deck);
+        Player player = Player.getInstance();
+        player.removeDeck(deck);
 
-        DeckDao deckDao = new DeckDao();
-        yield return deckDao.deleteDeck(deck);
+        PlayerDao playerDao = new PlayerDao();
+        yield return playerDao.savePlayer(player);
 
         panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
@@ -132,6 +133,7 @@ public class MainMenu : MonoBehaviour {
             return;
         }
 
+        //Change this
         StartCoroutine(PremiumLogic());
     }
 
@@ -147,10 +149,9 @@ public class MainMenu : MonoBehaviour {
         foreach (StoreDeck storeDeck in storeDeckList)
         {
             deckBuilder = new DeckBuilder(storeDeck);
-            deck = deckBuilder.getDeck();
-            yield return deckDao.saveDeck(deck);
+            deck = deckBuilder.getDeck();            
             player.addDeck(deck);
-            player.AddToList("StoreDeckNameList", deck.DeckName);
+            player.addToStoreDeckNameList(deck.DeckName);
         }
 
         player.IsPremium = true;

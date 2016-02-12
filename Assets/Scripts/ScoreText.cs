@@ -1,18 +1,11 @@
-﻿using Parse;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class ScoreText : MonoBehaviour {
 
 	public static int scoreCorrect, scoreWrong;
 	private float percentScore;
-	public Text textCorrect, textWrong;
-
-    void Awake()
-    {
-        ParseObject.RegisterSubclass<Match>();
-    }
+	public Text textCorrect, textWrong;    
 
 	// Use this for initialization
 	void Start () {

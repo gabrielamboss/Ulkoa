@@ -1,5 +1,5 @@
-﻿using Parse;
-using System;
+﻿using PlayFab;
+using PlayFab.ClientModels;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,21 +14,12 @@ public class Register : MonoBehaviour {
 
     public Text userError;
     public Text passwordError;
-    public Text emailError;
-
-    void Start()
-    {
-        //GameObject usernameGO = GameObject.Find("Username Field");
-        //GameObject passwordGO = GameObject.Find("Password Field");
-        //GameObject emailGO = GameObject.Find("Email Field");
-
-        //username = usernameGO.GetComponent<InputField>();
-        //password = passwordGO.GetComponent<InputField>();
-        //email = emailGO.GetComponent<InputField>();
-    }
+    public Text emailError;    
 
     public void Save()
     {
+        Debug.Log("Init save");
+
         bool inputIsCorrect = true;
         if (username.text.Equals(""))
         {
@@ -48,38 +39,69 @@ public class Register : MonoBehaviour {
             inputIsCorrect = false;
         }
 
+        Debug.Log("Init save2");
         if (inputIsCorrect)
             StartCoroutine(SaveLogic());
     }
 
     private IEnumerator SaveLogic()
-    {        
+    {
+        Debug.Log("Init save logic");
         painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
+        Debug.Log("Painel");
 
         bool saveSuccessful = false;
-        bool wait = false;
-        AggregateException erros = null;
+        bool wait = true;
 
-        //Tentar criar novo usuario
-        ParseUser user = new ParseUser();
-
-        user.Username = username.text;
-        user.Password = password.text;
-        user.Email = email.text;
-
-        wait = true;
-        user.SignUpAsync().ContinueWith(t =>
+        RegisterPlayFabUserRequest request = new RegisterPlayFabUserRequest()
         {
-            saveSuccessful = !(t.IsCanceled || t.IsFaulted);
-            erros = t.Exception;
-            wait = false;
-        });
-        while (wait) { yield return null; }
+            TitleId = "2071",
+            Username = username.text,
+            Email = email.text,
+            Password = password.text,
+            RequireBothUsernameAndEmail = true
+        };
+
+        PlayFabClientAPI.RegisterPlayFabUser(request,
+            (result) =>
+            {
+                saveSuccessful = true;
+                wait = false;
+                Debug.Log("Username = "+result.Username);                
+            },
+            (error) =>
+            {
+                saveSuccessful = false;
+                wait = false;
+                Debug.Log("Erro ao registrar - Ainda nao implementado o tratamento de erro");
+                Debug.Log(error.ErrorMessage);
+                Debug.Log(error.Error);
+            });
+
+        Debug.Log("Wait");
+        while (wait)
+        { yield return null; }
+        Debug.Log("Wait finish");
 
         if (saveSuccessful)
         {
             //Se conseguimos criar um novo usuario crie para ele um player
             //com as informacoes necessarias do jogador
+            Player player = new Player();
+            player.Username = username.text;
+
+            Deck defaultDeck = getDefaultDeck();            
+            player.addDeck(defaultDeck);
+            player.addToStoreDeckNameList(defaultDeck.DeckName);
+
+            PlayerDao playerDao = new PlayerDao();
+            Debug.Log("Trying to save player");
+            yield return playerDao.savePlayer(player);
+            Debug.Log("Finish save player");
+
+            Debug.Log("Finish");
+            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
+            /*
             Player player = Player.createNewPlayer(user);
             PlayerDao playerDao = new PlayerDao();
             yield return playerDao.savePlayer(player);
@@ -89,13 +111,15 @@ public class Register : MonoBehaviour {
             Deck defaultDeck = getDefaultDeck();
             DeckDao deckDao = new DeckDao();
             yield return deckDao.saveDeck(defaultDeck);
-
+            
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
+            */
         }
         else
         {            
             //Se deu merda pra criar novo usuario avise o 
             //qual foi o problema
+            /*
             foreach (Exception e in erros.InnerExceptions)
             {
                 if (e is ParseException)
@@ -116,6 +140,7 @@ public class Register : MonoBehaviour {
                     }
                 else emailError.text = "Ocorreu um erro durante o registro, por favor tente de novo";
             }
+            */
         }
         
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();

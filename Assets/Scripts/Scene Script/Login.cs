@@ -1,4 +1,5 @@
-﻿using Parse;
+﻿using PlayFab;
+using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -27,12 +28,36 @@ public class Login : MonoBehaviour {
         bool loginSuccessful = false;
         bool wait = true;
 
-        ParseUser.LogInAsync(username.text, password.text).ContinueWith(t =>
+        LoginWithPlayFabRequest request = new LoginWithPlayFabRequest()
         {
-            loginSuccessful = !(t.IsFaulted || t.IsCanceled);
+            TitleId = "2071",
+            Username = username.text,            
+            Password = password.text           
+        };
+
+        PlayFabClientAPI.LoginWithPlayFab(request, 
+            (result) =>
+        {            
             wait = false;
+            if (result.NewlyCreated)
+            {
+                loginSuccessful = false;
+                Debug.Log("Merda criamos um novo usuario");
+            }
+            else
+            {
+                loginSuccessful = true;
+                Debug.Log("Login com sucesso");
+            }
+        }, 
+            (error) =>
+        {
+            loginSuccessful = false;
+            wait = false;
+            Debug.Log("Error logging in player");
+            Debug.Log(error.ErrorMessage);
         });
-        while (wait) { yield return null; }
+        while (wait) { yield return null; }        
 
         if (loginSuccessful)       
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);        

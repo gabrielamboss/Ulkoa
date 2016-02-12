@@ -38,6 +38,6 @@ public class CurrencyGiver : MonoBehaviour {
     {
         Player player = Player.getInstance();
         player.Currency++;
-        player.SaveAsync();
+        new PlayerDao().savePlayer(player);        
     }
 }

@@ -1,5 +1,6 @@
-﻿using Parse;
-using System.Linq;
+﻿using PlayFab;
+using PlayFab.ClientModels;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,30 +10,63 @@ public class MatchDao {
 
     public IEnumerator MakeQueryGetMatchList(Deck deck)
     {
-		ParseQuery<Match> matchQuerry = new ParseQuery<Match>().WhereEqualTo("DeckID", deck.ObjectId);
-
         bool wait = true;
-        matchQuerry.FindAsync().ContinueWith(t => {
-            matchList = t.Result.ToList<Match>();
+
+        GetUserDataRequest request = new GetUserDataRequest();
+
+        PlayFabClientAPI.GetUserData(request, (result) => {
+            Debug.Log("Got user data:");
+            if ((result.Data == null) || (result.Data.Count == 0))
+            {
+                Debug.Log("No user data available");
+            }
+            else
+            {                
+                Dictionary<string, UserDataRecord> data = result.Data;
+                matchList = JsonUtility.FromJson<List<Match>>(data["MatchList"].Value);
+            }
+            wait = false;
+        }, (error) => {
+            Debug.Log("Got error retrieving user data:");
+            Debug.Log(error.ErrorMessage);
             wait = false;
         });
+
         while (wait)
         { yield return null; }
-                
+
     }
 
     public List<Match> getQueryResultMatchList()
     {
         return matchList;
     }
-
-    //Quando for salvar faca isso dentro de uma corrotina e use 
-    //yield return matchDao.saveMatch( myMatch );
+    
     public IEnumerator saveMatch(Match match)
     {
         bool wait = true;
-        match.SaveAsync().ContinueWith(t => { wait = false; });
+
+        UpdateUserDataRequest request = new UpdateUserDataRequest()
+        {
+            Data = new Dictionary<string, string>(){                
+                {"MatchList", JsonUtility.ToJson(matchList)},
+            }
+        };
+
+        PlayFabClientAPI.UpdateUserData(request,
+            (result) =>
+            {
+                Debug.Log("Successfully updated user data");
+                wait = false;
+            },
+            (error) =>
+            {
+                Debug.Log("Got error setting user data Ancestor to Arthur");
+                Debug.Log(error.ErrorDetails);
+                wait = false;
+            });
+
         while (wait)
-        { yield return null; }        
+        { yield return null; }
     }    
 }

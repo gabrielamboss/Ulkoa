@@ -1,5 +1,4 @@
-﻿using Parse;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
 using System;
@@ -21,16 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject wrongLeavingCardPrefab;
     private static String correctAnswer;
     public GameObject WrongSymbol;
-    public GameObject CorrectSymbol;
-
-
-    void Awake()
-    {
-        ParseObject.RegisterSubclass<Card>();
-        ParseObject.RegisterSubclass<Deck>();
-        ParseObject.RegisterSubclass<CardCollection>();
-        ParseObject.RegisterSubclass<Match>();
-    }
+    public GameObject CorrectSymbol;    
 
     // Use this for initialization
     void Start()
@@ -77,7 +67,7 @@ public class GameManager : MonoBehaviour
             {
                 if (userInput.text != null && userInput.text != "")
                 {
-                    GlobalVariables.UserAnswers.Add(currentCard.ObjectId, userInput.text);
+                    //GlobalVariables.UserAnswers.Add(currentCard.ObjectId, userInput.text); Vamo ter que mudar isso
                     AdminUserInput(userInput.text);
                     if (GlobalVariables.continueGame)
                     {
@@ -129,8 +119,8 @@ public class GameManager : MonoBehaviour
         match.CorrectPoints = GlobalVariables.correctAnswerAmount;
         match.WrongPoints = GlobalVariables.wrongAnswerAmount;
         match.DeckID = GlobalVariables.GetSelectedDeck().ObjectId;
-        match.UserID = Player.getInstance().ObjectId;
-        match.SaveAsync();
+        MatchDao matchDao = new MatchDao();
+        StartCoroutine(matchDao.saveMatch(match));
     }
 
     private void saveCards()
@@ -139,14 +129,14 @@ public class GameManager : MonoBehaviour
         foreach (Card card in sessionCards)
         {
             Debug.Log("Letiner level da carta " + card.EnglishText + ": " + card.LeitnerLevel);
-            card.SaveAsync();
+            //card.SaveAsync();
         }
     }
 
     private void saveDeck()
     {
         currentDeck.TimesPlayed++;
-        currentDeck.SaveAsync();
+        StartCoroutine(new PlayerDao().savePlayer(Player.getInstance()));
         Debug.Log("Deck foi salvo com sucesso. Numero de vezes jogos com este Deck: " + currentDeck.TimesPlayed);
     }
 
@@ -275,7 +265,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Card card in leitnerManager.GetSessionCards())
         {
-            card.LeitnerLevel = GlobalVariables.OriginalLevels[card.ObjectId];
+            //card.LeitnerLevel = GlobalVariables.OriginalLevels[card.ObjectId]; Vamo ter que mudar isso
         }
         levelManager.LoadLevel(SceneBook.MAIN_MENU_NAME);
     }

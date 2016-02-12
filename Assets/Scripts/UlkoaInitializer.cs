@@ -1,5 +1,4 @@
-﻿using Parse;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 public abstract class UlkoaInitializer {
@@ -7,31 +6,21 @@ public abstract class UlkoaInitializer {
     private static bool hasInitialized = false;    
 
     public static IEnumerator InitializeGame()
-    {                                        
-        ParseUser user = ParseUser.CurrentUser;
-        
+    {        
         //Making query
         PlayerDao playerDao = new PlayerDao();
-        yield return playerDao.MakeQueryGetPlayer(user);
+        yield return playerDao.MakeQueryGetPlayer();
         Player player = playerDao.getQueryResultPlayer();
-        
-        DeckDao deckDao = new DeckDao();
-        yield return deckDao.MakeQueryGetDeckList(player);
-        List<Deck> deckList = deckDao.getQueryResultDeckList();
+        Player.setInstance(player);        
 
         StoreDeckDao storeDeckDao = new StoreDeckDao();
         yield return storeDeckDao.MakeQueryGetDeckList();
-        List<StoreDeck> storeDeckList = storeDeckDao.getQueryResultStoreDeckList();
-
-        //Injecting dependency
-        player.setName(user.Username);
-        player.setDeckList(deckList);
-        Player.setInstance(player);
+        List<StoreDeck> storeDeckList = storeDeckDao.getQueryResultStoreDeckList();        
 
         bool change = false;
         DeckBuilder deckBuilder;
         Deck deck;
-        IList<string> playerStoreDecks = player.StoreDeckNameList;
+        List<string> playerStoreDecks = player.StoreDeckNameList.getList();
         foreach (StoreDeck storeDeck in storeDeckList)
         {           
             if (!playerStoreDecks.Contains(storeDeck.DeckName))
@@ -39,10 +28,9 @@ public abstract class UlkoaInitializer {
                 if (player.IsPremium)
                 {
                     deckBuilder = new DeckBuilder(storeDeck);
-                    deck = deckBuilder.getDeck();
-                    yield return deckDao.saveDeck(deck);
+                    deck = deckBuilder.getDeck();                    
                     player.addDeck(deck);
-                    player.AddToList("StoreDeckNameList", deck.DeckName);
+                    player.addToStoreDeckNameList(deck.DeckName);
                     change = true;
                 }
                 else

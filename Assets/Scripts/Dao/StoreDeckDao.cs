@@ -1,51 +1,47 @@
-﻿using UnityEngine;
-using Parse;
-using System.Linq;
+﻿using PlayFab;
+using PlayFab.ClientModels;
+using UnityEngine;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 
-public class StoreDeckDao : MonoBehaviour {
+public class StoreDeckDao{
 
-    List<StoreDeck> deckList;
+    StoreDeckListWrapper deckList = new StoreDeckListWrapper();
+    List<StoreDeck> newDecks = new List<StoreDeck>();
 
     public IEnumerator MakeQueryGetDeckList()
     {
-        ParseQuery<StoreDeck> deckQuery = new ParseQuery<StoreDeck>();
+        deckList.addStoreDeck(mockQuerry());
 
-        bool wait = true;
-        deckQuery.FindAsync().ContinueWith(t => {
-            deckList = t.Result.ToList<StoreDeck>();
-            wait = false;
-        });
-        while (wait)
-        { yield return null; }
-
-        List<StoreCard> cardList = null;
-
-        ParseQuery<StoreCard> cardQuery = new ParseQuery<StoreCard>();
-
-        wait = true;
-        cardQuery.FindAsync().ContinueWith(t => {
-            cardList = t.Result.ToList<StoreCard>();
-            wait = false;
-        });
-        while (wait)
-        { yield return null; }
-
-        Dictionary<string, StoreDeck> dict = new Dictionary<string, StoreDeck>();
-        foreach (StoreDeck deck in deckList)
-        {
-            dict[deck.ObjectId] = deck;
-        }
-
-        foreach (StoreCard card in cardList)
-        {
-            dict[card.StoreDeckId].addCard(card);
-        }
+        return null;
     }
 
     public List<StoreDeck> getQueryResultStoreDeckList()
     {
-        return deckList;
+        return deckList.getList();
+    }
+
+    private List<StoreDeck> mockQuerry()
+    {
+        List<StoreDeck> list = new List<StoreDeck>();
+        StoreDeck deck;
+        for (int i = 1; i <= 10; i++)
+        {
+            deck = new StoreDeck();
+            deck.DeckName = "SDeck" + i;
+            deck.IsPremium = i > 7;
+            deck.Price = i;
+            for(int j = 1; j <= 5; j++)
+            {
+                Card card = new Card();
+                card.PortugueseText = i + "Por" + j;
+                card.EnglishText = i + "Eng" + j;
+                deck.addCard(card);
+            }
+            list.Add(deck);
+        }
+
+        return list;
     }
 }

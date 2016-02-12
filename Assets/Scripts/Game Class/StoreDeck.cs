@@ -1,42 +1,17 @@
-﻿using Parse;
-using UnityEngine;
-using System.Collections;
+﻿using PlayFab;
+using System;
 using System.Collections.Generic;
 
-[ParseClassName("StoreDeck")]
-public class StoreDeck : ParseObject {
+[Serializable]
+public class StoreDeck{        
+    public string DeckName;
+    public int Price;
+    public bool IsPremium;
+    public List<Card> cardList = new List<Card>();
 
-    private List<StoreCard> cardList = new List<StoreCard>();
-
-    [ParseFieldName("DeckName")]
-    public string DeckName
+    public void addCard(Card card)
     {
-        get { return GetProperty<string>("DeckName"); }
-        set { SetProperty<string>(value, "DeckName"); }
-    }
-
-    [ParseFieldName("Price")]
-    public int Price
-    {
-        get { return GetProperty<int>("Price"); }
-        set { SetProperty<int>(value, "Price"); }
-    }
-
-    [ParseFieldName("IsPremium")]
-    public bool IsPremium
-    {
-        get { return GetProperty<bool>("IsPremium"); }
-        set { SetProperty<bool>(value, "IsPremium"); }
-    }
-
-    public void addCard(StoreCard card)
-    {
-        cardList.Add(card);
-    }
-
-    public List<StoreCard> getCards()
-    {
-        return cardList;
+        cardList.Add(card);        
     }
 
 }

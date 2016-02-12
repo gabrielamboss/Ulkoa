@@ -1,43 +1,17 @@
-﻿using Parse;
-using System;
+﻿using System;
 using UnityEngine;
-using System.Collections;
 
-[ParseClassName("Card")]
-public class Card : ParseObject {    
+[Serializable]
+public class Card {
 
-	[ParseFieldName("PortugueseText")]
-  	public string PortugueseText{
-		get { return GetProperty<string>("PortugueseText"); }
-   		set { SetProperty<string>(value, "PortugueseText"); }
-	}
+    public string PortugueseText;    
+    public string EnglishText;
+    public int LeitnerLevel;
 
-	[ParseFieldName("EnglishText")]
-	public string EnglishText{
-		get { return GetProperty<string>("EnglishText"); }
-   		set { SetProperty<string>(value, "EnglishText"); }
-	}
-
-    [ParseFieldName("UserId")]
-    public string UserId
+    public string ObjectId
     {
-        get { return GetProperty<string>("UserId"); }
-        set { SetProperty<string>(value, "UserId"); }
+        get { return JsonUtility.ToJson(this); }
     }
-
-    [ParseFieldName("DeckId")]
-    public string DeckId
-    {
-        get { return GetProperty<string>("DeckId"); }
-        set { SetProperty<string>(value, "DeckId"); }
-    }
-
-    [ParseFieldName("LeitnerLevel")]
-    public int LeitnerLevel
-    {
-        get { return GetProperty<int>("LeitnerLevel"); }
-        set { SetProperty<int>(value, "LeitnerLevel"); }
-    }    
 
     public static Card creatNewCard()
     {

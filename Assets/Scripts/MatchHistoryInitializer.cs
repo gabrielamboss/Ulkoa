@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MatchHistoryInitializer : MonoBehaviour {
 
-	/*private static bool hasInitialized = false;
+	private static bool hasInitialized = false;
 	private Deck currDeck;
 
 	public GameObject contentParent;
@@ -53,5 +53,5 @@ public class MatchHistoryInitializer : MonoBehaviour {
 	void Start () {
 		InitializeScene();
 	}
-	*/
+	
 }

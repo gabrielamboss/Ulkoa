@@ -35,7 +35,8 @@ public class RedirectToEdit : MonoBehaviour
         button.enabled = true;
         field.enabled = true;
         GlobalVariables.GetSelectedDeck().IsFirstTime = false;
-        GlobalVariables.GetSelectedDeck().SaveAsync();
+        //GlobalVariables.GetSelectedDeck().SaveAsync();
+        Player.save();
         Redirect();
         Destroy(gameObject);
 
@@ -54,7 +55,8 @@ public class RedirectToEdit : MonoBehaviour
         button.enabled = true;
         field.enabled = true;
         GlobalVariables.GetSelectedDeck().IsFirstTime = false;
-        GlobalVariables.GetSelectedDeck().SaveAsync();
+        //GlobalVariables.GetSelectedDeck().SaveAsync();
+        Player.save();
         Destroy(gameObject);
     }
 }

@@ -17,7 +17,7 @@ public class EvolutionSceneModel : MonoBehaviour {
 	public void init(Deck deck)
     {
         this.deck = deck;
-        List<Card> cardList = deck.getCardList();
+        List<Card> cardList = deck.cardList;
         foreach (Card card in cardList)
         {
             cardUIList.Add(createUICard(card));

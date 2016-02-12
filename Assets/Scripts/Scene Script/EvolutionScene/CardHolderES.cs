@@ -62,7 +62,7 @@ public class CardHolderES : MonoBehaviour {
     }
 
     public string getPreviousLeitnerLevel()
-    {
+    {        
         if (GlobalVariables.OriginalLevels.ContainsKey(myCard.ObjectId))
         {
             return GlobalVariables.OriginalLevels[myCard.ObjectId].ToString();
@@ -71,7 +71,7 @@ public class CardHolderES : MonoBehaviour {
         else
         {
             return getLeitnerLevel();
-        }
+        }        
     }
     
     public string getUserAnswer()

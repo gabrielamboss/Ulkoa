@@ -56,14 +56,14 @@ public class StoreManager : MonoBehaviour {
         selectedDeckUI.GetComponent<Image>().sprite = selectedDeckImage;
 
         StoreDeck deck = deckUI.GetComponent<StoreDeckUI>().getStoreDeck();
-        List<StoreCard> storeCardList = deck.getCards();
+        List<Card> storeCardList = deck.cardList;
 
         updateCardScroll(storeCardList);
 
         Debug.Log(deck.DeckName);
     }
 
-    private void updateCardScroll(List<StoreCard> storeCardList)
+    private void updateCardScroll(List<Card> storeCardList)
     {
         //Limpar card scroll;
         while (cardContent.transform.childCount > 0)
@@ -73,12 +73,12 @@ public class StoreManager : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
-        storeCardList.Sort(delegate (StoreCard sc1, StoreCard sc2)
+        storeCardList.Sort(delegate (Card sc1, Card sc2)
         {
             return sc1.PortugueseText.CompareTo(sc2.PortugueseText);
         });
 
-        foreach (StoreCard card in storeCardList)
+        foreach (Card card in storeCardList)
         {
             GameObject newCard = Instantiate(cardTextModel, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             newCard.transform.SetParent(cardContent.transform, false);
@@ -123,11 +123,8 @@ public class StoreManager : MonoBehaviour {
         DeckBuilder deckBuilder = new DeckBuilder(storeDeck);
         Deck deck = deckBuilder.getDeck();
 
-        DeckDao deckDao = new DeckDao();
-        yield return deckDao.saveDeck(deck);
-
         Player player = Player.getInstance();
-        player.AddToList("StoreDeckNameList", deck.DeckName);
+        player.addToStoreDeckNameList(deck.DeckName);
         player.Currency -= storeDeck.Price;
         currency.text = player.Currency.ToString();
         player.addDeck(deck);
