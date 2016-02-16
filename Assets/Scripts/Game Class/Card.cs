@@ -8,19 +8,15 @@ public class Card {
     public string EnglishText;
     public int LeitnerLevel;
 
+    public Card()
+    {
+        PortugueseText = "NovoPor";
+        EnglishText = "NewEngl";
+        LeitnerLevel = 1;
+    }
+    
     public string ObjectId
     {
-        get { return JsonUtility.ToJson(this); }
-    }
-
-    public static Card creatNewCard()
-    {
-        Card card = new Card();
-
-        card.PortugueseText = "NovoPor";
-        card.EnglishText = "NewEngl";
-        card.LeitnerLevel = 1;
-
-        return card;
-    }
+        get { return PortugueseText + EnglishText; }
+    }    
 }

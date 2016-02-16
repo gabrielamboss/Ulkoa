@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 public class MatchDao {
 
-    List<Match> matchList;
+    private static MatchListWrapper matchList = new MatchListWrapper();
 
-    public IEnumerator MakeQueryGetMatchList(Deck deck)
+    public IEnumerator MakeQueryGetMatchList()
     {
         bool wait = true;
 
@@ -23,7 +23,8 @@ public class MatchDao {
             else
             {                
                 Dictionary<string, UserDataRecord> data = result.Data;
-                matchList = JsonUtility.FromJson<List<Match>>(data["MatchList"].Value);
+                if(data.ContainsKey("MatchList"))
+                    matchList = JsonUtility.FromJson<MatchListWrapper>(data["MatchList"].Value);
             }
             wait = false;
         }, (error) => {
@@ -37,14 +38,28 @@ public class MatchDao {
 
     }
 
-    public List<Match> getQueryResultMatchList()
+    public List<Match> getMatchsByDeck(Deck deck)
     {
-        return matchList;
+        List<Match> answList = new List<Match>();
+
+        foreach (Match match in matchList.getList())
+        {
+            if (match.DeckName.Equals(deck.DeckName))
+                answList.Add(match);
+        }
+
+        return answList;
+    }
+
+    public List<Match> getMatchList()
+    {
+        return matchList.getList();
     }
     
     public IEnumerator saveMatch(Match match)
     {
         bool wait = true;
+        matchList.addMatch(match);
 
         UpdateUserDataRequest request = new UpdateUserDataRequest()
         {
@@ -61,7 +76,7 @@ public class MatchDao {
             },
             (error) =>
             {
-                Debug.Log("Got error setting user data Ancestor to Arthur");
+                Debug.Log("Got error setting user data");
                 Debug.Log(error.ErrorDetails);
                 wait = false;
             });

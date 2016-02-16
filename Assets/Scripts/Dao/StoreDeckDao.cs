@@ -7,41 +7,36 @@ using System.Collections.Generic;
 
 public class StoreDeckDao{
 
-    StoreDeckListWrapper deckList = new StoreDeckListWrapper();
-    List<StoreDeck> newDecks = new List<StoreDeck>();
+    List<StoreDeck> deckList = new List<StoreDeck>(); 
 
     public IEnumerator MakeQueryGetDeckList()
     {
-        deckList.addStoreDeck(mockQuerry());
+        bool wait = true;
 
-        return null;
+        GetTitleDataRequest getRequest = new GetTitleDataRequest();
+        PlayFabClientAPI.GetTitleData(getRequest, (result) =>
+        {
+            Debug.Log("Got the following titleData:");
+            foreach (var entry in result.Data)
+            {
+                Debug.Log(entry.Key + ": " + entry.Value);
+                deckList.Add(JsonUtility.FromJson<StoreDeck>(entry.Value));
+            }
+            wait = false;
+        },
+        (error) => {
+            Debug.Log("Got error getting titleData:");
+            Debug.Log(error.ErrorMessage);
+            wait = false;
+        });
+
+        while (wait)
+        { yield return null; }
     }
 
     public List<StoreDeck> getQueryResultStoreDeckList()
     {
-        return deckList.getList();
+        return deckList;
     }
-
-    private List<StoreDeck> mockQuerry()
-    {
-        List<StoreDeck> list = new List<StoreDeck>();
-        StoreDeck deck;
-        for (int i = 1; i <= 10; i++)
-        {
-            deck = new StoreDeck();
-            deck.DeckName = "SDeck" + i;
-            deck.IsPremium = i > 7;
-            deck.Price = i;
-            for(int j = 1; j <= 5; j++)
-            {
-                Card card = new Card();
-                card.PortugueseText = i + "Por" + j;
-                card.EnglishText = i + "Eng" + j;
-                deck.addCard(card);
-            }
-            list.Add(deck);
-        }
-
-        return list;
-    }
+    
 }

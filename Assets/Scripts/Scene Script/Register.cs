@@ -45,10 +45,8 @@ public class Register : MonoBehaviour {
     }
 
     private IEnumerator SaveLogic()
-    {
-        Debug.Log("Init save logic");
-        painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
-        Debug.Log("Painel");
+    {        
+        painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();        
 
         bool saveSuccessful = false;
         bool wait = true;
@@ -66,8 +64,7 @@ public class Register : MonoBehaviour {
             (result) =>
             {
                 saveSuccessful = true;
-                wait = false;
-                Debug.Log("Username = "+result.Username);                
+                wait = false;                
             },
             (error) =>
             {
@@ -76,74 +73,56 @@ public class Register : MonoBehaviour {
                 Debug.Log("Erro ao registrar - Ainda nao implementado o tratamento de erro");
                 Debug.Log(error.ErrorMessage);
                 Debug.Log(error.Error);
+                switch (error.Error)
+                {
+                    case PlayFabErrorCode.InvalidParams:
+                        emailError.text = "Error de conexao: Parametros invalidos";
+                        break;
+                    case PlayFabErrorCode.InvalidTitleId:
+                        emailError.text = "Error de conexao: TitleId "+PlayFabSettings.TitleId;
+                        break;
+                    case PlayFabErrorCode.EmailAddressNotAvailable:
+                        emailError.text = "Email nao disponivel";
+                        break;
+                    case PlayFabErrorCode.InvalidEmailAddress:
+                        emailError.text = "Email invalido";
+                        break;
+                    case PlayFabErrorCode.UsernameNotAvailable:
+                        userError.text = "Usuario ja existente";
+                        break;
+                    case PlayFabErrorCode.InvalidUsername:
+                        userError.text = "Usuario ja existente";
+                        break;
+                    case PlayFabErrorCode.InvalidPassword:
+                        passwordError.text = "Senha invalida";
+                        break;
+                    default:
+                        break;
+                }
             });
-
-        Debug.Log("Wait");
+        
         while (wait)
-        { yield return null; }
-        Debug.Log("Wait finish");
+        { yield return null; }        
 
         if (saveSuccessful)
-        {
-            //Se conseguimos criar um novo usuario crie para ele um player
-            //com as informacoes necessarias do jogador
-            Player player = new Player();
-            player.Username = username.text;
-
-            Deck defaultDeck = getDefaultDeck();            
-            player.addDeck(defaultDeck);
-            player.addToStoreDeckNameList(defaultDeck.DeckName);
-
-            PlayerDao playerDao = new PlayerDao();
-            Debug.Log("Trying to save player");
-            yield return playerDao.savePlayer(player);
-            Debug.Log("Finish save player");
-
-            Debug.Log("Finish");
-            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
-            /*
-            Player player = Player.createNewPlayer(user);
-            PlayerDao playerDao = new PlayerDao();
-            yield return playerDao.savePlayer(player);
-            Player.setInstance(player);
-
-            //Crie tambem um default deck
-            Deck defaultDeck = getDefaultDeck();
-            DeckDao deckDao = new DeckDao();
-            yield return deckDao.saveDeck(defaultDeck);
-            
-            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
-            */
-        }
-        else
         {            
-            //Se deu merda pra criar novo usuario avise o 
-            //qual foi o problema
-            /*
-            foreach (Exception e in erros.InnerExceptions)
-            {
-                if (e is ParseException)
-                    switch ((e as ParseException).Code)
-                    {                        
-                        case ParseException.ErrorCode.UsernameTaken:
-                            userError.text = "Usuario ja existente";
-                            break;                        
-                        case ParseException.ErrorCode.EmailTaken:
-                            emailError.text = "Email ja existente";
-                            break;                        
-                        case ParseException.ErrorCode.InvalidEmailAddress:
-                            emailError.text = "Endereço de email invalido";
-                            break;
-                        default:
-                            emailError.text = "Ocorreu um erro durante o registro, por favor tente de novo";
-                            break;
-                    }
-                else emailError.text = "Ocorreu um erro durante o registro, por favor tente de novo";
-            }
-            */
+            yield return savePlayerData();
+            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);            
         }
-        
+                
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
+    }
+
+    private IEnumerator savePlayerData()
+    {
+        Player player = new Player();
+        player.Username = username.text;
+
+        Deck defaultDeck = getDefaultDeck();
+        player.addDeck(defaultDeck);        
+
+        PlayerDao playerDao = new PlayerDao();        
+        yield return playerDao.savePlayer(player);                
     }
 
     private Deck getDefaultDeck()

@@ -26,7 +26,7 @@ public class DeckCreatorController : MonoBehaviour {
 
         if(cardList.Count == 0)
         {
-            Card newCard = Card.creatNewCard();
+            Card newCard = new Card();
             cardList.Add(newCard);
         }
 
@@ -79,7 +79,7 @@ public class DeckCreatorController : MonoBehaviour {
         if (!editable)
             return;
 
-        Card newCard = Card.creatNewCard();
+        Card newCard = new Card();
         GameObject cardUI = model.addCard(newCard);
         model.setSelectedCardUI(cardUI);
         view.updateCardContainer();
@@ -147,6 +147,7 @@ public class DeckCreatorController : MonoBehaviour {
         yield return playerDao.savePlayer(player);
 
         //Desnecessario tirar
+        /*
         List<Card> cardsToDelete = model.getCardsToDelete();
         int total = cardsToDelete.Count;
         int count = 0;        
@@ -158,6 +159,7 @@ public class DeckCreatorController : MonoBehaviour {
         { yield return null; }
 
         model.cleanGarbage();        
+        */
 
         panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }

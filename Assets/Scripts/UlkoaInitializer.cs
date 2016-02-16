@@ -15,7 +15,10 @@ public abstract class UlkoaInitializer {
 
         StoreDeckDao storeDeckDao = new StoreDeckDao();
         yield return storeDeckDao.MakeQueryGetDeckList();
-        List<StoreDeck> storeDeckList = storeDeckDao.getQueryResultStoreDeckList();        
+        List<StoreDeck> storeDeckList = storeDeckDao.getQueryResultStoreDeckList();
+
+        MatchDao matchDao = new MatchDao();
+        yield return matchDao.MakeQueryGetMatchList();
 
         bool change = false;
         DeckBuilder deckBuilder;

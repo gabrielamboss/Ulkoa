@@ -503,13 +503,14 @@
     <Compile Include="Assets\Scripts\FlipCorrectAnswer.cs" />
     <Compile Include="Assets\Scripts\Game Class\Card.cs" />
     <Compile Include="Assets\Scripts\Game Class\Deck.cs" />
-    <Compile Include="Assets\Scripts\Game Class\DeckListWrapper.cs" />
     <Compile Include="Assets\Scripts\Game Class\Match.cs" />
     <Compile Include="Assets\Scripts\Game Class\Player.cs" />
     <Compile Include="Assets\Scripts\Game Class\Store.cs" />
     <Compile Include="Assets\Scripts\Game Class\StoreDeck.cs" />
-    <Compile Include="Assets\Scripts\Game Class\StoreDeckListWrapper.cs" />
-    <Compile Include="Assets\Scripts\Game Class\StringListWrapper.cs" />
+    <Compile Include="Assets\Scripts\Game Class\wrapper\DeckListWrapper.cs" />
+    <Compile Include="Assets\Scripts\Game Class\wrapper\MatchListWrapper.cs" />
+    <Compile Include="Assets\Scripts\Game Class\wrapper\StoreDeckListWrapper.cs" />
+    <Compile Include="Assets\Scripts\Game Class\wrapper\StringListWrapper.cs" />
     <Compile Include="Assets\Scripts\GameDeckMannager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GlobalVariables.cs" />

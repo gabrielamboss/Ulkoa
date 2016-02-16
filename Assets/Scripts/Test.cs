@@ -1,9 +1,9 @@
-﻿using Parse;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using PlayFab;
+using PlayFab.ClientModels;
+using UnityEngine;
 
 public class Test : MonoBehaviour {
 
@@ -12,37 +12,94 @@ public class Test : MonoBehaviour {
     {
         //InitAndContinueWith(PreStore);
         //StartCoroutine(InitAndContinueWith(PreStore));
-        aux();
+        StartCoroutine(storeDeckDaoTeste());
+    }
+    
+    private void storeDeckMaker()
+    {        
+        StoreDeck deck;
+        for (int i = 1; i <= 10; i++)
+        {
+            deck = new StoreDeck();
+            deck.DeckName = "SDeck" + i;
+            deck.IsPremium = i > 7;
+            deck.Price = i;
+            for (int j = 1; j <= 5; j++)
+            {
+                Card card = new Card();
+                card.PortugueseText = i + "Por" + j;
+                card.EnglishText = i + "Eng" + j;
+                deck.addCard(card);
+            }
+
+            Debug.Log("DeckName: " + deck.DeckName);
+            Debug.Log(JsonUtility.ToJson(deck));
+        }
     }
 
-    [SerializeField]
-    List<int> il = new List<int>() { 1, 2, 3 };
-    private void aux()
+    private IEnumerator storeDeckDaoTeste()
     {
-        List<Deck> deckList = new List<Deck>();
-        
-        List<string> sl = new List<string>() { "abc","def","ghi"};
-        Player player = new Player();
-        player.Username = "teste";
-        DeckBuilder deckBuilder = new DeckBuilder()
-                                .setDeckName("Default")
-                                .addCard("DefPor1", "DefEng1")
-                                .addCard("DefPor2", "DefEng2")
-                                .addCard("DefPor3", "DefEng3")
-                                .addCard("DefPor4", "DefEng4");
 
-        deckList.Add(deckBuilder.getDeck());
-        player.addDeck(deckBuilder.getDeck());
-        player.addToStoreDeckNameList("atastsfsd");
-        Debug.Log("Criando Json");        
-        Debug.Log(JsonUtility.ToJson(deckList[0]));
-        Debug.Log(JsonUtility.ToJson(deckList[0]));
-        Debug.Log(JsonUtility.ToJson(player.DeckList));
-        Debug.Log(JsonUtility.ToJson(player));
-        Debug.Log(JsonUtility.ToJson(player.StoreDeckNameList));
-        Debug.Log(JsonUtility.ToJson(il));
-        Debug.Log(JsonUtility.ToJson(sl));
-        Debug.Log("Json criado");
+        yield return makeConnection();
+
+        StoreDeckDao stDao = new StoreDeckDao();
+        yield return stDao.MakeQueryGetDeckList();
+
+        Debug.Log("Escrevendo resultado");
+        List<StoreDeck> l = stDao.getQueryResultStoreDeckList();
+        foreach(StoreDeck deck in l)
+        {
+            Debug.Log(deck.DeckName);
+        }
+
+    }    
+
+    private IEnumerator matchDaoTeste()
+    {
+        yield return makeConnection();
+
+        MatchDao matchDao = new MatchDao();
+        yield return matchDao.MakeQueryGetMatchList();
+
+        foreach(Match match in matchDao.getMatchList())
+        {
+            Debug.Log(match.DeckName + ": " +  match.MatchNumber);
+        }
+        
+    }
+
+    private IEnumerator makeConnection()
+    {
+        PlayFabSettings.TitleId = "2071";
+        LoginWithPlayFabRequest request = new LoginWithPlayFabRequest()
+        {
+            TitleId = "2071",
+            Username = "teste6",
+            Password = "teste6"
+        };
+
+        bool wait = true;
+        Debug.Log("Tentando logar");
+        PlayFabClientAPI.LoginWithPlayFab(request,
+            (result) =>
+            {
+                wait = false;
+                if (result.NewlyCreated)
+                {
+                    Debug.Log("Merda criamos um novo usuario");
+                }
+                else
+                {
+                    Debug.Log("Login com sucesso");
+                }
+            },
+            (error) =>
+            {
+                wait = false;
+                Debug.Log("Error logging in player");
+                Debug.Log(error.ErrorMessage);
+            });
+        while (wait) { yield return null; }
     }
 
     public void GoGoGo()
@@ -64,8 +121,6 @@ public class Test : MonoBehaviour {
     {
         Debug.Log("PreMainMenu has finished");
     }
-
-
 
     private IEnumerator InitAndContinueWith(Action Method)
     {        

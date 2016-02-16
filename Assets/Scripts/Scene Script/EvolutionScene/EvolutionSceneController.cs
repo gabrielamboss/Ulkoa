@@ -31,7 +31,7 @@ public class EvolutionSceneController : MonoBehaviour {
 
         if(cardList.Count == 0)
         {
-            Card newCard = Card.creatNewCard();
+            Card newCard = new Card();
             cardList.Add(newCard);
         }
 
@@ -83,7 +83,7 @@ public class EvolutionSceneController : MonoBehaviour {
         if (!editable)
             return;
 
-        Card newCard = Card.creatNewCard();
+        Card newCard = new Card();
         GameObject cardUI = model.addCard(newCard);
         model.setSelectedCardUI(cardUI);
         view.updateCardContainer();

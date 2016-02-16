@@ -19,12 +19,7 @@ public class Deck
         IsEditable = true;
         TimesPlayed = 0;
         IsFirstTime = true;
-    }
-
-    public string ObjectId
-    {
-        get { return JsonUtility.ToJson(this); }
-    }
+    }    
 
     public void addCard(Card card)
     {

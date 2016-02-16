@@ -12,14 +12,10 @@ public class MatchHistoryInitializer : MonoBehaviour {
 	public GameObject textPrefab;
 
 	public IEnumerator Initialize(){
-		MatchDao matchDao = new MatchDao();
-		if(currDeck != null)
-			yield return matchDao.MakeQueryGetMatchList(currDeck);
-		else{
-			Debug.LogError("currDeck is null");
-			yield return null;
-		}
-		List<Match> matchList = matchDao.getQueryResultMatchList();
+        
+		MatchDao matchDao = new MatchDao();        
+		List<Match> matchList = matchDao.getMatchsByDeck(currDeck);
+        
 
 		foreach(Match match in matchList){
 			Text newDeckID = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as Text; 
@@ -28,12 +24,14 @@ public class MatchHistoryInitializer : MonoBehaviour {
 			newMatchCorrect.transform.SetParent(contentParent.transform, false);
 			Text newMatchWrong = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as Text;
 			newMatchWrong.transform.SetParent(contentParent.transform, false);
-			newDeckID.text = currDeck.ObjectId;
+			//newDeckID.text = currDeck.ObjectId; Deck nao possui mais campo Id
 			newMatchCorrect.text = match.CorrectPoints.ToString();
 			newMatchWrong.text = match.WrongPoints.ToString();
 		}
 
 		hasInitialized = true;
+
+        return null;
 	}
 
 	public static bool HasInitialized(){

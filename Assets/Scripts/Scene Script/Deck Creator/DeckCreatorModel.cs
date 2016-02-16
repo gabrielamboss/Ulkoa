@@ -8,7 +8,7 @@ public class DeckCreatorModel : MonoBehaviour {
     private Deck deck;
     
     private List<GameObject> cardUIList = new List<GameObject>();
-    private List<Card> cardsToDelete = new List<Card>();
+    //private List<Card> cardsToDelete = new List<Card>();
     private GameObject selectedCardUI = null;
 
     public Sprite selectedCardImage;
@@ -66,7 +66,7 @@ public class DeckCreatorModel : MonoBehaviour {
     public void deleteSelectedCard()
     {
         cardUIList.Remove(selectedCardUI);        
-        cardsToDelete.Add(selectedCardUI.GetComponent<CardHolder>().getCard());        
+        //cardsToDelete.Add(selectedCardUI.GetComponent<CardHolder>().getCard());        
         Destroy(selectedCardUI);
     }
 
@@ -81,6 +81,7 @@ public class DeckCreatorModel : MonoBehaviour {
         return deck;
     }
 
+    /*
     public List<Card> getCardsToDelete()
     {
         return cardsToDelete;
@@ -90,5 +91,5 @@ public class DeckCreatorModel : MonoBehaviour {
     {
         cardsToDelete.Clear();
     }
-    
+    */
 }

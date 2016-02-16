@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 [Serializable]
 public class Player
@@ -16,7 +15,7 @@ public class Player
     public Player()
     {
         Currency = 10;
-        IsPremium = true;
+        IsPremium = false;
     }
 
     public void addDeck(Deck deck)
