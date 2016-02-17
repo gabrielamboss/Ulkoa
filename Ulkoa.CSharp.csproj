@@ -487,9 +487,11 @@
     <Compile Include="Assets\ProgressBar\Script\ProgressRadialBehaviour.cs" />
     <Compile Include="Assets\ProgressBar\Script\Utils.cs" />
     <Compile Include="Assets\Scripts\AudioPlayer.cs" />
+    <Compile Include="Assets\Scripts\Authenticator.cs" />
     <Compile Include="Assets\Scripts\CardHolder.cs" />
     <Compile Include="Assets\Scripts\CleanCardInput.cs" />
     <Compile Include="Assets\Scripts\CurrencyGiver.cs" />
+    <Compile Include="Assets\Scripts\Dao\Dao.cs" />
     <Compile Include="Assets\Scripts\Dao\DeckDao.cs" />
     <Compile Include="Assets\Scripts\Dao\MatchDao.cs" />
     <Compile Include="Assets\Scripts\Dao\PlayerDao.cs" />

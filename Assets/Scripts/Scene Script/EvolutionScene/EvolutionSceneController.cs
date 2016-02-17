@@ -143,10 +143,11 @@ public class EvolutionSceneController : MonoBehaviour {
 
         deck.DeckName = deckName.text;
 
-        DeckDao deckDao = new DeckDao();
-        //yield return deckDao.saveDeck(deck);
+        //Se vc quiser salvar um deck que ja esteja na lista do usuario
+        //basta usar Player.save(), caso contrario insirao na lista do usuario e salve
+        yield return Player.save();        
 
-        List<Card> cardsToDelete = model.getCardsToDelete();
+        List <Card> cardsToDelete = model.getCardsToDelete();
         int total = cardsToDelete.Count;
         int count = 0;        
         foreach (Card card in cardsToDelete)

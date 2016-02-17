@@ -12,7 +12,7 @@ public class Test : MonoBehaviour {
     {
         //InitAndContinueWith(PreStore);
         //StartCoroutine(InitAndContinueWith(PreStore));
-        StartCoroutine(storeDeckDaoTeste());
+        StartCoroutine(matchDaoTeste());
     }
     
     private void storeDeckMaker()

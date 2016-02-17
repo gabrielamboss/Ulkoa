@@ -3,39 +3,39 @@ using PlayFab.ClientModels;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class MatchDao {
-
+public class MatchDao : Dao {
+    
     private static MatchListWrapper matchList = new MatchListWrapper();
 
     public IEnumerator MakeQueryGetMatchList()
+    {        
+        GetUserDataRequest request = new GetUserDataRequest()
+        { Keys = new List<string>() { "MatchList" } };
+
+        yield return userDataQuerry(request);        
+    }
+
+    protected override void succesfullUserDataQuerry(GetUserDataResult result)
     {
-        bool wait = true;
+        Dictionary<string, UserDataRecord> data = result.Data;
+        if (data.ContainsKey("MatchList"))
+            matchList = JsonUtility.FromJson<MatchListWrapper>(data["MatchList"].Value);
+    }
 
-        GetUserDataRequest request = new GetUserDataRequest();
+    public IEnumerator saveMatch(Match match)
+    {
+        matchList.addMatch(match);
 
-        PlayFabClientAPI.GetUserData(request, (result) => {
-            Debug.Log("Got user data:");
-            if ((result.Data == null) || (result.Data.Count == 0))
-            {
-                Debug.Log("No user data available");
+        UpdateUserDataRequest request = new UpdateUserDataRequest()
+        {
+            Data = new Dictionary<string, string>(){
+                {"MatchList", JsonUtility.ToJson(matchList)},
             }
-            else
-            {                
-                Dictionary<string, UserDataRecord> data = result.Data;
-                if(data.ContainsKey("MatchList"))
-                    matchList = JsonUtility.FromJson<MatchListWrapper>(data["MatchList"].Value);
-            }
-            wait = false;
-        }, (error) => {
-            Debug.Log("Got error retrieving user data:");
-            Debug.Log(error.ErrorMessage);
-            wait = false;
-        });
+        };
 
-        while (wait)
-        { yield return null; }
-
+        yield return saveUserData(request);
     }
 
     public List<Match> getMatchsByDeck(Deck deck)
@@ -55,33 +55,5 @@ public class MatchDao {
     {
         return matchList.getList();
     }
-    
-    public IEnumerator saveMatch(Match match)
-    {
-        bool wait = true;
-        matchList.addMatch(match);
-
-        UpdateUserDataRequest request = new UpdateUserDataRequest()
-        {
-            Data = new Dictionary<string, string>(){                
-                {"MatchList", JsonUtility.ToJson(matchList)},
-            }
-        };
-
-        PlayFabClientAPI.UpdateUserData(request,
-            (result) =>
-            {
-                Debug.Log("Successfully updated user data");
-                wait = false;
-            },
-            (error) =>
-            {
-                Debug.Log("Got error setting user data");
-                Debug.Log(error.ErrorDetails);
-                wait = false;
-            });
-
-        while (wait)
-        { yield return null; }
-    }    
+            
 }

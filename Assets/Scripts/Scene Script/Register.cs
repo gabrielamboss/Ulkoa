@@ -16,6 +16,8 @@ public class Register : MonoBehaviour {
     public Text passwordError;
     public Text emailError;    
 
+    private bool succesfull;
+
     public void Save()
     {
         Debug.Log("Init save");
@@ -47,64 +49,17 @@ public class Register : MonoBehaviour {
     private IEnumerator SaveLogic()
     {        
         painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();        
+                
+        Authenticator authenticator = new Authenticator()
+                                            .setUserName(username.text)
+                                            .setPassword(password.text)
+                                            .setEmail(email.text)
+                                            .setRegisterSuccesfullCallback(registerSuccesfull)
+                                            .setRegisterFailCallback(registerFail);
 
-        bool saveSuccessful = false;
-        bool wait = true;
+        yield return authenticator.makeRegister();
 
-        RegisterPlayFabUserRequest request = new RegisterPlayFabUserRequest()
-        {
-            TitleId = "2071",
-            Username = username.text,
-            Email = email.text,
-            Password = password.text,
-            RequireBothUsernameAndEmail = true
-        };
-
-        PlayFabClientAPI.RegisterPlayFabUser(request,
-            (result) =>
-            {
-                saveSuccessful = true;
-                wait = false;                
-            },
-            (error) =>
-            {
-                saveSuccessful = false;
-                wait = false;
-                Debug.Log("Erro ao registrar - Ainda nao implementado o tratamento de erro");
-                Debug.Log(error.ErrorMessage);
-                Debug.Log(error.Error);
-                switch (error.Error)
-                {
-                    case PlayFabErrorCode.InvalidParams:
-                        emailError.text = "Error de conexao: Parametros invalidos";
-                        break;
-                    case PlayFabErrorCode.InvalidTitleId:
-                        emailError.text = "Error de conexao: TitleId "+PlayFabSettings.TitleId;
-                        break;
-                    case PlayFabErrorCode.EmailAddressNotAvailable:
-                        emailError.text = "Email nao disponivel";
-                        break;
-                    case PlayFabErrorCode.InvalidEmailAddress:
-                        emailError.text = "Email invalido";
-                        break;
-                    case PlayFabErrorCode.UsernameNotAvailable:
-                        userError.text = "Usuario ja existente";
-                        break;
-                    case PlayFabErrorCode.InvalidUsername:
-                        userError.text = "Usuario ja existente";
-                        break;
-                    case PlayFabErrorCode.InvalidPassword:
-                        passwordError.text = "Senha invalida";
-                        break;
-                    default:
-                        break;
-                }
-            });
-        
-        while (wait)
-        { yield return null; }        
-
-        if (saveSuccessful)
+        if (succesfull)
         {            
             yield return savePlayerData();
             new LevelManager().LoadLevel(SceneBook.LOADING_NAME);            
@@ -136,6 +91,46 @@ public class Register : MonoBehaviour {
                                 .addCard("DefPor4", "DefEng4");
 
         return deckBuilder.getDeck();          
+    }
+
+    //Infelizmente eu nao posso chamar savePlayerData daqui de dentro
+    //por isso tive que fazer essa gambiarra
+    private void registerSuccesfull(RegisterPlayFabUserResult result)
+    {
+        succesfull = true;
+    }
+
+    private void registerFail(PlayFabError error)
+    {
+        succesfull = false;
+
+        switch (error.Error)
+        {
+            case PlayFabErrorCode.InvalidParams:
+                emailError.text = "Error de conexao: Parametros invalidos";
+                break;
+            case PlayFabErrorCode.InvalidTitleId:
+                emailError.text = "Error de conexao: TitleId " + PlayFabSettings.TitleId;
+                break;
+            case PlayFabErrorCode.EmailAddressNotAvailable:
+                emailError.text = "Email nao disponivel";
+                break;
+            case PlayFabErrorCode.InvalidEmailAddress:
+                emailError.text = "Email invalido";
+                break;
+            case PlayFabErrorCode.UsernameNotAvailable:
+                userError.text = "Usuario ja existente";
+                break;
+            case PlayFabErrorCode.InvalidUsername:
+                userError.text = "Usuario ja existente";
+                break;
+            case PlayFabErrorCode.InvalidPassword:
+                passwordError.text = "Senha invalida";
+                break;
+            default:
+                break;
+        }
+
     }
 
     public void GoBack()

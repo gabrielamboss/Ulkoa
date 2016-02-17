@@ -1,5 +1,4 @@
-﻿using Parse;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,12 +36,13 @@ public class MainMenu : MonoBehaviour {
         {           
             Transform child = deckContainer.transform.GetChild(0);
             child.parent = null;
+            Destroy(child.gameObject);
         }
         
         List<Deck> deckList = player.DeckList.getList();
         deckList.Sort(delegate(Deck d1, Deck d2)
         {
-            return d1.DeckName.CompareTo(d2.DeckName);
+            return d1.DeckName.CompareTo(d2.DeckName);//Compare alfanumericamente
         });
 
         foreach (Deck deck in deckList)
@@ -54,8 +54,7 @@ public class MainMenu : MonoBehaviour {
             text.text = deck.DeckName;
         }
         
-        selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;
-        selectedDeckUI.GetComponent<Image>().sprite = selectedDeckImage;
+        selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;        
         OnDeckClick(selectedDeckUI);
         
     }
@@ -65,8 +64,7 @@ public class MainMenu : MonoBehaviour {
         selectedDeckUI.GetComponent<Image>().sprite = normalDeckImage;
         deckUI.GetComponent<Image>().sprite = selectedDeckImage;
         selectedDeckUI = deckUI;
-        Deck deck = deckUI.GetComponent<DeckHolder>().GetDeck();
-        Debug.Log(deck.DeckName);
+        Deck deck = deckUI.GetComponent<DeckHolder>().GetDeck();        
         GlobalVariables.SetSelectedDeck(deck);
     }       
 
@@ -96,7 +94,7 @@ public class MainMenu : MonoBehaviour {
 
     public void DeleteDeck()
     {
-        Deck selectedDeck = GlobalVariables.GetSelectedDeck();
+        Deck selectedDeck = selectedDeckUI.GetComponent<DeckHolder>().GetDeck();
         if (selectedDeck.IsEditable)
         {
             StartCoroutine(deleteLogic(selectedDeck));
@@ -111,15 +109,15 @@ public class MainMenu : MonoBehaviour {
     {
         panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
 
-        Destroy(selectedDeckUI);
-        selectedDeckUI = deckContainer.transform.GetChild(0).gameObject;
-        OnDeckClick(selectedDeckUI);
+        Destroy(selectedDeckUI);        
 
         Player player = Player.getInstance();
         player.removeDeck(deck);
 
         PlayerDao playerDao = new PlayerDao();
         yield return playerDao.savePlayer(player);
+
+        buildDeckContainer();
 
         panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
@@ -132,37 +130,23 @@ public class MainMenu : MonoBehaviour {
             errorMsg.text = "Avise o usuario que ele ja eh premium";
             return;
         }
-
-        //Change this
-        StartCoroutine(PremiumLogic());
+        
+        StartCoroutine(PremiumLogic());               
     }
-
+    
     private IEnumerator PremiumLogic()
     {
         panel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
 
         Player player = Player.getInstance();
-        DeckBuilder deckBuilder;
-        Deck deck;
-        DeckDao deckDao = new DeckDao();
-        List<StoreDeck> storeDeckList = Store.getDeckList();
-        foreach (StoreDeck storeDeck in storeDeckList)
-        {
-            deckBuilder = new DeckBuilder(storeDeck);
-            deck = deckBuilder.getDeck();            
-            player.addDeck(deck);
-            player.addToStoreDeckNameList(deck.DeckName);
-        }
-
         player.IsPremium = true;
+
         PlayerDao playerDao = new PlayerDao();
         yield return playerDao.savePlayer(player);
 
-        Store.clean();
-
-        buildDeckContainer();
-
         panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
+
+        new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
     }
 
     public void GoToStore()
@@ -171,10 +155,8 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Logout()
-    {
-        Player.setInstance(null);
-        Store.clean();
-        ParseUser.LogOutAsync();
+    {        
+        Store.clean();        
         new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
     }
 }

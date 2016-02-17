@@ -5,66 +5,75 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Login : MonoBehaviour {
-
-    public GameObject errorText;
+    
     public GameObject painel;
     public InputField username;
     public InputField password;
-
-    void Start()
-    {        
-        errorText.SetActive(false);
-    }
+    public Text userError;
+    public Text passwordError;
+    public Text errorText;    
 
     public void MakeLogin()
     {
-        StartCoroutine(LoginLogic());
+        bool inputIsCorrect = true;
+        if (username.text.Equals(""))
+        {
+            userError.text = "Campo usuario em branco";
+            inputIsCorrect = false;
+        }
+
+        if (password.text.Equals(""))
+        {
+            passwordError.text = "Campo senha em branco";
+            inputIsCorrect = false;
+        }
+
+        if (inputIsCorrect)
+            StartCoroutine(LoginLogic());
     }
 
     private IEnumerator LoginLogic()
     {        
         painel.GetComponent<LoadingPanelCreator>().CreateLoadingPanel();
-        
-        bool loginSuccessful = false;
-        bool wait = true;
 
-        LoginWithPlayFabRequest request = new LoginWithPlayFabRequest()
-        {
-            TitleId = "2071",
-            Username = username.text,            
-            Password = password.text           
-        };
+        Authenticator authenticator = new Authenticator()
+                                            .setUserName(username.text)
+                                            .setPassword(password.text)
+                                            .setLoginSuccesfullCallback(loginSuccesfull)
+                                            .setLoginFailCallback(loginFail);
 
-        PlayFabClientAPI.LoginWithPlayFab(request, 
-            (result) =>
-        {            
-            wait = false;
-            if (result.NewlyCreated)
-            {
-                loginSuccessful = false;
-                Debug.Log("Merda criamos um novo usuario");
-            }
-            else
-            {
-                loginSuccessful = true;
-                Debug.Log("Login com sucesso");
-            }
-        }, 
-            (error) =>
-        {
-            loginSuccessful = false;
-            wait = false;
-            Debug.Log("Error logging in player");
-            Debug.Log(error.ErrorMessage);
-        });
-        while (wait) { yield return null; }        
-
-        if (loginSuccessful)       
-            new LevelManager().LoadLevel(SceneBook.LOADING_NAME);        
-        else        
-            errorText.SetActive(true);        
-                
+        yield return authenticator.makeLogin();    
+            
         painel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
+    }
+
+    private void loginSuccesfull(LoginResult result)
+    {
+        new LevelManager().LoadLevel(SceneBook.LOADING_NAME);
+    }
+
+    private void loginFail(PlayFabError error)
+    {
+        switch (error.Error)
+        {
+            case PlayFabErrorCode.InvalidParams:
+                errorText.text = "Parametros invalidos (Cod. 1000)";
+                break;
+            case PlayFabErrorCode.InvalidTitleId:
+                errorText.text = "TitleId invalido (Cod.1004)";
+                break;
+            case PlayFabErrorCode.AccountNotFound:
+                errorText.text = "Conta nao encontrada (Cod. 1001)";
+                break;
+            case PlayFabErrorCode.AccountBanned:
+                errorText.text = "Erro de conta (Cod. 1002)";
+                break;
+            case PlayFabErrorCode.InvalidUsernameOrPassword:
+                errorText.text = "Combinação de usuario e senha invalidos";
+                break;
+            default:
+                break;
+        }        
     }
 
     public void NewAcount()

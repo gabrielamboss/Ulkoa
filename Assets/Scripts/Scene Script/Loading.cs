@@ -9,14 +9,7 @@ public class Loading : MonoBehaviour {
 	// Use this for initialization
 	void Start () {                        
         StartCoroutine(LoadingLabel());
-        StartCoroutine(InitializeGameAndContinueToMainMenu());
-        /*        
-        if (ParseUser.CurrentUser != null)        
-            StartCoroutine(InitializeGameAndContinueToMainMenu());
-        
-        else                    
-            StartCoroutine(WaitAndContinueToLoginScene());
-        */
+        StartCoroutine(InitializeGameAndContinueToMainMenu());                
     }
 	
     
@@ -24,8 +17,8 @@ public class Loading : MonoBehaviour {
     {
         yield return UlkoaInitializer.InitializeGame();
 
-        while (!UlkoaInitializer.HasInitialized())
-        { yield return null;}
+        //while (!UlkoaInitializer.HasInitialized())
+        //{ yield return null;}
         
         new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);        
     }

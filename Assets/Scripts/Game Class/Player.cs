@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 [Serializable]
 public class Player
@@ -20,7 +21,8 @@ public class Player
 
     public void addDeck(Deck deck)
     {
-        DeckList.Add(deck);
+        if(!DeckList.Contains(deck))
+            DeckList.Add(deck);
     }
     public void removeDeck(Deck deck)
     {
@@ -44,9 +46,9 @@ public class Player
     {
         return instance;
     }
-    public static void save()
+    public static IEnumerator save()
     {
         PlayerDao playerDao = new PlayerDao();
-        playerDao.savePlayer(getInstance());
+        yield return playerDao.savePlayer(getInstance());
     }
 }
