@@ -500,6 +500,10 @@
      <Compile Include="Assets\Scripts\MatchHistoryInitializer.cs" />
      <Compile Include="Assets\Scripts\MockDeckFactory.cs" />
      <Compile Include="Assets\Scripts\MusicPlayer.cs" />
+     <Compile Include="Assets\Scripts\PremiumPanel.cs" />
+     <Compile Include="Assets\Scripts\PremiumPanelEvolution.cs" />
+     <Compile Include="Assets\Scripts\PremiumPanelHistory.cs" />
+     <Compile Include="Assets\Scripts\PremiumPanelProgress.cs" />
      <Compile Include="Assets\Scripts\RedirectToEdit.cs" />
      <Compile Include="Assets\Scripts\SRSManager.cs" />
      <Compile Include="Assets\Scripts\Scene Script\Deck Creator\DeckCreatorController.cs" />

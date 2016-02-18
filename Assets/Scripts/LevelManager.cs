@@ -10,7 +10,17 @@ public class LevelManager : MonoBehaviour {
 		SceneManager.LoadScene(name);
 	}
 
-	public void QuitRequest() {
+    public void LeaveEndGame(string name)
+    {
+        GlobalVariables.WasDisplayedEvolution = false;
+        GlobalVariables.WasDisplayedProgress = false;
+        GlobalVariables.WasDisplayedHistory = false;
+        StartCoroutine(new PlayerDao().savePlayer(Player.getInstance()));
+        Debug.Log("New Level load: " + name);
+        SceneManager.LoadScene(name);
+    }
+
+    public void QuitRequest() {
 		Debug.Log("Quit requested");
 		Application.Quit ();
 	}

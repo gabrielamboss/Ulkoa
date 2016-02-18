@@ -9,7 +9,8 @@ public class Player
 
     public string Username;    
     public int Currency;
-    public bool IsPremium;    
+    public bool IsPremium;
+    public int PremiumCredit; 
     public StringListWrapper StoreDeckNameList = new StringListWrapper();
     public DeckListWrapper DeckList = new DeckListWrapper();
 
@@ -17,6 +18,7 @@ public class Player
     {
         Currency = 10;
         IsPremium = false;
+        PremiumCredit = 5;
     }
 
     public void addDeck(Deck deck)
