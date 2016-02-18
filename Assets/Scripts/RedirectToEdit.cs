@@ -35,6 +35,7 @@ public class RedirectToEdit : MonoBehaviour
         button.enabled = true;
         field.enabled = true;
         GlobalVariables.GetSelectedDeck().IsFirstTime = false;
+        //GlobalVariables.GetSelectedDeck().IsEditable = false;
         //GlobalVariables.GetSelectedDeck().SaveAsync();
         Player.save();
         Redirect();

@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject wrongLeavingCardPrefab;
     private static String correctAnswer;
     public GameObject WrongSymbol;
-    public GameObject CorrectSymbol;    
+    public GameObject CorrectSymbol;
+    public Button goBacktoMenu;    
 
     // Use this for initialization
     void Start()
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
     {
         if (GlobalVariables.continueGame)
         {
+            goBacktoMenu.enabled = true;
             if (leitnerManager.IsFirst())
             {
                 UpdateScreen();
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
         }
         if (GlobalVariables.continueGame)
         {
+            goBacktoMenu.enabled = true;
             FocusInput();
             if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -151,6 +154,7 @@ public class GameManager : MonoBehaviour
 
     private void AdminUserInput(string userInput)
     {
+        goBacktoMenu.enabled = false;
         int Error = LevenshteinDistance.LevenshteinDistanceFunction(userInput.ToLower(), currentCard.EnglishText.ToLower());
         var ErrorMeasure = (float)(Error * 100 / currentCard.EnglishText.Length);
         Debug.Log("ErrorMeasure: " + ErrorMeasure);
@@ -195,6 +199,7 @@ public class GameManager : MonoBehaviour
     {
         if (GlobalVariables.continueGame)
         {
+            goBacktoMenu.enabled = false;
             GlobalVariables.wrongAnswerAmount++;
             currentCard.LeitnerLevel = 1;
             WrongSymbol.GetComponent<Animator>().Play("Playing");

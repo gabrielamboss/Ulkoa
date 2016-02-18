@@ -169,6 +169,7 @@ public class DeckCreatorController : MonoBehaviour {
         if (GlobalVariables.GoBackToGame)
         {
             GlobalVariables.GoBackToGame = false;
+            //GlobalVariables.GetSelectedDeck().IsEditable = false;
             new LevelManager().LoadLevel(SceneBook.GAME_NAME);
         }
         else

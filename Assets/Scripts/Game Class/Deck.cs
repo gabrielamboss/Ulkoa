@@ -8,6 +8,7 @@ public class Deck
 
     public string DeckName;
     public int TimesPlayed;
+    public int SessionNumber;
     public bool IsEditable;    
     public bool IsFirstTime;
 
@@ -18,6 +19,7 @@ public class Deck
         DeckName = "";
         IsEditable = true;
         TimesPlayed = 0;
+        SessionNumber = 0;
         IsFirstTime = true;
     }    
 

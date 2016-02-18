@@ -1873,6 +1873,7 @@ MonoBehaviour:
     type: 2}
   WrongSymbol: {fileID: 1773079291}
   CorrectSymbol: {fileID: 197210308}
+  goBacktoMenu: {fileID: 1480961852}
 --- !u!4 &2136181451
 Transform:
   m_ObjectHideFlags: 0

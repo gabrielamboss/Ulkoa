@@ -34,7 +34,8 @@ public class LeitnerManager : SRSManager
 
     private void setUpCurrentDeck()
     {
-        currentTimesPlayed = deck.TimesPlayed;
+        currentTimesPlayed = deck.SessionNumber;
+        Debug.Log("Leitner manager: Sessao numero " + currentTimesPlayed);
         numberOfCurrentTraining = currentTimesPlayed % GlobalVariables.LeitnerRoutine.Count;
         currentTraining = GlobalVariables.LeitnerRoutine[numberOfCurrentTraining];
 
@@ -45,6 +46,7 @@ public class LeitnerManager : SRSManager
                 if (!currentDeck.Contains(card))
                 {
                     currentDeck.Add(card);
+                    Debug.Log("Carta adicionada: " + card.PortugueseText);
                     //Vamo ter que mudar isso
                     //GlobalVariables.OriginalLevels.Add(card.ObjectId, card.LeitnerLevel);
                     //Debug.Log("Testando dicionario. Leitner level: " + GlobalVariables.OriginalLevels[card.ObjectId]);
@@ -52,11 +54,11 @@ public class LeitnerManager : SRSManager
                 }
             }
         }
+        deck.SessionNumber++;
 
         if (currentDeck.Count <= deck.cardList.Count / 2)
         {
             Debug.Log("Deck atual possui " + currentDeck.Count + " cartas. Adicionando mais cartas");
-            deck.TimesPlayed++;
             setUpCurrentDeck();
         }
         originalSize = currentDeck.Count;
