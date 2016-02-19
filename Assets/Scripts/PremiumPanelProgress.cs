@@ -20,6 +20,7 @@ public class PremiumPanelProgress : MonoBehaviour {
     {
         GlobalVariables.WasDisplayedProgress = true;
         player.PremiumCredit--;
+        StartCoroutine(new PlayerDao().savePlayer(player));
         DestroyImmediate(gameObject);
     }
 

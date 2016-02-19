@@ -116,7 +116,8 @@ public class DeckCreatorController : MonoBehaviour {
         {
             errorMsg.text = "Voce precisa definir um nome para o deck";
             return;
-        }                    
+        }
+                            
         else
             errorMsg.text = "";
 

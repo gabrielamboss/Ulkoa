@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +17,7 @@ public class PlayerDao : Dao{
                 "UserName",
                 "Currency",
                 "IsPremium",
+                "PremiumCredit",
                 "StoreDeckNameList",
                 "DeckList"
             }
@@ -31,6 +32,7 @@ public class PlayerDao : Dao{
         player.Username = data["UserName"].Value;
         player.Currency = Int32.Parse(data["Currency"].Value);
         player.IsPremium = Boolean.Parse(data["IsPremium"].Value);
+        player.PremiumCredit = Int32.Parse(data["PremiumCredit"].Value);
         player.StoreDeckNameList = JsonUtility.FromJson<StringListWrapper>(data["StoreDeckNameList"].Value);
         player.DeckList = JsonUtility.FromJson<DeckListWrapper>(data["DeckList"].Value);
     }    
@@ -49,6 +51,7 @@ public class PlayerDao : Dao{
                 {"UserName", player.Username},
                 {"Currency", player.Currency.ToString()},
                 {"IsPremium", player.IsPremium.ToString()},
+                {"PremiumCredit", player.PremiumCredit.ToString()},
                 {"StoreDeckNameList", JsonUtility.ToJson(player.StoreDeckNameList)},
                 {"DeckList", JsonUtility.ToJson(player.DeckList)},
             }

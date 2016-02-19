@@ -117,7 +117,7 @@ public abstract class Dao {
     protected virtual void failedSave(PlayFabError error)
     {
         Debug.Log("Got error setting user data Ancestor to Arthur");
-        Debug.Log(error.ErrorDetails);
+        throw new Exception(error.ErrorMessage);
     }
 
     

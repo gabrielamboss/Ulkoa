@@ -19,6 +19,7 @@ public class PremiumPanelEvolution : MonoBehaviour {
     {
         GlobalVariables.WasDisplayedEvolution = true;
         player.PremiumCredit--;
+        StartCoroutine(new PlayerDao().savePlayer(player));
         DestroyImmediate(gameObject);
     }
 

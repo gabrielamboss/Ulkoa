@@ -20,6 +20,7 @@ public class PremiumPanelHistory : MonoBehaviour {
     {
         GlobalVariables.WasDisplayedHistory = true;
         player.PremiumCredit--;
+        StartCoroutine(new PlayerDao().savePlayer(player));
         DestroyImmediate(gameObject);
     }
 
