@@ -12,9 +12,8 @@ public abstract class GlobalVariables{
     public static bool continueGame = true;
     public static bool GoBackToGame = false;
     public static bool WasNotDisplayed = true;
-    public static bool WasDisplayedEvolution = false;
-    public static bool WasDisplayedHistory = false;
-    public static bool WasDisplayedProgress = false;
+    public static bool PremiumWasDisplayed = false;
+
 
     public static readonly List<List<int>> LeitnerRoutine = new List<List<int>>()
     {

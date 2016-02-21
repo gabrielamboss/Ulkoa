@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Parse;
 
-public class LevelManager : MonoBehaviour {    	
+public class LevelManager : MonoBehaviour {
+    public GameObject panel;    	
 
 	public void LoadLevel(string name) {
 		Debug.Log("New Level load: " + name);
@@ -12,9 +13,7 @@ public class LevelManager : MonoBehaviour {
 
     public void LeaveEndGame(string name)
     {
-        GlobalVariables.WasDisplayedEvolution = false;
-        GlobalVariables.WasDisplayedProgress = false;
-        GlobalVariables.WasDisplayedHistory = false;
+        GlobalVariables.PremiumWasDisplayed = false;
         StartCoroutine(new PlayerDao().savePlayer(Player.getInstance()));
         Debug.Log("New Level load: " + name);
         SceneManager.LoadScene(name);
