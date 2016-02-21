@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 public class StoreDeckDao : Dao{
 
-    List<StoreDeck> deckList = new List<StoreDeck>(); 
+    List<StoreDeck> deckList = new List<StoreDeck>();
 
-    public IEnumerator MakeQueryGetDeckList()
-    {        
+    public override IEnumerator makeQuerry()
+    {
         GetTitleDataRequest request = new GetTitleDataRequest();
         yield return titleDataQuerry(request);
     }
@@ -16,7 +16,7 @@ public class StoreDeckDao : Dao{
     protected override void succesfullTitleDataQuerry(GetTitleDataResult result)
     {
         foreach (var entry in result.Data)
-        {            
+        {
             deckList.Add(JsonUtility.FromJson<StoreDeck>(entry.Value));
         }
     }
@@ -25,5 +25,5 @@ public class StoreDeckDao : Dao{
     {
         return deckList;
     }
-    
+
 }

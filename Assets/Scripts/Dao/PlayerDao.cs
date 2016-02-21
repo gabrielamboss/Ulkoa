@@ -1,14 +1,14 @@
-﻿ using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayFab.ClientModels;
 
 public class PlayerDao : Dao{
-    
+
     private Player player = new Player();
 
-    public IEnumerator MakeQueryGetPlayer()
+    public override IEnumerator makeQuerry()
     {
         GetUserDataRequest request = new GetUserDataRequest()
         {
@@ -17,13 +17,12 @@ public class PlayerDao : Dao{
                 "UserName",
                 "Currency",
                 "IsPremium",
-                "PremiumCredit",
                 "StoreDeckNameList",
                 "DeckList"
             }
         };
 
-        yield return userDataQuerry(request);        
+        yield return userDataQuerry(request);
     }
 
     protected override void succesfullUserDataQuerry(GetUserDataResult result)
@@ -32,10 +31,9 @@ public class PlayerDao : Dao{
         player.Username = data["UserName"].Value;
         player.Currency = Int32.Parse(data["Currency"].Value);
         player.IsPremium = Boolean.Parse(data["IsPremium"].Value);
-        player.PremiumCredit = Int32.Parse(data["PremiumCredit"].Value);
         player.StoreDeckNameList = JsonUtility.FromJson<StringListWrapper>(data["StoreDeckNameList"].Value);
         player.DeckList = JsonUtility.FromJson<DeckListWrapper>(data["DeckList"].Value);
-    }    
+    }
 
     public Player getQueryResultPlayer()
     {
@@ -46,12 +44,11 @@ public class PlayerDao : Dao{
     {
         Debug.Log("Cerating request");
         UpdateUserDataRequest request = new UpdateUserDataRequest()
-        {           
-            Data = new Dictionary<string,string>(){
+        {
+            Data = new Dictionary<string, string>(){
                 {"UserName", player.Username},
                 {"Currency", player.Currency.ToString()},
                 {"IsPremium", player.IsPremium.ToString()},
-                {"PremiumCredit", player.PremiumCredit.ToString()},
                 {"StoreDeckNameList", JsonUtility.ToJson(player.StoreDeckNameList)},
                 {"DeckList", JsonUtility.ToJson(player.DeckList)},
             }
@@ -62,5 +59,5 @@ public class PlayerDao : Dao{
 
     }
 
-    
+
 }

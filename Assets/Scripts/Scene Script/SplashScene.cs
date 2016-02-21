@@ -6,8 +6,7 @@ public class SplashScene : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        PlayFabSettings.TitleId = "2071";
-        Debug.Log("Splash Scene");
+        PlayFabSettings.TitleId = "2071";        
         StartCoroutine(EndSplashScene());
 	}
 	

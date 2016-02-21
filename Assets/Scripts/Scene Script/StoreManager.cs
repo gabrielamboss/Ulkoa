@@ -14,6 +14,8 @@ public class StoreManager : MonoBehaviour {
     public GameObject cardContent;
     public GameObject cardTextModel;
     public GameObject painel;
+    public Text username;
+    public Text error;
 
     void Start () {
 
@@ -44,7 +46,9 @@ public class StoreManager : MonoBehaviour {
             selectedDeckUI = collectionParent.transform.GetChild(0).gameObject;
             OnDeckClick(collectionParent.transform.GetChild(0).gameObject);
         }
-            
+
+        Player player = Player.getInstance();
+        username.text = player.Username;
               
         currency.text = Player.getInstance().Currency.ToString();        
     }
@@ -99,6 +103,9 @@ public class StoreManager : MonoBehaviour {
 
     public void Buy()
     {
+        if (selectedDeckUI == null)
+            return;
+
         StoreDeck storeDeck = selectedDeckUI.GetComponent<StoreDeckUI>().getStoreDeck();
 
         if (storeDeck.IsPremium)
@@ -131,6 +138,9 @@ public class StoreManager : MonoBehaviour {
 
         PlayerDao playerDao = new PlayerDao();
         yield return playerDao.savePlayer(player);
+
+        if (!playerDao.isSaveSuccessfull())
+            error.text = "Erro ao salvar compra, porfavor verifique sua conexão";
 
         selectedDeckUI.transform.parent = null;
         Store.deletDeck(storeDeck);

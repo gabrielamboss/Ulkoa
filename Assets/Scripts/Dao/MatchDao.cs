@@ -1,20 +1,18 @@
-﻿using PlayFab;
-using PlayFab.ClientModels;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using PlayFab.ClientModels;
 
 public class MatchDao : Dao {
-    
+
     private static MatchListWrapper matchList = new MatchListWrapper();
 
-    public IEnumerator MakeQueryGetMatchList()
-    {        
+    public override IEnumerator makeQuerry()
+    {
         GetUserDataRequest request = new GetUserDataRequest()
         { Keys = new List<string>() { "MatchList" } };
 
-        yield return userDataQuerry(request);        
+        yield return userDataQuerry(request);
     }
 
     protected override void succesfullUserDataQuerry(GetUserDataResult result)
@@ -55,5 +53,5 @@ public class MatchDao : Dao {
     {
         return matchList.getList();
     }
-            
+
 }

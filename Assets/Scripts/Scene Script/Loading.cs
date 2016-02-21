@@ -4,38 +4,47 @@ using System.Collections;
 
 public class Loading : MonoBehaviour {
 
-    public Text loadLabel;     
+    public Text loadLabel;
+    private bool runLabel;
 
-	// Use this for initialization
-	void Start () {                        
-        StartCoroutine(LoadingLabel());
-        StartCoroutine(InitializeGameAndContinueToMainMenu());                
-    }
-	
-    
-	private IEnumerator InitializeGameAndContinueToMainMenu()
+    // Use this for initialization
+    void Start()
     {
+        StartCoroutine(LoadingLabel());
+        StartCoroutine(InitializeGameAndContinueToMainMenu());
+    }
+
+
+    private IEnumerator InitializeGameAndContinueToMainMenu()
+    {
+
         yield return UlkoaInitializer.InitializeGame();
 
-        //while (!UlkoaInitializer.HasInitialized())
-        //{ yield return null;}
-        
-        new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);        
+        if (UlkoaInitializer.isSuccessfull())
+            new LevelManager().LoadLevel(SceneBook.MAIN_MENU_NAME);
+
+        else
+        {
+            runLabel = false;
+            loadLabel.text = "Error de conexão";
+            yield return new WaitForSeconds(3.0f);
+            new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
+        }
     }
 
     private IEnumerator WaitAndContinueToLoginScene()
     {
-        yield return new WaitForSeconds(3.0f);        
+        yield return new WaitForSeconds(3.0f);
         new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
     }
 
     private IEnumerator LoadingLabel()
     {
-
-        loadLabel.text = "";                
-        while (true)
+        runLabel = true;
+        loadLabel.text = "";
+        while (runLabel)
         {
-            yield return new WaitForSeconds(0.3f);            
+            yield return new WaitForSeconds(0.3f);
             UpdateLabel();
         }
     }
@@ -49,6 +58,6 @@ public class Loading : MonoBehaviour {
             count = 0;
             loadLabel.text = "";
         }
-        loadLabel.text += text[count];        
+        loadLabel.text += text[count];
     }
 }

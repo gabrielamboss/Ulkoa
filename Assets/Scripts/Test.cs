@@ -43,7 +43,7 @@ public class Test : MonoBehaviour {
         yield return makeConnection();
 
         StoreDeckDao stDao = new StoreDeckDao();
-        yield return stDao.MakeQueryGetDeckList();
+        //yield return stDao.MakeQueryGetDeckList();
 
         Debug.Log("Escrevendo resultado");
         List<StoreDeck> l = stDao.getQueryResultStoreDeckList();
@@ -59,7 +59,7 @@ public class Test : MonoBehaviour {
         yield return makeConnection();
 
         MatchDao matchDao = new MatchDao();
-        yield return matchDao.MakeQueryGetMatchList();
+        //yield return matchDao.MakeQueryGetMatchList();
 
         foreach(Match match in matchDao.getMatchList())
         {
@@ -125,7 +125,7 @@ public class Test : MonoBehaviour {
     private IEnumerator InitAndContinueWith(Action Method)
     {        
         yield return UlkoaInitializer.InitializeGame();
-        while (!UlkoaInitializer.HasInitialized())
+        //while (!UlkoaInitializer.HasInitialized())
         {yield return null;}
         Method();
     }

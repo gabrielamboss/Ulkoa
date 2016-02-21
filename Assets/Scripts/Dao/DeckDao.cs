@@ -7,17 +7,17 @@ public class DeckDao : Dao {
 
     private DeckListWrapper deckList = new DeckListWrapper();
 
-    public IEnumerator MakeQueryGetPlayer()
+    public override IEnumerator makeQuerry()
     {
         GetUserDataRequest request = new GetUserDataRequest()
-        { Keys = new List<string>(){ "DeckList" } };
+        { Keys = new List<string>() { "DeckList" } };
 
         yield return userDataQuerry(request);
     }
 
     protected override void succesfullUserDataQuerry(GetUserDataResult result)
     {
-        Dictionary<string, UserDataRecord> data = result.Data;        
+        Dictionary<string, UserDataRecord> data = result.Data;
         deckList = JsonUtility.FromJson<DeckListWrapper>(data["DeckList"].Value);
     }
 
@@ -36,7 +36,7 @@ public class DeckDao : Dao {
 
         UpdateUserDataRequest request = new UpdateUserDataRequest()
         {
-            Data = new Dictionary<string, string>(){                
+            Data = new Dictionary<string, string>(){
                 {"DeckList", JsonUtility.ToJson(deckList)},
             }
         };

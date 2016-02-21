@@ -11,7 +11,26 @@ public class Login : MonoBehaviour {
     public InputField password;
     public Text userError;
     public Text passwordError;
-    public Text errorText;    
+    public Text errorText;
+
+    void Start()
+    {
+        username.Select();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+            MakeLogin();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (username.isFocused)
+                password.Select();
+            else
+                username.Select();
+        }
+    }
 
     public void MakeLogin()
     {

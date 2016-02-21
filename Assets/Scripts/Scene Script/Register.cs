@@ -18,6 +18,27 @@ public class Register : MonoBehaviour {
 
     private bool succesfull;
 
+    void Start()
+    {
+        username.Select();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+            Save();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (username.isFocused)
+                password.Select();
+            else if (password.isFocused)
+                email.Select();
+            else if (email.isFocused)
+                username.Select();
+        }
+    }
+
     public void Save()
     {
         Debug.Log("Init save");
@@ -107,7 +128,7 @@ public class Register : MonoBehaviour {
         switch (error.Error)
         {
             case PlayFabErrorCode.InvalidParams:
-                emailError.text = "Error de conexao: Parametros invalidos";
+                emailError.text = "Parametros invalidos, porfavor verifique seu email";
                 break;
             case PlayFabErrorCode.InvalidTitleId:
                 emailError.text = "Error de conexao: TitleId " + PlayFabSettings.TitleId;

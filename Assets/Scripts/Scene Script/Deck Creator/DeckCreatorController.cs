@@ -147,20 +147,8 @@ public class DeckCreatorController : MonoBehaviour {
         PlayerDao playerDao = new PlayerDao();
         yield return playerDao.savePlayer(player);
 
-        //Desnecessario tirar
-        /*
-        List<Card> cardsToDelete = model.getCardsToDelete();
-        int total = cardsToDelete.Count;
-        int count = 0;        
-        foreach (Card card in cardsToDelete)
-        {
-            //card.DeleteAsync().ContinueWith(t=>{ count++; });
-        }
-        while(count < total)
-        { yield return null; }
-
-        model.cleanGarbage();        
-        */
+        if (!playerDao.isSaveSuccessfull())
+            errorMsg.text = "Erro ao salva, porfavor verifique sua conexão";
 
         panel.GetComponent<LoadingPanelCreator>().DestroyLoadingPanel();
     }
