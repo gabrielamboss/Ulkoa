@@ -4,7 +4,9 @@ using System;
 using UnityEngine.UI;
 
 public class CurrencyGiver : MonoBehaviour {
-    public Button button;
+    public Button mainMenu;
+    public Button matchHistory;
+    public Button evolution;
 
     // Use this for initialization
     void Start() {
@@ -13,8 +15,10 @@ public class CurrencyGiver : MonoBehaviour {
             if (GlobalVariables.wrongAnswerAmount == 0)
             {
                 ShowCurrencyGain();
+                mainMenu.enabled = false;
+                matchHistory.enabled = false;
+                evolution.enabled = false;
 
-                button.enabled = false;
             }
         }
 	
@@ -30,7 +34,9 @@ public class CurrencyGiver : MonoBehaviour {
     public void HidePopUp()
     {
         GiveCurrency();
-        button.enabled = true;
+        mainMenu.enabled = true;
+        matchHistory.enabled = true;
+        evolution.enabled = true;
         Destroy(gameObject);
     }
 

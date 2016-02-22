@@ -64,9 +64,9 @@ public class CardHolderES : MonoBehaviour {
     public string getPreviousLeitnerLevel()
     {        
         //Vamos ter que mudar isso??
-        if (GlobalVariables.OriginalLevels.ContainsKey(myCard.ObjectId))
+        if (GlobalVariables.OriginalLevels.ContainsKey(myCard.EnglishText))
         {
-            return GlobalVariables.OriginalLevels[myCard.ObjectId].ToString();
+            return GlobalVariables.OriginalLevels[myCard.EnglishText].ToString();
 
         }
         else
@@ -77,9 +77,9 @@ public class CardHolderES : MonoBehaviour {
     
     public string getUserAnswer()
     {
-        if (GlobalVariables.UserAnswers.ContainsKey(myCard.ObjectId))
+        if (GlobalVariables.UserAnswers.ContainsKey(myCard.EnglishText))
         {
-            return GlobalVariables.UserAnswers[myCard.ObjectId].ToString();
+            return GlobalVariables.UserAnswers[myCard.EnglishText].ToString();
 
         }
         else

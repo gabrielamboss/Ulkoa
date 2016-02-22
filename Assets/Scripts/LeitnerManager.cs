@@ -48,7 +48,7 @@ public class LeitnerManager : SRSManager
                     currentDeck.Add(card);
                     Debug.Log("Carta adicionada: " + card.PortugueseText);
                     //Vamo ter que mudar isso
-                    //GlobalVariables.OriginalLevels.Add(card.ObjectId, card.LeitnerLevel);
+                    GlobalVariables.OriginalLevels.Add(card.EnglishText, card.LeitnerLevel);
                     //Debug.Log("Testando dicionario. Leitner level: " + GlobalVariables.OriginalLevels[card.ObjectId]);
                     //Debug.Log("Carta " + card.EnglishText + " com LeitnerLevel " + card.LeitnerLevel + " adicionada");
                 }

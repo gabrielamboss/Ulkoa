@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             {
                 if (userInput.text != null && userInput.text != "")
                 {
-                    //GlobalVariables.UserAnswers.Add(currentCard.ObjectId, userInput.text); Vamo ter que mudar isso
+                    GlobalVariables.UserAnswers.Add(currentCard.EnglishText, userInput.text); //Vamo ter que mudar isso
                     AdminUserInput(userInput.text);
                     if (GlobalVariables.continueGame)
                     {
@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Card card in leitnerManager.GetSessionCards())
         {
-            //card.LeitnerLevel = GlobalVariables.OriginalLevels[card.ObjectId]; Vamo ter que mudar isso
+            card.LeitnerLevel = GlobalVariables.OriginalLevels[card.EnglishText];// Vamo ter que mudar isso
         }
         levelManager.LoadLevel(SceneBook.MAIN_MENU_NAME);
     }
