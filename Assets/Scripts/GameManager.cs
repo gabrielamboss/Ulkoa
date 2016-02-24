@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-
+    #region variables
     public InputField userInput;
     public bool test;
     private Card currentCard;
@@ -21,8 +21,9 @@ public class GameManager : MonoBehaviour
     private static String correctAnswer;
     public GameObject WrongSymbol;
     public GameObject CorrectSymbol;
-    public Button goBacktoMenu;    
+    public Button goBacktoMenu;
 
+    #endregion
     // Use this for initialization
     void Start()
     {

@@ -12,21 +12,23 @@ public class MatchHistoryInitializer : MonoBehaviour {
 	public GameObject textPrefab;
 
 	public IEnumerator Initialize(){
-        
+        currDeck = GlobalVariables.GetSelectedDeck();
 		MatchDao matchDao = new MatchDao();        
 		List<Match> matchList = matchDao.getMatchsByDeck(currDeck);
+
         
 
 		foreach(Match match in matchList){
-			Text newDeckID = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as Text; 
+            Debug.Log(match.MatchNumber);
+            GameObject newDeckID = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject; 
 			newDeckID.transform.SetParent(contentParent.transform, false);
-			Text newMatchCorrect = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as Text;
+            GameObject newMatchCorrect = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			newMatchCorrect.transform.SetParent(contentParent.transform, false);
-			Text newMatchWrong = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as Text;
+            GameObject newMatchWrong = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			newMatchWrong.transform.SetParent(contentParent.transform, false);
 			//newDeckID.text = currDeck.ObjectId; Deck nao possui mais campo Id
-			newMatchCorrect.text = match.CorrectPoints.ToString();
-			newMatchWrong.text = match.WrongPoints.ToString();
+			newMatchCorrect.GetComponent<Text>().text = match.CorrectPoints.ToString();
+			newMatchWrong.GetComponent<Text>().text = match.WrongPoints.ToString();
 		}
 
 		hasInitialized = true;
@@ -49,7 +51,7 @@ public class MatchHistoryInitializer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InitializeScene();
+		StartCoroutine(InitializeScene());
 	}
 	
 }
