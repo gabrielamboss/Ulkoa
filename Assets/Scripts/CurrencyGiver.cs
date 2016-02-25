@@ -27,7 +27,7 @@ public class CurrencyGiver : MonoBehaviour {
     private void ShowCurrencyGain()
     {
         GlobalVariables.WasNotDisplayed = false;
-        GetComponentInParent<Animation>().Play();
+        GetComponentInParent<Animator>().SetTrigger("CurrencyMotion");
     }
 
     // Update is called once per frame

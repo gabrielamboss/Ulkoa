@@ -44,3 +44,4 @@ C:\Users\LuizFelipeh\Desktop\BUBS Job\Ulkoa Mais Um\Ulkoa\Temp\bin\Debug\Parse.U
 C:\Users\LuizFelipeh\Desktop\BUBS Job\Ulkoa Mais Um\Ulkoa\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\LuizFelipeh\Desktop\BUBS Job\Ulkoa Mais Um\Ulkoa\obj\Debug\Assembly-CSharp.dll
 C:\Users\LuizFelipeh\Desktop\BUBS Job\Ulkoa Mais Um\Ulkoa\obj\Debug\Assembly-CSharp.pdb
+D:\Users\Gabriel\Repo\Ulkoa\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

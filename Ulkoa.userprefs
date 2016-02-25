@@ -1,7 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MatchHistoryInitializer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CurrencyGiver.cs">
     <Files>
+      <File FileName="Assets\Scripts\CurrencyGiver.cs" Line="30" Column="71" />
       <File FileName="Assets\Scripts\MatchHistoryInitializer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Dao\MatchDao.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\UlkoaInitializer.cs" Line="1" Column="1" />
