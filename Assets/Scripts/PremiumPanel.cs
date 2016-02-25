@@ -13,6 +13,10 @@ public class PremiumPanel : MonoBehaviour {
     public Button evolution;
     public GameObject PanelPrefab;
 
+
+	//FAVOR USAR this.gameObject.GetComponent<Animator>().SetTrigger("movePremiumIn"); PARA FAZER O PAINEL IR DE FORA DA TELA PARA O MEIO
+	//E this.gameObject.GetComponent<Animator>().SetTrigger("movePremiumOut"); PARA FAZÊ-LO IR DO MEIO DA TELA PARA FORA
+
     // Use this for initialization
     void Start ()
     {
@@ -37,7 +41,7 @@ public class PremiumPanel : MonoBehaviour {
             evolution.enabled = false;
             GlobalVariables.PremiumWasDisplayed = true;
             LevelToGo = nome;
-            GetComponentInParent<Animation>().Play();
+			this.gameObject.GetComponent<Animator>().SetTrigger("movePremiumIn");
         }
     }
 
@@ -67,8 +71,7 @@ public class PremiumPanel : MonoBehaviour {
         mainMenu.enabled = true;
         matchHistory.enabled = true;
         evolution.enabled = true;
-        DestroyImmediate(gameObject);
-        GameObject panel = Instantiate(PanelPrefab, new Vector3(500, 500, 0), Quaternion.identity) as GameObject;
+        this.gameObject.GetComponent<Animator>().SetTrigger("movePremiumOut");
     }
 
 	// Update is called once per frame
