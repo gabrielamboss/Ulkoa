@@ -22,6 +22,7 @@ public class PremiumPanel : MonoBehaviour {
 	
     public void showPremiumPanel(string nome)
     {
+        Debug.Log(player.IsPremium);
         if (player.IsPremium || GlobalVariables.PremiumWasDisplayed) SceneManager.LoadScene(nome);
         else if (player.PremiumCredit == 5)
         {
@@ -42,16 +43,21 @@ public class PremiumPanel : MonoBehaviour {
 
     public void closePremiumPanel()
     {
-        mainMenu.enabled = true;
-        matchHistory.enabled = true;
-        evolution.enabled = true;
-        savePlayer();
-        DestroyImmediate(gameObject);
-        SceneManager.LoadScene(LevelToGo);
+        if (player.PremiumCredit > 0)
+        {
+            mainMenu.enabled = true;
+            matchHistory.enabled = true;
+            evolution.enabled = true;
+            savePlayer();
+            DestroyImmediate(gameObject);
+            SceneManager.LoadScene(LevelToGo);
+        }
+
     }
 
     private void savePlayer()
     {
+        Debug.Log("Saving player...");
         player.PremiumCredit--;
         StartCoroutine(new PlayerDao().savePlayer(player));
     }

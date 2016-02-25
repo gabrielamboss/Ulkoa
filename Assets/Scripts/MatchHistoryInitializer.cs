@@ -15,6 +15,7 @@ public class MatchHistoryInitializer : MonoBehaviour {
         currDeck = GlobalVariables.GetSelectedDeck();
 		MatchDao matchDao = new MatchDao();        
 		List<Match> matchList = matchDao.getMatchsByDeck(currDeck);
+        GlobalVariables.matchHistory = matchList;
 
         
 

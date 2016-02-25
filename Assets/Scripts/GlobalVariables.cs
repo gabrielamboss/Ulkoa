@@ -14,6 +14,8 @@ public abstract class GlobalVariables{
     public static bool WasNotDisplayed = true;
     public static bool PremiumWasDisplayed = false;
 
+    public static List<Match> matchHistory;
+
 
     public static readonly List<List<int>> LeitnerRoutine = new List<List<int>>()
     {

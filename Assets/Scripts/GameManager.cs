@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
         match.CorrectPoints = GlobalVariables.correctAnswerAmount;
         match.WrongPoints = GlobalVariables.wrongAnswerAmount;
         match.DeckName = GlobalVariables.GetSelectedDeck().DeckName;
+        match.MatchNumber = GlobalVariables.GetSelectedDeck().TimesPlayed - 1;
         MatchDao matchDao = new MatchDao();
         StartCoroutine(matchDao.saveMatch(match));
     }
