@@ -10,7 +10,7 @@ public class MusicPlayer : MonoBehaviour {
 	void Start () {
 		audioSource = this.GetComponent<AudioSource>();
 		audioSource.loop = false;
-		audioSource.volume = 0.7f;
+		audioSource.volume = 0.4f;
 		audioSource.clip = splashSFX;
 		audioSource.Play();
 		DontDestroyOnLoad(transform.gameObject);

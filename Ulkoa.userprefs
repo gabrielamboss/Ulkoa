@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CurrencyGiver.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GraphMaker.cs">
     <Files>
-      <File FileName="Assets\Scripts\CurrencyGiver.cs" Line="30" Column="71" />
+      <File FileName="Assets\GraphMaker.cs" Line="18" Column="18" />
+      <File FileName="Assets\Scripts\Scene Script\Deck Creator\DeckCreatorModel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CurrencyGiver.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MatchHistoryInitializer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Dao\MatchDao.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\UlkoaInitializer.cs" Line="1" Column="1" />

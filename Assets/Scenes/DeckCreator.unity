@@ -287,8 +287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardUI: {fileID: 185822, guid: 289d9014fa8224b42951471d01e14d29, type: 2}
-  selectedCardImage: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
-  normalCardImage: {fileID: 21300000, guid: 64952b3be9227b3439d73bdb9bb5ee76, type: 3}
+  selectedCardImage: {fileID: 21300000, guid: 2498519ae46065b4fa4f7618c2b7273d, type: 3}
+  normalCardImage: {fileID: 21300000, guid: 37ab3fa5dad15ff4590afc85258ecdc4, type: 3}
 --- !u!4 &134285388
 Transform:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: So pode editar decks criados com a conta premium
+  m_Text: "S\xF3 pode editar decks criados com a conta premium"
 --- !u!222 &301157780
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2507,7 +2507,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1378068849}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.97
+  m_Size: 0.47000003
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2959,7 +2959,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: -166.25977}
+  m_AnchoredPosition: {x: 15, y: -1551.7598}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.97}
 --- !u!114 &2112388550
@@ -2987,17 +2987,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 50
     m_Right: 0
-    m_Top: 0
+    m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 700, y: 765}
-  m_Spacing: {x: 115, y: 115}
+  m_CellSize: {x: 1096.5, y: 765}
+  m_Spacing: {x: 90, y: 115}
   m_Constraint: 1
-  m_ConstraintCount: 3
+  m_ConstraintCount: 2
 --- !u!1 &2113273783
 GameObject:
   m_ObjectHideFlags: 0

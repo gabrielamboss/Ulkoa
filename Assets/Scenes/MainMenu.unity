@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1307840711}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9123529
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1469,7 +1469,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 90, y: 120}
+  m_CellSize: {x: 81.6, y: 120}
   m_Spacing: {x: 15, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 4
@@ -2244,8 +2244,8 @@ MonoBehaviour:
   userName: {fileID: 1129996414}
   stars: {fileID: 490062438}
   errorMsg: {fileID: 1052943171}
-  selectedDeckImage: {fileID: 21300000, guid: 8a37c7eac8245e94ba04ccda40f686bb, type: 3}
-  normalDeckImage: {fileID: 21300000, guid: c831d277007d4b54bb99c0cb7676c738, type: 3}
+  selectedDeckImage: {fileID: 21300000, guid: 9ce117b5f01b3c74da3a2d685bee5454, type: 3}
+  normalDeckImage: {fileID: 21300000, guid: e8da4c3a6b60947478f400f5322be905, type: 3}
   deckPrefab: {fileID: 102020, guid: 430b568968ada77478f8a2358d389ab5, type: 2}
   deckContainer: {fileID: 943485335}
   panel: {fileID: 1847063096}

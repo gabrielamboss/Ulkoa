@@ -15,6 +15,8 @@ public class GraphMaker : MonoBehaviour {
     public GameObject indexPrefab;
     public Text deckName;
 
+    private Color lightBlue = new Color(0.2431f, 0.6f, 0.898f);
+
     // Use this for initialization
     void Start () {
         StartCoroutine(InitializeScene());
@@ -46,7 +48,7 @@ public class GraphMaker : MonoBehaviour {
         LineRenderer line = new GameObject().AddComponent<LineRenderer>();
         line.transform.parent = this.transform.parent;
         line.SetWidth(0.01F, 0.01F);
-        line.SetColors(Color.red, Color.red);
+        line.SetColors(lightBlue, lightBlue);
         line.SetPosition(0, begin);
         line.SetPosition(1, end);
         line.SetVertexCount(2);
@@ -107,7 +109,7 @@ public class GraphMaker : MonoBehaviour {
         LineRenderer line = new GameObject().AddComponent<LineRenderer>();
         line.transform.parent = this.transform.parent;
         line.SetWidth(0.05F, 0.05F);
-        line.SetColors(Color.blue, Color.blue);
+        line.SetColors(Color.green, Color.green);
         line.SetPosition(0, begin);
         line.SetPosition(1, end);
         line.SetVertexCount(2);
@@ -147,7 +149,7 @@ public class GraphMaker : MonoBehaviour {
         LineRenderer line = new GameObject().AddComponent<LineRenderer>();
         line.transform.parent = this.transform.parent;
         line.SetWidth(0.025F, 0.025F);
-        line.SetColors(Color.red, Color.red);
+        line.SetColors(lightBlue, lightBlue);
         line.SetPosition(0, begin);
         line.SetPosition(1, end);
         line.SetVertexCount(2);
