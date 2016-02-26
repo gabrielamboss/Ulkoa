@@ -737,7 +737,7 @@ GameObject:
   - 222: {fileID: 314251047}
   - 114: {fileID: 314251046}
   - 114: {fileID: 314251048}
-  - 95: {fileID: 314251049}
+  - 111: {fileID: 314251049}
   m_Layer: 5
   m_Name: CurrencyGain
   m_TagString: Untagged
@@ -811,23 +811,21 @@ MonoBehaviour:
   mainMenu: {fileID: 197507183}
   matchHistory: {fileID: 1149832280}
   evolution: {fileID: 216554324}
---- !u!95 &314251049
-Animator:
-  serializedVersion: 3
+--- !u!111 &314251049
+Animation:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 314251044}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 58543a8550a8eab4ba0091330813ebc7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 9b1f25dae82f12b4d9cc113ee5ae01a4, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 9b1f25dae82f12b4d9cc113ee5ae01a4, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &349746764
 GameObject:
   m_ObjectHideFlags: 0

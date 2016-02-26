@@ -11,6 +11,7 @@ public class RedirectToEdit : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        Debug.Log("Awaking");
         if (GlobalVariables.GetSelectedDeck().IsFirstTime)
         {
             ShowPopUp();
@@ -23,6 +24,7 @@ public class RedirectToEdit : MonoBehaviour
 
     private void ShowPopUp()
     {
+        Debug.Log("Showing popup");
         GlobalVariables.continueGame = false;
         GetComponentInParent<Animation>().Play();
 

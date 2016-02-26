@@ -20,13 +20,24 @@ public class GraphMaker : MonoBehaviour {
     // Use this for initialization
     void Start () {
         StartCoroutine(InitializeScene());
-        //deckName.text = currDeck.DeckName;
+        deckName.text = currDeck.DeckName;
         DrawAxis();
         DrawMarks();
         DrawArrows();
         DrawGrid();
         DrawGraphic();
     }
+
+    //private void makePoint(Vector3 point)
+    //{
+     //   LineRenderer line = new GameObject().AddComponent<LineRenderer>();
+      //  line.transform.parent = this.transform.parent;
+       // line.SetWidth(10F, 10F);
+        //line.SetColors(lightBlue, lightBlue);
+        //line.SetPosition(0, point - new Vector3(0.01f, 0.01f, 0));
+        //line.SetPosition(1, point + new Vector3(0.01f, 0.01f, 0));
+        //line.SetVertexCount(2);
+    //}
 
     private void DrawGrid()
     {
@@ -106,6 +117,8 @@ public class GraphMaker : MonoBehaviour {
 
     private void makeLineGraph(Vector3 begin, Vector3 end)
     {
+        //makePoint(begin);
+       // makePoint(end);
         LineRenderer line = new GameObject().AddComponent<LineRenderer>();
         line.transform.parent = this.transform.parent;
         line.SetWidth(0.05F, 0.05F);

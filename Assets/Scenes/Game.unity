@@ -1630,6 +1630,14 @@ Prefab:
       propertyPath: m_Text
       value: "N\xE3o, obrigado"
       objectReference: {fileID: 0}
+    - target: {fileID: 11151640, guid: 0ef2fb9427353a04ba7cd18a22e0e981, type: 2}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 9b1f25dae82f12b4d9cc113ee5ae01a4, type: 2}
+    - target: {fileID: 11151640, guid: 0ef2fb9427353a04ba7cd18a22e0e981, type: 2}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: 9b1f25dae82f12b4d9cc113ee5ae01a4, type: 2}
     m_RemovedComponents:
     - {fileID: 11495144, guid: 0ef2fb9427353a04ba7cd18a22e0e981, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0ef2fb9427353a04ba7cd18a22e0e981, type: 2}
