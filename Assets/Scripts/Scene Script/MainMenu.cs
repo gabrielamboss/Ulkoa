@@ -127,7 +127,7 @@ public class MainMenu : MonoBehaviour {
         Player player = Player.getInstance();
         if (player.IsPremium)
         {
-            errorMsg.text = "Avise o usuario que ele ja eh premium";
+            errorMsg.text = "Você ja é premium, parabens!!";
             return;
         }
         

@@ -26,6 +26,7 @@ public class Loading : MonoBehaviour {
         else
         {
             runLabel = false;
+            yield return new WaitForSeconds(0.4f);
             loadLabel.text = "Error de conexão";
             yield return new WaitForSeconds(3.0f);
             new LevelManager().LoadLevel(SceneBook.LOGIN_NAME);
@@ -58,6 +59,8 @@ public class Loading : MonoBehaviour {
             count = 0;
             loadLabel.text = "";
         }
+        Debug.Log("Text.Length " + text.Length);
+        Debug.Log("Count "+count);
         loadLabel.text += text[count];
     }
 }

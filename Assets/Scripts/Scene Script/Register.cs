@@ -106,6 +106,7 @@ public class Register : MonoBehaviour {
 
         DeckBuilder deckBuilder = new DeckBuilder()
                                 .setDeckName("Default")
+                                .setDeckEditable(false)
                                 .addCard("DefPor1", "DefEng1")
                                 .addCard("DefPor2", "DefEng2")
                                 .addCard("DefPor3", "DefEng3")

@@ -170,6 +170,7 @@
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\IFacebookLogger.cs" />
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\MiniJson.cs" />
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\Utilities.cs" />
+    <Compile Include="Assets\GraphMaker.cs" />
     <Compile Include="Assets\PlayFabSDK\Internal\Log.cs" />
     <Compile Include="Assets\PlayFabSDK\Internal\PlayFabHTTP.cs" />
     <Compile Include="Assets\PlayFabSDK\Internal\PlayFabVersion.cs" />
@@ -533,9 +534,6 @@
     <Compile Include="Assets\Scripts\MockDeckFactory.cs" />
     <Compile Include="Assets\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\PremiumPanel.cs" />
-    <Compile Include="Assets\Scripts\PremiumPanelEvolution.cs" />
-    <Compile Include="Assets\Scripts\PremiumPanelHistory.cs" />
-    <Compile Include="Assets\Scripts\PremiumPanelProgress.cs" />
     <Compile Include="Assets\Scripts\RedirectToEdit.cs" />
     <Compile Include="Assets\Scripts\SRSManager.cs" />
     <Compile Include="Assets\Scripts\Scene Script\Deck Creator\DeckCreatorController.cs" />

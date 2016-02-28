@@ -1,4 +1,5 @@
 ﻿using PlayFab;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +15,7 @@ public abstract class UlkoaInitializer {
         StoreDeckDao storeDeckDao = new StoreDeckDao();
         MatchDao matchDao = new MatchDao();
 
-        List<Dao> daoList = new List<Dao>() { playerDao, storeDeckDao, matchDao };
+        List<Dao> daoList = new List<Dao>() { playerDao, storeDeckDao,  matchDao };
         yield return makeQuerry(daoList);
 
         if (!succsesfull)
@@ -70,6 +71,8 @@ public abstract class UlkoaInitializer {
                 {
                     succsesfull = false;
                     error = dao.getError();
+                    Debug.Log("Querry error");
+                    Debug.Log(error.ErrorMessage);
                 }
             }
         }

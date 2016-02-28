@@ -60,8 +60,8 @@ MonoBehaviour:
     m_FontSize: 55
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 5
-    m_MaxSize: 59
+    m_MinSize: 50
+    m_MaxSize: 130
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -216,6 +216,14 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 37ab3fa5dad15ff4590afc85258ecdc4,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_FontData.m_MinSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_FontData.m_MaxSize
+      value: 130
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 185822}
