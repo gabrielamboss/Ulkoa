@@ -17,20 +17,16 @@ public class MatchHistoryInitializer : MonoBehaviour {
 		List<Match> matchList = matchDao.getMatchsByDeck(currDeck);
         GlobalVariables.matchHistory = matchList;
 
-        
-
-		foreach(Match match in matchList){
+		/*foreach(Match match in matchList){
             Debug.Log(match.MatchNumber);
-            GameObject newDeckID = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject; 
-			newDeckID.transform.SetParent(contentParent.transform, false);
+			
             GameObject newMatchCorrect = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			newMatchCorrect.transform.SetParent(contentParent.transform, false);
             GameObject newMatchWrong = Instantiate(textPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			newMatchWrong.transform.SetParent(contentParent.transform, false);
-			//newDeckID.text = currDeck.ObjectId; Deck nao possui mais campo Id
 			newMatchCorrect.GetComponent<Text>().text = match.CorrectPoints.ToString();
 			newMatchWrong.GetComponent<Text>().text = match.WrongPoints.ToString();
-		}
+		}*/
 
 		hasInitialized = true;
 
