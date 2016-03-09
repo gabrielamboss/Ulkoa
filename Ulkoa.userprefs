@@ -1,9 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GraphMaker.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\MatchHistoryInitializer.cs" Line="29" Column="6" />
-      <File FileName="Assets\GraphMaker.cs" Line="182" Column="10" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="39" Column="10" />
+      <File FileName="Assets\Scripts\Scene Script\EvolutionScene\CardHolderES.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MatchHistoryInitializer.cs" Line="1" Column="1" />
+      <File FileName="Assets\GraphMaker.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Scene Script\Deck Creator\DeckCreatorModel.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CurrencyGiver.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Dao\MatchDao.cs" Line="1" Column="1" />

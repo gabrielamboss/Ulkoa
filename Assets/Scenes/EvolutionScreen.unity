@@ -191,7 +191,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 131, y: 119}
-  m_SizeDelta: {x: 150, y: 200}
+  m_SizeDelta: {x: 150, y: 104.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &64727063
 MonoBehaviour:
@@ -212,7 +212,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 37ab3fa5dad15ff4590afc85258ecdc4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -462,8 +462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardUI: {fileID: 185822, guid: db89b14067bf1ce40a566f3e9767de80, type: 2}
-  selectedCardImage: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
-  normalCardImage: {fileID: 21300000, guid: 64952b3be9227b3439d73bdb9bb5ee76, type: 3}
+  selectedCardImage: {fileID: 21300000, guid: 2498519ae46065b4fa4f7618c2b7273d, type: 3}
+  normalCardImage: {fileID: 21300000, guid: 37ab3fa5dad15ff4590afc85258ecdc4, type: 3}
 --- !u!114 &134285390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +869,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 299, y: 119}
-  m_SizeDelta: {x: 150, y: 200}
+  m_SizeDelta: {x: 150, y: 104.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &796013953
 MonoBehaviour:
@@ -890,7 +890,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 83f583ad4cad74640a8684b1fa8b2e15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b99b2d1d636540c42af52a1ac25b5917, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2345,7 +2345,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1378068849}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.97
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2750,8 +2750,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000011444092}
-  m_SizeDelta: {x: -20, y: -67.3}
+  m_AnchoredPosition: {x: 0, y: -1.6}
+  m_SizeDelta: {x: -20, y: -51.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2099806051
 MonoBehaviour:
@@ -2823,7 +2823,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: -166.25977}
+  m_AnchoredPosition: {x: 15, y: -8479.26}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.97}
 --- !u!114 &2112388550
@@ -2851,15 +2851,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 35
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 700, y: 765}
-  m_Spacing: {x: 115, y: 115}
+  m_CellSize: {x: 1096.5, y: 765}
+  m_Spacing: {x: 90, y: 115}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!1 &2113273783
@@ -2893,8 +2893,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -69}
+  m_AnchoredPosition: {x: 0, y: -1.6}
+  m_SizeDelta: {x: -20, y: -51.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2113273785
 MonoBehaviour:
